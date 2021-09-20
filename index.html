@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Login</title>
     <!--Se crea una carpeta de recursos a usar-->
-    <script src="src/variable.js"></script>
+    <script type="text/javascript" src="js/variable.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/favicon.ico">
 </head>
 <body>
 
@@ -18,10 +19,10 @@
                 <img class="logo" src="images/logologin.png" alt="">
             </div>
 
-            <form class="contenedor-info">
-                <input class="input" id="user" type="text" placeholder="Usuario">
-                <input class="input" id="password" type="password" placeholder="Contraseña">
-                <button class="boton" type="submit">Ingresar</button>
+            <form class="contenedor-info" id="form" name="Ingreso">
+                <input class="input" id="user" name='user' type="text" placeholder="Usuario" required>
+                <input class="input" id="password" name='password' type="password" placeholder="Contraseña" required>
+                <button class="boton" type="submit" onclick="obtenerdatos()">Ingresar</button>
             </form>
 
         </div>       

@@ -1,0 +1,50 @@
+:root {
+    --light-bg: #eeeeee;
+    --dark-bg: #222831;
+    --grey-bg: #393E46;
+    --blue-bg: #00ADB5;
+  }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('../images/footerlogin.png');  
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+    background-color: var(--light-bg);
+    height: 100vh;
+    overflow: auto;
+  }
+
+  #grid {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding-top: 4em;
+    color: #00ADB5;
+    border: none !important;
+  }
+  .p-3 {
+    background-color: transparent !important;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;   
+    border-radius: 10px; 
+  }
+  .p-3:hover{
+    border: 2px solid var(--blue-bg);
+    background-color: #393e462c !important;
+  }
+
+  #logo-user{
+    filter: invert();  
+  }
+
+  @media screen and (max-width: 1000px) {
+    body {
+        height: 100vmax;
+    }
+  }
+
