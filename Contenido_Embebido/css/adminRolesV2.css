@@ -1,0 +1,160 @@
+*{
+    list-style: none;
+    text-decoration: none;
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'open sans', sans-serif;
+}
+
+header {
+    background-color: #00ADB5 ;
+    color: #EEEEEE;
+    /*padding: 1px;*/
+    text-align: right;
+    flex-direction:column-reverse;
+    padding: 8px;
+}
+
+footer { 
+    background-color: #393E46;
+    padding: 0px;
+}
+
+body{
+    background: #393e46;
+}
+
+.wrapper .sidebar{
+    background: #EEEEEE ;
+    position:fixed;
+    top:0;
+    left:0;
+    width: 325px;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+
+    .wrapper .sidebar .modulo{
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+        .wrapper .sidebar .modulo img{
+            /*border:2px solid #222831;*/
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            display: block;
+            width: 50%;
+            
+            /*border-radius: 100%;*/
+            margin: 0 auto;
+        }
+
+        .wrapper .sidebar .modulo h3{
+            color: #00ADB5;
+            margin: 1px 0 50px;
+        }
+
+    .wrapper .sidebar ul li a{
+        display: block;
+        padding: 20px 35px;
+        border-bottom: 1px solid #ffffff;
+        color: #393E46;
+        font-size: 14px;
+        position: relative;
+    }
+
+        .wrapper .sidebar ul li a:hover,
+        .wrapper .sidebar ul li a.active{
+            color: #EEEEEE;
+            background: #393E46;
+            border-right: 2px solid #EEEEEE;
+        }
+
+
+.wrapper .principal{
+    width: calc(100%-325px);
+    margin-left: 325px;
+    transition: all 0.5s ease;
+}
+
+    .wrapper .principal .topNavBar{
+        background-color: #00ADB5;
+        height: 80px;
+        display:flex;
+        flex-direction:row;
+        padding: 0 20px;
+        }
+    
+        .wrapper .principal .topNavBar .iconCompany img{
+            position:fixed;
+            top:15px;
+            right:10px;
+            size: 5%;
+        }
+
+        .wrapper .principal .topNavBar .hamburger a{
+            font-size: 20px;
+            color:#EEEEEE;
+            position:relative;
+            top:30px;
+            left:0px;
+        }
+
+            .wrapper .principal .topNavBar .hamburger a:hover{
+                color:#393E46;
+            }
+
+    .wrapper .principal .footer{
+        background-color: #393e46;
+        height: 50px;
+        display:flex;
+        position:fixed;
+        bottom:0px;
+    }
+
+
+    .wrapper .principal .Menu {
+        width: 400px;
+        color: #393E46;
+        background-color : #EEEEEE ;
+        padding: 60px;
+        margin: auto;
+        margin-top: 80px;
+    }
+
+    
+    .wrapper .principal .Menu  h2{
+        font-size:larger;
+        margin-bottom: 25px;
+    }
+
+
+    .wrapper .principal .Menu  h3{
+        font-size: large;
+        margin-bottom: 25px;
+    }
+
+    .wrapper .principal .Menu .controls{
+        width: 50%;
+        background: #ffffff;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #393E46;
+    }
+
+    .wrapper .principal .Menu .botons{
+        background: #00ADB5;
+        width: 70%;
+        color: #ffffff;
+        margin-bottom: 10px;
+        padding: 12px ;
+    }
+
+
+
+
