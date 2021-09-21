@@ -48,3 +48,9 @@ body {
     }
   }
 
+  .dropdown-toggle{
+    color: var(--light-bg);
+  }
+  .dropdown-toggle:hover{
+    color: #00ADB5;
+  }

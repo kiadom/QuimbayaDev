@@ -73,7 +73,7 @@ body {
 }
 
 .input:hover {
-  border: 2px solid var(--grey-bg);
+  border: 2px solid var(--light-bg);
 }
 
 .boton {
@@ -109,7 +109,9 @@ div.contenedor {
   position: fixed;
   right: 10%;
 }
-
+::placeholder{
+  color: var(--light-bg);
+}
 @media screen and (max-width: 1000px) {
   .contenedor {
       display:flex;

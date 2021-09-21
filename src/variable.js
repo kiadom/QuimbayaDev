@@ -1,12 +1,11 @@
+var credencial = new Map();
+    credencial.set("administrador","admin")
+    credencial.set("operario","operario")
+    credencial.set("vendedeor","vendedor")
 
 function obtenerdatos(){
     var usuario = document.getElementById('user').value;
     var contraseña = document.getElementById('password').value;
-    
-    let credencial = new Map();
-    credencial.set("administrador","admin")
-    credencial.set("operario","operario")
-    credencial.set("vendedeor","vendedor")
     
     if (credencial.has(usuario)){
     	if (contraseña == credencial.get(usuario)){
@@ -23,7 +22,7 @@ function obtenerdatos(){
     }
 }
 
-function cambiarContraseña(){
-    alert("va a cambiar la contraseña")
-
+function cambiarContrasena(){
+    let newWin = window.open("clave.html", "Cambiar Contraseña", "width=200,height=200");
+    return false;
 }

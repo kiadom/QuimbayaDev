@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="src/variable.js"></script>
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <title>Cambiar Clave de acceso</title>
+</head>
+<style>
+  body{
+    background-image: url("images/plantilla-login-.png");
+  }
+  .contenedor {
+  width: 18em;
+  margin: 1em auto;
+  border-radius: 10px;
+  overflow: auto;
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: space-between;
+}
+ .contenedor-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+} 
+.contenedor-logo{
+  padding-bottom: 1rem;
+}
+
+.logo {
+  width: 12.5rem;
+}
+
+.contenedor-info {
+  width: 85%;
+  height: 11em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+.input, .boton {
+  width: 90%;
+  font-size: 1em;
+  margin: 3px;
+} 
+
+.input {
+  padding-left: 1em;
+  border-radius: 5px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+}
+
+.boton {
+  width: 50%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #eeeeee;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: #00ADB5;
+  cursor: pointer;
+}
+</style>
+<body>
+  <div class="contenedor">
+    <div class="contenedor-login">
+        
+      <div class="contenedor-logo">
+          <img class="logo" src="images/logologin.png" alt="">
+      </div>
+
+      <form class="contenedor-info" id="form" name="Ingreso">
+        Contraseña actual:
+        <input class="input" id="password-old" name='password' type="password" placeholder="Contraseña actual" required>
+        <br> 
+        Ingrese su nueva contraseña:
+        <input class="input" id="passwor-new" name='password' type="password" placeholder="Nueva contraseña" required>
+        <input class="input" id="password-copy" name='password' type="password" placeholder="Repetir contraseña" required>
+        <button class="boton" type="submit" onclick="cambiarContrasena()">Cambiar</button>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>
