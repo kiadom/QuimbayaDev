@@ -139,12 +139,15 @@ body{
     }
 
     .wrapper .principal .Menu .controls{
-        width: 50%;
+        width: 70%;
         background: #ffffff;
         padding: 10px;
         border-radius: 4px;
         margin-bottom: 16px;
         border: 1px solid #393E46;
+        position:relative;
+        left: 15%
+       
     }
 
     .wrapper .principal .Menu .botons{
@@ -153,8 +156,13 @@ body{
         color: #ffffff;
         margin-bottom: 10px;
         padding: 12px ;
+        border-color: gray;
+        position:relative;
+        left: 15%
     }
 
-
+    
+    .botons:hover{opacity: 0.6};
+        
 
 
