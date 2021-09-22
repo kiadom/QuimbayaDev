@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 :root {
     --light-bg: #eeeeee;
     --dark-bg: #222831;
@@ -5,7 +10,7 @@
     --blue-bg: #00ADB5;
   }
 
-body {
+  body {
     font-family: 'Roboto', sans-serif;
     background-image: url('../images/footerlogin.png');  
     background-repeat: no-repeat;

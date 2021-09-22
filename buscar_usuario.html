@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"/>
-    <link href="css/adminRolesV2.css" rel="stylesheet"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"/>
+    <link href="css/admin_usuarios.css" rel="stylesheet"/>
     <title>MODULO GESTION DE USUARIOS</title>
+
+    <!--Carpeta de recursos a usar-->
+    <link rel="stylesheet" href="css/admin_usuarios.css">
+    <link rel="shortcut icon" href="images/favicon.ico">
 </head>
+
 <body>
-    <!--<header>
-        <img src= "Contenido_Embebido\Assets\Images\logoheader.png" alt="logo header" height="50px"/>
-    </header>-->
+
+    <nav class="navbar navbar-dark" style="background-color: #222831;">
+        <div class="container">
+          <a class="navbar-brand">
+            <img src="images/logoheader.png" alt="" width="197" height="58">
+          </a>
+        </div>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+                <img src="images/user.png" id="logo-user" width="25" height="25">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+              <li><a class="dropdown-item" type="submit" onclick="cambiaContrasena()">Cambiar clave</a></li>
+              <li><a class="dropdown-item" href="javascript:window.close()">Salir</a></li>
+            </ul>
+          </li>
+    </nav>
+
     <div class="wrapper">
         <div class="sidebar">
             <div class="modulo">
@@ -23,7 +45,7 @@
                 <li><a href="principal.html" >
                     <span class="icon"><i class="fas fa-home"></i></span>
                     <span class="item"></span>HOME</a></li>
-                <li title="Asignar roles a un usuario Nuevo"><a href="2_BUSCAR_USUARIOV2.html" class="active">
+                <li title="Asignar roles a un usuario Nuevo"><a href="buscar_usuario.html" class="active">
                     <span class="icon"><i class="fas fa-database"></i></span>
                     <span class="item"></span>ASIGNACION DE ROLES</a></li>
                 <li title="Modificar roles a un usuario Existente"><a href="">
@@ -54,13 +76,14 @@
                     <input class="botons" type="reset" value="Borrar ID">
                     <input class="botons" type="submit" value="Buscar Usuario">
                 </form>
-                    <a href="1_ENTRADA_ROL_USUARIOSV2.html" class="active"><input class="botons" type="submit" value="Volver Menu principal Roles"> </a>
-            </div>
-            <div class="footer">
-                <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
-                <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                    <a href="admin_usuarios.html" class="active"><input class="botons" type="submit" value="Volver Menu principal Roles"> </a>
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="piedepagina"></div>
+    </footer>
+
 </body>
 </html>

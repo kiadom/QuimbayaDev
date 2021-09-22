@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>Administrador de Ventas</title>
+    <title>Maestro de Ventas</title>
 
     <!--Carpeta de recursos a usar-->
     <link rel="stylesheet" href="css/admin_ventas.css">
@@ -35,15 +35,15 @@
     </nav>
     
     <main>
-      
+
         <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
           <ul class="list-unstyled ps-0">
             
             <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                 Gestión de la Información de Ventas
               </button>
-              <div class="collapse show" id="home-collapse">
+              <div class="collapse" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                   <li><a href="admin_ventas.html" class="link-dark rounded">Ingresar Pedido</a></li>
                 </ul>
@@ -51,10 +51,10 @@
             </li>
             <li class="border-top my-3"></li>
             <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
                 Maestro de Estados de Ventas
               </button>
-              <div class="collapse" id="dashboard-collapse">
+              <div class="collapse show" id="dashboard-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                   <li><a href="registro_estado_ventas.html" class="link-dark rounded">Registrar el Estado de la Venta</a></li>
                 </ul>
@@ -88,8 +88,9 @@
         <div class="b-example-divider"></div>
 
         <div class="contenedor_principal">
-          <div class="titulo">GESTION DE LA INFORMACION DE VENTAS</div>
-          <div class="subtitulo2">INGRESE LA INFORMACIÓN DEL PEDIDO</div>
+          <div class="titulo">REGISTRO DE ESTADO DE VENTAS</div>
+          
+          <div class="subtitulo2">INGRESE ESTADO DE LA VENTA</div>
           <form id="formulario" method="POST" action="data.php">
             <table>
               <tr>
@@ -97,30 +98,43 @@
                 <td><p><input type="text" name="venta_id" size="30"></p></td>
               </tr>
               <tr>
-                <td><p>Venta Total: </p></td>
-                <td><p><input type="number" name="venta_total" size="30"></p></td>
+                <td><p>Fecha creación pedido: </p></td>
+                <td><p><input type="date" name="fecha_creación_pedido" size="30"></p></td>
               </tr>
               <tr>
-                <td><p>Detalle: </p></td>
-                <td><p><input type="text" name="detalle" size="30"></p></td>
+                <td><p>Fecha de Embalaje: </p></td>
+                <td><p><input type="date" name="fecha_de_embalaje" size="30"></p></td>
               </tr>
               <tr>
-                <td><p>Fecha de Pago: </p></td>
-                <td><p><input type="date" name="fecha_de_pago" size="30"></p></td>
+                <td><p>Fecha de despacho: </p></td>
+                <td><p><input type="date" name="fecha_de_despacho" size="30"></p></td>
               </tr>
               <tr>
-                <td><p>Fecha de Pago Futura:&emsp;&emsp;</p></td>
-                <td><p><input type="date" name="fecha_de_pago_futura" size="30"></p></td>
+                <td><p>Ruta:</p></td>                
+                <td><p><select id="ruta">
+                  <option value="norte">Norte</option>
+                  <option value="oriente">Oriente</option>
+                  <option value="sur">Sur</option>
+                  <option value="occidente">Occidente</option>
+                </select></p></td>              
               </tr>
               <tr>
-                <td><p>Responsable: </p></td>
-                <td><p><input type="text" name="responsable" size="30"></p></td>
+                <td><p>Ubicación: </p></td>
+                <td><p><input type="url" name="ubicación" size="30"></p></td>
+              </tr>
+              <tr>
+                <td><p>Recepción: </p></td>
+                <td><p><select id="recepcion">
+                  <option value="en_transito">En Transito</option>
+                  <option value="entregado">Entregado</option>
+                </select></p></td>
               </tr>
             </table>
-          </div>
+          </form>
         </div>
+        
       </main>
-
+      
       <footer>
         <div class="piedepagina"></div>
       </footer>

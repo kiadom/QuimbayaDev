@@ -12,7 +12,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-image: url('../images/footerlogin.png');  
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
@@ -21,14 +20,14 @@ body {
   overflow: auto;
 }
 
-.jm_contenedor_principal {
+.contenedor_principal {
   width: 90%;
   height: 500px;
 	max-width: 75rem;
   max-height: 75rem;
 }
 
-.jm_titulo {
+.titulo {
   background-color: var(--blue-bg);
   padding: 2%;
   color: var(--light-bg);
@@ -36,14 +35,14 @@ body {
   font-weight: bold;
 }
 
-.jm_subtitulo {
+.subtitulo {
   padding: 2%;
   color: var(--dark-bg);
   font-weight: bold;
   margin: 2%;
 }
 
-.jm_subtitulo2 {
+.subtitulo2 {
   padding: 2%;
   background-color: var(--dark-bg);
   color: var(--light-bg);
@@ -51,11 +50,31 @@ body {
   margin: 2%;
 }
 
-.jm_formulario {
+#formulario {
   padding-left: 10%;
   text-align:left;
 }
 
+#ruta{
+  float: right;
+}
+#recepcion{
+  float: right;
+}
+
+input{
+  float: right;
+  margin-left: 50px;
+}
+
 #logo-user{
   filter: invert();  
+}
+
+.piedepagina{
+  background-image: url('../images/footerlogin.png');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 150px;
+  
 }
