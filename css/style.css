@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 :root {
   --light-bg: #eeeeee;
@@ -73,7 +78,7 @@ body {
 }
 
 .input:hover {
-  border: 2px solid var(--light-bg);
+  border: 2px solid var(--grey-bg);
 }
 
 .boton {
@@ -105,6 +110,15 @@ body {
   background-color: var(--blue-bg);  
   }
 
+div.contenedor {
+  position: fixed;
+  right: 10%;
+}
+
+::placeholder{
+  color: var(--light-bg);
+}
+
 .contenedor-info-pass {
   width: 85%;
   height: 15em;
@@ -113,6 +127,7 @@ body {
   justify-content: space-around;
   align-items: center;
 }
+
 .input-pass{
   padding-left: 15px;
   border: none;
@@ -124,17 +139,11 @@ body {
   height: 3.125rem;
   font-size: 1em;
 }
+
 #password-old, #password-new, #password-copy{
   background-color: var(--blue-bg);  
   }
 
-div.contenedor {
-  position: fixed;
-  right: 10%;
-}
-::placeholder{
-  color: var(--light-bg);
-}
 @media screen and (max-width: 1000px) {
   .contenedor {
       display:flex;
