@@ -46,7 +46,13 @@
   #logo-user{
     filter: invert();  
   }
-
+  
+  .dropdown-toggle{
+    color: var(--light-bg);
+  }
+  .dropdown-toggle:hover{
+    color: #00ADB5;
+  }
   @media screen and (max-width: 1000px) {
     body {
         height: 100vmax;
