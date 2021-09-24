@@ -5,142 +5,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!--Linea de arriba es el link de donde se descargan todos los iconos del meni de la izquierda incluyendo la hamburguesa-->
+    <!-- este es el link: https://cdnjs.com/libraries/font-awesome y es el primer archivo-->
     <title>Maestro de Ventas</title>
 
     <!--Carpeta de recursos a usar-->
-    <link rel="stylesheet" href="css/admin_ventas.css">
-    <link rel="stylesheet" href="css/sidebars.css">
+    <link rel="stylesheet" href="css/modulos.css"/>
     <link rel="shortcut icon" href="images/favicon.ico">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark" style="background-color: #222831;">
-        <div class="container">
-          <a class="navbar-brand">
-            <img src="images/logoheader.png" alt="" width="197" height="58">
-          </a>
-        </div>
+  <div class="wrapper">
+      <div class="sidebar">
 
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-                <img src="images/user.png" id="logo-user" width="25" height="25">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><a class="dropdown-item" type="submit" onclick="cambiaContrasena()">Cambiar clave</a></li>
-              <li><a class="dropdown-item" href="javascript:window.close()">Salir</a></li>
-            </ul>
-          </li>
-    </nav>
-    
-    <main>
+          <div class="EncabezadoModulo">
+              <span class="icon"><i class="fas fa-users-cog fa-5x"></i></span>
+              <h3>MAESTRO DE ESTADOS DE VENTAS</h3>
+          </div>
 
-        <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-          <ul class="list-unstyled ps-0">
-            
-            <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                Gestión de la Información de Ventas
-              </button>
-              <div class="collapse" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="admin_ventas.html" class="link-dark rounded">Ingresar Pedido</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
-                Maestro de Estados de Ventas
-              </button>
-              <div class="collapse show" id="dashboard-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="registro_estado_ventas.html" class="link-dark rounded">Registrar el Estado de la Venta</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                Gestión de la Información de los Vendedores
-              </button>
-              <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="admin_vendedores.html" class="link-dark rounded">Ingresar Información de los Vendedores</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                Gestión de los Usuarios y Roles del Sistema
-              </button>
-              <div class="collapse" id="account-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="admin_usuarios.html" class="link-dark rounded">Gestión de Usuarios y Roles</a></li>
-                </ul>
-              </div>
-            </li>
+          <ul>
+              <li title="Registrar Pedidos Realizados por los Clientes"><a href="admin_ventas.html">
+                    <span class="icon"><i class="fas fa-search-dollar"></i></span>
+                    <span class="item"></span>Gestion de la Informacion de Ventas</a></li>
+                <li title="Establecer el Estado Actual de una Venta"><a href="registro_estado_ventas.html">
+                    <span class="icon"><i class="fas fa-thermometer-three-quarters"></i></span>
+                    <span class="item"></span>Maestro de Estados de Ventas</a></li>
+                <li title="Ingresar Información de un Vendedor"><a href="admin_vendedores.html">
+                    <span class="icon"><i class="fas fa-id-card"></i></span>
+                    <span class="item"></span>Gestión de la Información de Vendedores</a></li>
+                <li title="Restringir y Otorgar Accesos al Sistema"> <a href="admin_usuarios.html">
+                    <span class="icon"><i class="fas fa-users-cog"></i></span>
+                    <span class="item"></span>Gestión de Usuarios y Roles</a></li>
+                <li  title="Salir del Sistema"><a href="">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span class="item"></span>LogOut</a></li>
           </ul>
-        </div>
-      
-        <div class="b-example-divider"></div>
 
-        <div class="contenedor_principal">
-          <div class="titulo">REGISTRO DE ESTADO DE VENTAS</div>
-          
-          <div class="subtitulo2">INGRESE ESTADO DE LA VENTA</div>
-          <form id="formulario" method="POST" action="data.php">
-            <table>
-              <tr>
-                <td><p>Venta ID:</p></td>
-                <td><p><input type="text" name="venta_id" size="30"></p></td>
-              </tr>
-              <tr>
-                <td><p>Fecha creación pedido: </p></td>
-                <td><p><input type="date" name="fecha_creación_pedido" size="30"></p></td>
-              </tr>
-              <tr>
-                <td><p>Fecha de Embalaje: </p></td>
-                <td><p><input type="date" name="fecha_de_embalaje" size="30"></p></td>
-              </tr>
-              <tr>
-                <td><p>Fecha de despacho: </p></td>
-                <td><p><input type="date" name="fecha_de_despacho" size="30"></p></td>
-              </tr>
-              <tr>
-                <td><p>Ruta:</p></td>                
-                <td><p><select id="ruta">
-                  <option value="norte">Norte</option>
-                  <option value="oriente">Oriente</option>
-                  <option value="sur">Sur</option>
-                  <option value="occidente">Occidente</option>
-                </select></p></td>              
-              </tr>
-              <tr>
-                <td><p>Ubicación: </p></td>
-                <td><p><input type="url" name="ubicación" size="30"></p></td>
-              </tr>
-              <tr>
-                <td><p>Recepción: </p></td>
-                <td><p><select id="recepcion">
-                  <option value="en_transito">En Transito</option>
-                  <option value="entregado">Entregado</option>
-                </select></p></td>
-              </tr>
-            </table>
-          </form>
+      </div>
+      
+      <div class="principal">
+          <div class="topNavBar">
+              <div class="hamburger">
+                  <a href="#"><i class="fas fa-bars"></i></a>
+              </div>
+              
+              <div class="iconCompany">
+                  <img src= "images\logoheader.png" alt="logo header" height="50px"/>
+              </div>
+          </div>
+
+          <div class="Menu">
+            <div class="rp_titulo">MAESTRO DE ESTADOS DE VENTAS</div>
+            <div class="rp_subtitulo">INGRESE EL ESTADO DE LA VENTA</div>
+              
+            <form class="rp_formulario1 id="formulario" method="POST" action="data.php">
+              <table>
+                <tr>
+                  <td><p>Venta ID:</p></td>
+                  <td><p><input type="text" name="venta_id" size="30"></p></td>
+                </tr>
+                <tr>
+                  <td><p>Fecha creación pedido: </p></td>
+                  <td><p><input type="date" name="fecha_creación_pedido" size="30"></p></td>
+                </tr>
+                <tr>
+                  <td><p>Fecha de Embalaje: </p></td>
+                  <td><p><input type="date" name="fecha_de_embalaje" size="30"></p></td>
+                </tr>
+                <tr>
+                  <td><p>Fecha de despacho: </p></td>
+                  <td><p><input type="date" name="fecha_de_despacho" size="30"></p></td>
+                </tr>
+                <tr>
+                  <td><p>Ruta:</p></td>                
+                  <td><p><select id="ruta">
+                    <option value="norte">Norte</option>
+                    <option value="oriente">Oriente</option>
+                    <option value="sur">Sur</option>
+                    <option value="occidente">Occidente</option>
+                  </select></p></td>              
+                </tr>
+                <tr>
+                  <td><p>Ubicación: </p></td>
+                  <td><p><input type="url" name="ubicación" size="30"></p></td>
+                </tr>
+                <tr>
+                  <td><p>Recepción: </p></td>
+                  <td><p><select id="recepcion">
+                    <option value="en_transito">En Transito</option>
+                    <option value="entregado">Entregado</option>
+                  </select></p></td>
+                </tr>
+              </table>
+            </form>
+
+            <footer>
+                <div class="footer">
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                </div>
+            </footer>
         </div>
-        
-      </main>
-      
-      <footer>
-        <div class="piedepagina"></div>
-      </footer>
-      
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/sidebars.js"></script>
+    </div>
+    
+    <!--Activacion Hamburguesa-->
+  <script src="js/hamburguesa.js"></script>
 
 </body>
 </html>

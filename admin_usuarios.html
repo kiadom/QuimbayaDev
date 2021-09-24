@@ -6,76 +6,143 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"/>
-    <title>MODULO GESTION DE USUARIOS</title>
+    <!--Linea de arriba es el link de donde se descargan todos los iconos del meni de la izquierda incluyendo la hamburguesa-->
+    <!-- este es el link: https://cdnjs.com/libraries/font-awesome y es el primer archivo-->
+    <title>Gestion de Usuarios</title>
 
     <!--Carpeta de recursos a usar-->
-    <link rel="stylesheet" href="css/admin_usuarios.css">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/modulos.css"/>
+    <link rel="shortcut icon" href="images/favicon.ico">  
 </head>
 
 <body>
-    <nav class="navbar navbar-dark" style="background-color: #222831;">
-        <div class="container">
-          <a class="navbar-brand">
-            <img src="images/logoheader.png" alt="" width="197" height="58">
-          </a>
-        </div>
 
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-                <img src="images/user.png" id="logo-user" width="25" height="25">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><a class="dropdown-item" type="submit" onclick="cambiaContrasena()">Cambiar clave</a></li>
-              <li><a class="dropdown-item" href="javascript:window.close()">Salir</a></li>
-            </ul>
-          </li>
-    </nav>
-    
     <div class="wrapper">
         <div class="sidebar">
-            <div class="modulo">
-                <img src="images/adminRoles.png" alt="">
-                <h3>ADMINISTRACION DE ROLES</h3>
+
+            <div class="EncabezadoModulo">
+                <!--<img src="images/adminRoles.png" alt="">-->
+                <span class="icon"><i class="fas fa-users-cog fa-5x"></i></span>
+                <h3>GESTION USUARIOS Y ROLES</h3>
             </div>
+
             <ul>
-                <li><a href="principal.html" class="active">
-                    <span class="icon"><i class="fas fa-home"></i></span>
-                    <span class="item"></span>HOME</a></li>
-                <li title="Asignar roles a un usuario Nuevo"><a href="buscar_usuario.html">
-                    <span class="icon"><i class="fas fa-database"></i></span>
-                    <span class="item"></span>ASIGNACION DE ROLES</a></li>
-                <li title="Modificar roles a un usuario Existente"><a href="">
-                    <span class="icon"><i class="fas fa-user-shield"></i></span>
-                    <span class="item"></span>CAMBIO DE ROLES</a></li>
-                <li><a href="">
-                    <span class="icon"><i class="fas fa-chart-line"></i></span>
-                    <span class="item"></span>REPORTES</a></li>
-                <li><a href="">
+                <li title="Registrar Pedidos Realizados por los Clientes"><a href="admin_ventas.html">
+                    <span class="icon"><i class="fas fa-search-dollar"></i></span>
+                    <span class="item"></span>Gestion de la Informacion de Ventas</a></li>
+                <li title="Establecer el Estado Actual de una Venta"><a href="registro_estado_ventas.html">
+                    <span class="icon"><i class="fas fa-thermometer-three-quarters"></i></span>
+                    <span class="item"></span>Maestro de Estados de Ventas</a></li>
+                <li title="Ingresar Información de un Vendedor"><a href="admin_vendedores.html">
+                    <span class="icon"><i class="fas fa-id-card"></i></span>
+                    <span class="item"></span>Gestión de la Información de Vendedores</a></li>
+                <li title="Restringir y Otorgar Accesos al Sistema"> <a href="admin_usuarios.html">
+                    <span class="icon"><i class="fas fa-users-cog"></i></span>
+                    <span class="item"></span>Gestión de Usuarios y Roles</a></li>
+                <li  title="Salir del Sistema"><a href="">
                     <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                    <span class="item"></span>LOGOUT</a></li>
+                    <span class="item"></span>LogOut</a></li>
             </ul>
         </div>
+        
         <div class="principal">
             <div class="topNavBar">
-                    <div class="iconCompany">
-                        <img src= "images\logoheader.png" alt="logo header" height="50px"/>
-                    </div>
                     <div class="hamburger">
                         <a href="#"><i class="fas fa-bars"></i></a>
                     </div>
-            </div>
+
+                    <div class="iconCompany">
+                        <img src= "images\logoheader.png" alt="logo header" height="50px"/>
+                    </div>
+                </div>
+
             <div class="Menu">
-                <h2>Bienvenido: </h2>
-                <h3>En esta sección podrá asignar roles a un empleado</h3>
-             </div>
+                <div class="rp_titulo">GESTION DE USUARIOS Y ROLES</div>
+                <div class="rp_subtitulo">INGRESE EL ID DEL USUARIO Y LOS ROLES A MODIFICAR</div>
+
+                <div class="rp_formulario1">
+                    <form action="buscar_usuario">
+                        <table>
+                            <tr>
+                                <td><p>ID del Usuario:</p></td>
+                                <td><p><input type="text" name="id_usuario" >
+                                <input type="submit" value="Buscar Usuario">
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+
+                <div class="rp_formulario2">
+                        <tr>
+                            <td><p>Nombres Del Usuario:</p></td>
+                            <td><p><input type="text" name="nombres_usuario" ></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>Apellidos Del Usuario:</p></td>
+                            <td><p><input type="text" name="apellidos_usuario" ></p></td>
+                        </tr>
+                </div>
+
+                <div class="rp_formulario3">
+                        <tr>
+                            <td><p>Seleccione Rol 1:</p></td>
+                            <td><p><select id="rol_1" name="roles" form="roles"></p>
+                                <option value="Ninguno">Ninguno</option>
+                                <option value="gestion_informacion_ventas">Gestion de Informacion de Ventas</option>
+                                <option value="maestro_estados_ventas">Maestro de Estados de Ventas</option>
+                                <option value="gestion_informacion_vendedores">Gestion de la Información de Vendedores</option>
+                                <option value="gestion_usuarios_y_roles">Gestion de Usuarios y Roles</option>
+                                <input type="submit" value="Confirmar Rol">
+                             </td>
+                        </tr>
+                        <tr>
+                            <td><p>Seleccione Rol 2:</p></td>
+                            <td><p><select id="rol_2" name="roles" form="roles"></p>
+                                <option value="Ninguno">Ninguno</option>
+                                <option value="gestion_informacion_ventas">Gestion de Informacion de Ventas</option>
+                                <option value="maestro_estados_ventas">Maestro de Estados de Ventas</option>
+                                <option value="gestion_informacion_vendedores">Gestion de la Información de Vendedores</option>
+                                <option value="gestion_usuarios_y_roles">Gestion de Usuarios y Roles</option>
+                                <input type="submit" value="Confirmar Rol">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>Seleccione Rol 3:</p></td>
+                            <td><p><select id="rol_3" name="roles" form="roles"></p>
+                                <option value="Ninguno">Ninguno</option>
+                                <option value="gestion_informacion_ventas">Gestion de Informacion de Ventas</option>
+                                <option value="maestro_estados_ventas">Maestro de Estados de Ventas</option>
+                                <option value="gestion_informacion_vendedores">Gestion de la Información de Vendedores</option>
+                                <option value="gestion_usuarios_y_roles">Gestion de Usuarios y Roles</option>
+                                <input type="submit" value="Confirmar Rol">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>Seleccione Rol 4:</p></td>
+                            <td><p><select id="rol_4" name="roles" form="roles"></p>
+                                <option value="Ninguno">Ninguno</option>
+                                <option value="gestion_informacion_ventas">Gestion de Informacion de Ventas</option>
+                                <option value="maestro_estados_ventas">Maestro de Estados de Ventas</option>
+                                <option value="gestion_informacion_vendedores">Gestion de la Información de Vendedores</option>
+                                <option value="gestion_usuarios_y_roles">Gestion de Usuarios y Roles</option>
+                                <input type="submit" value="Confirmar Rol">
+                            </td>
+                        </tr>
+                </div>
+            </div>
+            
+            <footer>
+                <div class="footer">
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
+                </div>
+            </footer>
         </div>
     </div>
 
-    <footer>
-        <div class="piedepagina"></div>
-    </footer>
+    <!--Activacion Hamburguesa-->
+    <script src="js/hamburguesa.js"></script>
 
 </body>
 </html>
