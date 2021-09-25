@@ -63,27 +63,27 @@
             <div class="rp_titulo">MAESTRO DE ESTADOS DE VENTAS</div>
             <div class="rp_subtitulo">INGRESE EL ESTADO DE LA VENTA</div>
               
-            <form class="rp_formulario1 id="formulario" method="POST" action="data.php">
-              <table>
+            <form class="rp_formulario1" id="formulario" method="POST" action="data.php">
+              <table class="tabla">
                 <tr>
                   <td><p>Venta ID:</p></td>
-                  <td><p><input type="text" name="venta_id" size="30"></p></td>
+                  <td><p><input class="input" type="text" name="venta_id" size="30"></p></td>
                 </tr>
                 <tr>
                   <td><p>Fecha creación pedido: </p></td>
-                  <td><p><input type="date" name="fecha_creación_pedido" size="30"></p></td>
+                  <td><p><input class="input" type="date" name="fecha_creación_pedido" size="30"></p></td>
                 </tr>
                 <tr>
                   <td><p>Fecha de Embalaje: </p></td>
-                  <td><p><input type="date" name="fecha_de_embalaje" size="30"></p></td>
+                  <td><p><input class="input" type="date" name="fecha_de_embalaje" size="30"></p></td>
                 </tr>
                 <tr>
                   <td><p>Fecha de despacho: </p></td>
-                  <td><p><input type="date" name="fecha_de_despacho" size="30"></p></td>
+                  <td><p><input class="input" type="date" name="fecha_de_despacho" size="30"></p></td>
                 </tr>
                 <tr>
                   <td><p>Ruta:</p></td>                
-                  <td><p><select id="ruta">
+                  <td><p><select class="select" id="ruta">
                     <option value="norte">Norte</option>
                     <option value="oriente">Oriente</option>
                     <option value="sur">Sur</option>
@@ -92,11 +92,11 @@
                 </tr>
                 <tr>
                   <td><p>Ubicación: </p></td>
-                  <td><p><input type="url" name="ubicación" size="30"></p></td>
+                  <td><p><input class="input" type="url" name="ubicación" size="30"></p></td>
                 </tr>
                 <tr>
                   <td><p>Recepción: </p></td>
-                  <td><p><select id="recepcion">
+                  <td><p><select class="select" id="recepcion">
                     <option value="en_transito">En Transito</option>
                     <option value="entregado">Entregado</option>
                   </select></p></td>
@@ -106,8 +106,6 @@
 
             <footer>
                 <div class="footer">
-                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
-                    <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
                     <img src= "images\footerloginV2.png" alt="footer" height="50px"/>
                 </div>
             </footer>
