@@ -1,0 +1,205 @@
+*{
+    list-style: none;
+    text-decoration: none;
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'open sans', sans-serif;
+}
+
+header {
+    background-color: #00ADB5 ;
+    color: #EEEEEE;
+    /*padding: 1px;*/
+    text-align: right;
+    flex-direction:column-reverse;
+    padding: 8px;
+}
+
+body{
+    background: #999a9b;
+}
+
+.wrapper .sidebar{
+    background: #ffffff ;
+    position:fixed;
+    top:0;
+    left:0;
+    width: 300px;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+
+    .wrapper .sidebar .EncabezadoModulo{
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+        .wrapper .sidebar .EncabezadoModulo .icon{
+            color:#00ADB5;
+         }
+
+        .wrapper .sidebar .EncabezadoModulo h3{
+            color: #00ADB5;
+            padding-top: 20px ;
+            margin: 1px 0 50px;
+        }
+
+    .wrapper .sidebar ul li a{
+        display: block;
+        padding: 20px 35px;
+        border-bottom: 1px solid #EEEEEE;
+        color: #393E46;
+        font-size: 16px;
+        position: relative;
+    }
+
+        .wrapper .sidebar ul li a:hover,
+        .wrapper .sidebar ul li a.active{
+            color: #EEEEEE;
+            background: #00ADB5;
+            border-right: 2px solid #EEEEEE;
+        }
+
+
+.wrapper .principal{
+    /*width: calc(100%-500px);*/
+    margin-left: 320px;
+    transition: all 0.5s ease;
+}
+
+    .wrapper .principal .topNavBar{
+        background-color: #393E46;
+        height: 80px;
+        display :flex;
+        justify-content:space-between;
+        /*align-items:stretch;*/
+        padding: 0 15px;
+        }
+    
+        .wrapper .principal .topNavBar .iconCompany img{
+            position:relative;
+            top:15%;
+            /*left: 400px;*/
+            /*size: 50%;*/
+        }
+
+        .wrapper .principal .topNavBar .hamburger a{
+            font-size: 20px;
+            color:#EEEEEE;
+            position:relative;
+            top:35%;
+            
+        }
+
+            .wrapper .principal .topNavBar .hamburger a:hover{
+                color:#00ADB5;
+            }
+
+
+            /*activacion del hamburguer*/
+            body.active .wrapper .sidebar{
+            left: -300px;
+            }
+
+            body.active .wrapper .principal{
+            margin-left: 0;
+            width: 100%;
+            }
+            
+            .wrapper .principal .footer{
+                background-color: #EEEEEE;
+                height: 50px;
+                display:flex;
+                position:fixed;
+                bottom:0px;
+                margin-left: 0px;
+            }
+
+
+    .wrapper .Menu {
+        width:max-content;
+        height: 700px;
+        width: 100%;
+        flex-direction: row;
+        color: #393E46;
+        background-color : #EEEEEE ;
+        padding: 0%;
+        margin: auto;
+        
+    }
+
+    .wrapper .principal .Menu .rp_titulo{
+        background-color: #00ADB5;
+        padding: 2%;
+        color:#EEEEEE;
+        text-align:center;
+        font-weight: bold;
+        
+    }
+    .wrapper .principal .Menu .rp_subtitulo{git btan
+        background-color: #393E46;
+        margin-top: 2%;
+        margin-left: 20px;
+        margin-right: 20px;
+        height 70px;
+        padding: 2%;
+        color:#EEEEEE;
+        text-align:left;
+        font-weight: bold;
+    }
+    
+    .wrapper .principal .Menu .rp_formulario1{
+        margin-top: 3%;
+        color:#393E46;
+        margin-left: 120px;
+        
+    }
+
+    .wrapper .principal .Menu .rp_formulario2{
+        margin-top: 3%;
+        color:#393E46;
+        /*border-spacing: 350px;*/
+        margin-left: 120px;
+        
+    }
+
+    .wrapper .principal .Menu .rp_formulario3{
+        margin-top: 3%;
+        color:#393E46;
+        margin-left: 120px;
+    }
+
+
+    .wrapper .principal .Menu .controls{
+        width: 70%;
+        background: #ffffff;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #393E46;
+        position:relative;
+        left: 15%
+       
+    }
+
+    .wrapper .principal .Menu .botons{
+        background: #00ADB5;
+        width: 70%;
+        color: #ffffff;
+        margin-bottom: 10px;
+        padding: 12px ;
+        border-color: gray;
+        position:relative;
+        left: 15%;
+        box-shadow: #036368;
+    
+    }
+
+    
+    .botons:hover{opacity: 0.6};
+        
+
+
