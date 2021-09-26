@@ -4,7 +4,7 @@ import admin_vendedores from "/pages/admin_vendedores";
 import admin_ventas from "/pages/admin_ventas";
 import clave from "/pages/clave";
 import entrada from "/pages/entrada";
-import principal from "/pages/principal";
+import index from "/pages/index";
 import registro_estado_ventas from "/pages/registro_estado_ventas";
 import React from "react";
 import {
@@ -38,12 +38,12 @@ function App() {
             <entrada/>
           </Route>
           
-          <Route path="/principal">
-            <principal/>
-          </Route>
-          
           <Route path="/registro_estado_ventas">
             <registro_estado_ventas/>
+          </Route>
+          
+          <Route path="/">
+            <index/>
           </Route>
 
         </Switch>
