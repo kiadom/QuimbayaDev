@@ -25,12 +25,15 @@ const RegistroProductosPage = () => {
 
     const enviarDatos = async (e) => {
         e.preventDefault();
+
+        //Alert para mostrar los datos ingresados por el usuarios en el formulario
         alert("Los datos ingresados son: "+
         "\n \nProducto ID: " + datos.producto_id +
         "\nDescripción: " + datos.descripción_producto+ 
         "\nValor Unitario: " + datos.valor_unitario+
         "\nEstado: " + datos.estado);
 
+        //Peticion POST a la base de datos. Escribe el registro del formulario en Mongo
         const options = {
             method: 'POST',
             url: 'http://localhost:3001/productos',

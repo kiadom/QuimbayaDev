@@ -15,6 +15,7 @@ const app = express(); //Inicializacion de express
 app.use(bodyParser.json()); //Metodo para trabajar exclusivo con ficheros json
 app.use(bodyParser.urlencoded({extended: false}));
 
+//Evita el problema CORS al momento de mandar peticiones
 router(app.use(cors()));
 
 //Ejecutar la aplicacion en el puerto 3001
