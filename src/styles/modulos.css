@@ -153,8 +153,8 @@ body.active .wrapper .principal{
 .wrapper .principal .Menu .rp_subtitulo{
     background-color: var(--grey-bg);
     margin-top: 2%; /*Modifico Rocio 6oct*/
-    margin-left: 5%; /*Modifico Rocio 6oct*/
-    margin-right: 5%; /*Modifico Rocio 6oct*/
+    margin-left: 2%; /*Modifico Rocio 6oct*/
+    margin-right: 2%; /*Modifico Rocio 6oct*/
     height: 0%; /*Modifico Rocio 6oct*/
     color:var(--light-bg);
     text-align:left;
@@ -171,6 +171,8 @@ body.active .wrapper .principal{
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
+    border-spacing: 10%;
+    width: 85%;
     color:var(--grey-bg);
 }
 

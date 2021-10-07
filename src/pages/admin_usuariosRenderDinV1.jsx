@@ -13,29 +13,12 @@ const usuariosBackend = [
         Rol: "Vendedor",
         Estado: "Pendiente",
     },
+
     {
         Id:"1112758173",
         Nombre: "Nelson Alberto Cuervo",
         Rol: "Vendedor",
-        Estado: "Autorizado",
-    },
-    {
-        Id:"51978698",
-        Nombre: "Rocio Pacheco Villabona",
-        Rol: "Administrador",
         Estado: "Pendiente",
-    },
-    {
-        Id:"1013600362",
-        Nombre: "Juan Manuel Suárez",
-        Rol: "Administrador",
-        Estado: "No Autorizado",
-    },
-    {
-        Id:"80217086",
-        Nombre: "Luis Alonso Rondón",
-        Rol: "Administrador",
-        Estado: "Autorizado",
     },
 ];
 
@@ -74,8 +57,7 @@ const AdminUsuariosPage = () => {
                             </button>
                         </div>
                         <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
-                            (<FormularioCreacionUsuarios />)}
+                            {mostrarTabla ? <TablaUsuarios /> : <FormularioCreacionUsuarios /> }
                         </div>
                     </div>
                 </div>
@@ -84,11 +66,7 @@ const AdminUsuariosPage = () => {
     );
 };
 
-const TablaUsuarios = ({listaUsuarios})=> {
-    useEffect(()=>{
-        console.log("Este es el listado de usuarios en el componente de Tabla",listaUsuarios)
-    },[listaUsuarios]);
-
+const TablaUsuarios = ()=> {
     return <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
         <table className="formulario">
@@ -102,16 +80,26 @@ const TablaUsuarios = ({listaUsuarios})=> {
                 </tr>
             </thead>
             <tbody>
-                {listaUsuarios.map((usuario)=>{
-                    return(
-                        <tr>
-                            <td>{usuario.Id}</td>
-                            <td>{usuario.Nombre}</td>
-                            <td>{usuario.Rol}</td>
-                            <td>{usuario.Estado}</td>
-                        </tr>
-                    )
-                })}
+                <tr>
+                    <td>51978698     .</td>
+                    <td>Rocio Pacheco     .</td>
+                    <td>Administrador     .</td>
+                    <td>Pendiente     .</td>
+                </tr>
+                <tr>
+                    <td>1013600362     .</td>
+                    <td>Juan Manuel Suárez Rodríguez     .</td>
+                    <td>Administrador     .</td>
+                    <td>Autorizado     .</td>
+                </tr>
+                <tr>
+                    <td>80217086     .</td>
+                    <td>Luis Alonso Rondón Rodríguez     .</td>
+                    <td>Administrador     .</td>
+                    <td>Autorizado     .</td>
+                </tr>
+
+
             </tbody>
         </table>
     </div>;
@@ -144,15 +132,6 @@ const FormularioCreacionUsuarios = ()=> {
                     className="input_m" type="text" id="id_usuario" 
                     name="id_usuario" placeholder="Id Usuario"></input></td>
                 </tr>
-
-                <tr>
-                    <td><p>Nombre del Usuario:</p></td>
-                    <td><input 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="input_m" type="text" id="nombre_usuario" 
-                    name="nombre_usuario" placeholder="Nombre Usuario"></input></td>
-                </tr>
-
             
                 <tr>
                     <td><p>Rol Autorizado:</p></td>
