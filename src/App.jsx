@@ -1,5 +1,5 @@
 import Index from './pages';
-import AdminUsuariosPage from './pages/admin_usuarios';
+import AdminUsuariosPage from './pages/admin_usuariosSprint3';
 import RegistroProductosPage from './pages/registro_productos';
 import EstadoProductosPage from './pages/maestro_productos';
 import AdminVentasPage from './pages/admin_ventas';
@@ -18,10 +18,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path = {['/admin_usuarios', '/registro_productos', '/maestro_productos', '/admin_ventas', '/registro_estado_ventas']}>
+        <Route path = {['/admin_usuariosSprint3', '/registro_productos', '/maestro_productos', '/admin_ventas', '/registro_estado_ventas']}>
           <Layout>
             <Switch>
-              <Route path = '/admin_usuarios'>
+              <Route path = '/admin_usuariosSprint3'>
                 <AdminUsuariosPage />
               </Route>
               <Route path = '/registro_productos'>

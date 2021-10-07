@@ -32,7 +32,7 @@ body{
     position:fixed;
     top:0;
     left:0;
-    width: 300px;
+    width: 15%; /*Cambio Rocio 6oct*, antes 250px*/
     height: 100%;
     padding: 20px 0;
     transition: all 0.5s ease;
@@ -71,7 +71,7 @@ body{
 }
 
 .wrapper .principal{
-    margin-left: 320px;
+    margin-left: 15%; /*Cambio Rocio 6oct*/
     transition: all 0.5s ease;
 }
 
@@ -152,18 +152,32 @@ body.active .wrapper .principal{
     
 .wrapper .principal .Menu .rp_subtitulo{
     background-color: var(--grey-bg);
-    margin-top: 2%;
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 70px;
-    padding: 2%;
+    margin-top: 2%; /*Modifico Rocio 6oct*/
+    margin-left: 5%; /*Modifico Rocio 6oct*/
+    margin-right: 5%; /*Modifico Rocio 6oct*/
+    height: 0%; /*Modifico Rocio 6oct*/
     color:var(--light-bg);
     text-align:left;
     font-weight: bold;
 }
-    
+
+.rend_Dinamica{ /*Incluyo Rocio 6oct*/
+    margin-top: 2%;
+    margin-left: 40%;
+    color:var(--grey-bg);
+}
+
+.formulario{ /*Incluyo Rocio 6oct*/
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    color:var(--grey-bg);
+}
+
+
 .wrapper .principal .Menu .rp_formulario{
-    margin-top: 3%;
+    margin-top: 2%; /*Incluyo Rocio 7oct*/
+    margin-left: 3%;  /*Incluyo Rocio 6oct*/
     color:var(--grey-bg);
     
 }
