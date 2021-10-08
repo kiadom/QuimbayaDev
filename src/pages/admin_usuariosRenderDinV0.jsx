@@ -1,9 +1,13 @@
 import Sidebar from "../components/Sidebar";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars  } from "@fortawesome/free-solid-svg-icons";
 library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars);
+
 
 
 const usuariosBackend = [
@@ -25,18 +29,6 @@ const usuariosBackend = [
         Rol: "Administrador",
         Estado: "Pendiente",
     },
-    {
-        Id:"1013600362",
-        Nombre: "Juan Manuel Suárez",
-        Rol: "Administrador",
-        Estado: "No Autorizado",
-    },
-    {
-        Id:"80217086",
-        Nombre: "Luis Alonso Rondón",
-        Rol: "Administrador",
-        Estado: "Autorizado",
-    },
 ];
 
 const AdminUsuariosPage = () => {
@@ -47,7 +39,7 @@ const AdminUsuariosPage = () => {
     useEffect( ()=>{
         //obtener lista de usuarios desde el backend
         setUsuarios(usuariosBackend);
-    },[])
+    },[]);
 
     useEffect(()=>{
         if(mostrarTabla){
@@ -56,12 +48,12 @@ const AdminUsuariosPage = () => {
         else{
             setTextoBoton('Ver Listado Usuarios');
         }
-    },[mostrarTabla])
+    },[mostrarTabla]);
 
     return (
         <div>
             <div className="wrapper">
-                    <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
+                <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
 
                 <div className="principal">
                     <div className="Menu">
@@ -75,7 +67,12 @@ const AdminUsuariosPage = () => {
                         </div>
                         <div className="rp_formulario">
                             {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
-                            (<FormularioCreacionUsuarios />)}
+                            (<FormularioCreacionUsuarios 
+                                setMostrarTabla={setMostrarTabla}
+                                listaUsuarios={usuarios}
+                                setUsuarios={setUsuarios} />)}
+                            <ToastContainer position= "bottom-center" autoClose= {1000}/>
+
                         </div>
                     </div>
                 </div>
@@ -89,7 +86,8 @@ const TablaUsuarios = ({listaUsuarios})=> {
         console.log("Este es el listado de usuarios en el componente de Tabla",listaUsuarios)
     },[listaUsuarios]);
 
-    return <div>
+    return (
+        <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
         <table className="formulario">
             <thead>
@@ -110,85 +108,106 @@ const TablaUsuarios = ({listaUsuarios})=> {
                             <td>{usuario.Rol}</td>
                             <td>{usuario.Estado}</td>
                         </tr>
-                    )
+                    );
                 })}
             </tbody>
         </table>
-    </div>;
+        </div>
+    );
 };
 
-const FormularioCreacionUsuarios = ()=> {
-    const [idUsuario,setIdUsuario] = useState (" ");
+const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios })=> {
+    const form = useRef(null);
+    
 
-    useEffect(() => {
-        console.log("Hola, de nuevo Yo un useEffect")
-    },[]);
+    const submitForm =(e)=>{
+        e.preventDefault();
+        const fd = new FormData(form.current);
 
-    useEffect( () => {
-        console.log("Esta es una funcion que se ejecuta cada que cambia el valor del ID del usuario")
-        console.log("El valor de la variable es: ", idUsuario )
-     }, [idUsuario] )
+        const nuevoUsuario = {};
+        fd.forEach((value, key) => {
+            nuevoUsuario[key]=value;
+        });
 
-    const enviarDatosAlBackend = ()=> {
-        console.log("El valor de las variable a guardar es", idUsuario);
+        setMostrarTabla(true)
+        setUsuarios([...listaUsuarios, nuevoUsuario]);
+        // Identificafr el caso de Exito y mostrar un Toast de exito
+        toast.success("Usuario agregado con exito");
+        // Identificafr el caso de Error y mostrar un Toast de error
+        //toast.error("Error al crear el Usuario");
+        console.log("Datos del Form Enviados", nuevoUsuario);
     };
 
     return <div>
         <div className="rp_subtitulo">INGRESE EL ID DEL USUARIO Y LOS ROLES A MODIFICAR</div>
-        <form>
-            <table className="tabla">
-                <tr>
-                    <td><p>ID del Usuario:</p></td>
-                    <td><input 
-                    onChange={(e) => {setIdUsuario(e.target.value)}} 
-                    className="input_m" type="text" id="id_usuario" 
-                    name="id_usuario" placeholder="Id Usuario"></input></td>
-                </tr>
+            <form ref={form} onSubmit={submitForm} >
+                <table className="tabla">
+                    <tr>
+                        <td><p>ID del Usuario:</p></td>
+                        <td><input
+                            name="Id"  
+                            className="input_m" 
+                            type="text"
+                            placeholder="Id Usuario" required
+                            required/>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td><p>Nombre del Usuario:</p></td>
-                    <td><input 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="input_m" type="text" id="nombre_usuario" 
-                    name="nombre_usuario" placeholder="Nombre Usuario"></input></td>
-                </tr>
-
-            
-                <tr>
-                    <td><p>Rol Autorizado:</p></td>
-                    <td><p>< select 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="select" id="tipo_usuario" 
-                    name="tipo_usuario">
-                        <option selected disabled>Seleccione Tipo Usuario</option>
-                        <option value="administrador">Administrador</option>
-                        <option value="vendedor">Vendedor</option>
-                    </select></p></td> 
-                </tr>
+                    <tr>
+                        <td><p>Nombre del Usuario:</p></td>
+                        <td><input 
+                            name="Nombre" 
+                            className="input_m" 
+                            type="text"
+                            placeholder="Nombre Usuario" 
+                            required/>
+                        </td>
+                    </tr>
                 
-                <tr>
-                    <td><p>Estado Usuario:</p></td>                
-                    <td><p><select 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="select" id="estado_usuario" 
-                    name="estado_usuario">
-                        <option selected disabled>Seleccione Estado Usuario</option>
-                        <option value="pendiente">Pendiente</option>
-                        <option value="autorizado">Autorizado</option>
-                        <option value="no_autorizado">No autorizado</option>
-                    </select></p></td> 
-                </tr>
-                
-                <tr>
-                    <td><input className="boton_m" type="reset" 
-                    value="Borrar"/></td>
-                    <td><button  type="button"    onClick={enviarDatosAlBackend} className="boton_m">Enviar Datos</button>  
-                   </td>
-                </tr>
-            </table>
-        </form>
-
-    </div>;
+                    <tr>
+                        <td><p>Rol Autorizado:</p></td>
+                        <td><p>
+                            <select
+                                className="select"  
+                                name="Rol"
+                                required
+                                defaultValue={0}
+                                > 
+                                <option disabled value={0}>Seleccione Tipo Usuario</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="vendedor">Vendedor</option>
+                            </select>
+                        </p></td> 
+                    </tr>
+                    
+                    <tr>
+                        <td><p>Estado Usuario:</p></td>                
+                        <td><p>
+                            <select 
+                                className="select"
+                                name="Estado" 
+                                required
+                                defaultValue={0}> 
+                                    <option selected disabled value={0}>Seleccione Estado Usuario</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="autorizado">Autorizado</option>
+                                    <option value="no_autorizado">No autorizado</option>
+                            </select>
+                        </p></td> 
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <button  
+                                type="submit" 
+                                className="boton_m"
+                                >Actualizar Rol
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>;
 };
 
 export default AdminUsuariosPage;
