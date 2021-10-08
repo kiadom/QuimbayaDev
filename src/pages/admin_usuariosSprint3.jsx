@@ -1,9 +1,13 @@
 import Sidebar from "../components/Sidebar";
 import React, {useEffect, useState} from "react";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars  } from "@fortawesome/free-solid-svg-icons";
 library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars);
+
 
 
 const usuariosBackend = [
@@ -61,7 +65,7 @@ const AdminUsuariosPage = () => {
     return (
         <div>
             <div className="wrapper">
-                    <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
+                <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
 
                 <div className="principal">
                     <div className="Menu">
@@ -75,7 +79,12 @@ const AdminUsuariosPage = () => {
                         </div>
                         <div className="rp_formulario">
                             {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
-                            (<FormularioCreacionUsuarios />)}
+                            (<FormularioCreacionUsuarios 
+                                funcionParaMostrarLaTabla={setMostrarTabla}
+                                listaUsuarios={usuarios}
+                                funcionParaAgregarUnUsuario={setUsuarios} />)}
+                            <ToastContainer position= "bottom-center" autoClose= {1000}/>
+
                         </div>
                     </div>
                 </div>
@@ -117,49 +126,59 @@ const TablaUsuarios = ({listaUsuarios})=> {
     </div>;
 };
 
-const FormularioCreacionUsuarios = ()=> {
-    const [idUsuario,setIdUsuario] = useState (" ");
-
-    useEffect(() => {
-        console.log("Hola, de nuevo Yo un useEffect")
-    },[]);
-
-    useEffect( () => {
-        console.log("Esta es una funcion que se ejecuta cada que cambia el valor del ID del usuario")
-        console.log("El valor de la variable es: ", idUsuario )
-     }, [idUsuario] )
-
-    const enviarDatosAlBackend = ()=> {
-        console.log("El valor de las variable a guardar es", idUsuario);
+const FormularioCreacionUsuarios = ( {
+    funcionParaMostrarLaTabla,
+    listaUsuarios,
+    funcionParaAgregarUnUsuario,
+} )=> {
+    const [idUsuario,setIdUsuario] = useState ();
+    const [nombreUsuario,setNombreUsuario] = useState ();
+    const [rolUsuario,setRolUsuario] = useState ();
+    const [estadoUsuario,setEstadoUsuario] = useState ();
+    
+    const enviarAlBackend = ()=> {
+        console.log("Id: ", idUsuario, "Nombre: ", nombreUsuario, "Rol: ",rolUsuario, "Estado: ",estadoUsuario);
+        toast.success("Usuario creado exitosamente");
+        funcionParaMostrarLaTabla(true);
+        funcionParaAgregarUnUsuario([
+            ...listaUsuarios,
+            {Id:idUsuario, Nombre:nombreUsuario, Rol:rolUsuario, Estado:estadoUsuario},
+        ]);
     };
+
+    //useEffect(() => {
+    //    console.log("Hola, de nuevo Yo un useEffect")
+    //},[]);
+
+    //useEffect( () => {
+    //    console.log("Esta es una funcion que se ejecuta cada que cambia el valor del ID del usuario")
+    //    console.log("El valor de la variable es: ", idUsuario )
+    // }, [idUsuario] )
 
     return <div>
         <div className="rp_subtitulo">INGRESE EL ID DEL USUARIO Y LOS ROLES A MODIFICAR</div>
-        <form>
-            <table className="tabla">
+            <form className="tabla">
                 <tr>
                     <td><p>ID del Usuario:</p></td>
                     <td><input 
                     onChange={(e) => {setIdUsuario(e.target.value)}} 
-                    className="input_m" type="text" id="id_usuario" 
-                    name="id_usuario" placeholder="Id Usuario"></input></td>
+                    className="input_m" type="text"  
+                    placeholder="Id Usuario"></input></td>
                 </tr>
 
                 <tr>
                     <td><p>Nombre del Usuario:</p></td>
                     <td><input 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="input_m" type="text" id="nombre_usuario" 
-                    name="nombre_usuario" placeholder="Nombre Usuario"></input></td>
+                    onChange={(e) => {setNombreUsuario(e.target.value)}} 
+                    className="input_m" type="text" 
+                    placeholder="Nombre Usuario"></input></td>
                 </tr>
-
             
                 <tr>
                     <td><p>Rol Autorizado:</p></td>
                     <td><p>< select 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="select" id="tipo_usuario" 
-                    name="tipo_usuario">
+                    onChange={(e) => {setRolUsuario(e.target.value)}} 
+                    className="select" >
                         <option selected disabled>Seleccione Tipo Usuario</option>
                         <option value="administrador">Administrador</option>
                         <option value="vendedor">Vendedor</option>
@@ -169,9 +188,8 @@ const FormularioCreacionUsuarios = ()=> {
                 <tr>
                     <td><p>Estado Usuario:</p></td>                
                     <td><p><select 
-                    onChange={(e) => {console.log(e.target.value)}} 
-                    className="select" id="estado_usuario" 
-                    name="estado_usuario">
+                    onChange={(e) => {setEstadoUsuario(e.target.value)}} 
+                    className="select">
                         <option selected disabled>Seleccione Estado Usuario</option>
                         <option value="pendiente">Pendiente</option>
                         <option value="autorizado">Autorizado</option>
@@ -182,12 +200,10 @@ const FormularioCreacionUsuarios = ()=> {
                 <tr>
                     <td><input className="boton_m" type="reset" 
                     value="Borrar"/></td>
-                    <td><button  type="button"    onClick={enviarDatosAlBackend} className="boton_m">Enviar Datos</button>  
+                    <td><button  type="button" onClick={enviarAlBackend} className="boton_m">Enviar Datos</button>  
                    </td>
                 </tr>
-            </table>
-        </form>
-
+            </form>
     </div>;
 };
 

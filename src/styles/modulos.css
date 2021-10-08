@@ -163,7 +163,8 @@ body.active .wrapper .principal{
 
 .rend_Dinamica{ /*Incluyo Rocio 6oct*/
     margin-top: 2%;
-    margin-left: 40%;
+    margin-left: auto;
+    width: 95%;
     color:var(--grey-bg);
 }
 
@@ -171,7 +172,6 @@ body.active .wrapper .principal{
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
-    border-spacing: 10%;
     width: 85%;
     color:var(--grey-bg);
 }
