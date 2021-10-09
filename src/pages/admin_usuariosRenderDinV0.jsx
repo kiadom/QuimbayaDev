@@ -1,9 +1,9 @@
 import Sidebar from "../components/Sidebar";
 import React, {useEffect, useState, useRef} from "react";
 
+import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -139,7 +139,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
     const form = useRef(null);
     
 
-    const submitForm =(e)=>{
+    const submitForm = async (e)=>{
         e.preventDefault();
         const fd = new FormData(form.current);
 
@@ -148,13 +148,36 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             nuevoUsuario[key]=value;
         });
 
-        setMostrarTabla(true)
-        setUsuarios([...listaUsuarios, nuevoUsuario]);
-        // Identificafr el caso de Exito y mostrar un Toast de exito
-        toast.success("Usuario agregado con exito");
-        // Identificafr el caso de Error y mostrar un Toast de error
-        //toast.error("Error al crear el Usuario");
-        console.log("Datos del Form Enviados", nuevoUsuario);
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/admin_usuarios/nuevo',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+              Id: nuevoUsuario.Id,
+              Nombre: nuevoUsuario.Nombre,
+              Rol: nuevoUsuario.Rol,
+              Estado: nuevoUsuario.Estado
+            },
+          };
+        
+
+
+        await axios
+        .request(options)
+        .then(function (response) {
+            console.log(response.data);
+            toast.success("Usuario agregado con exito");
+          })
+          .catch(function (error) {
+            console.error(error);
+            toast.error("Error al crear el Usuario");
+          });
+
+
+        //setMostrarTabla(true)
+        //console.log("Datos del Form Enviados", nuevoUsuario);
+        
+        
     };
 
     return <div>

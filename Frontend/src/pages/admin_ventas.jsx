@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import React, {useState} from "react";
+import axios from "axios";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars  } from "@fortawesome/free-solid-svg-icons";
@@ -23,15 +24,37 @@ const AdminVentasPage = () => {
         })
     }
 
-    const enviarDatos = (e) => {
+    const enviarDatos = async (e) => {
         e.preventDefault();
 
+        //Alert para mostrar los datos ingresados por el usuarios en el formulario
         alert("Los datos del pedido ingresado son: \nID: "+ datos.venta_id +
          "\nVenta total: " + datos.venta_total+ 
          "\nDetalle: " + datos.detalle+ 
          "\nFecha de Pago: " + datos.fecha_de_pago+ 
          "\nFecha de Pago Futura: " + datos.fecha_de_pago_futura+ 
          "\nResponsable: " + datos.responsable);
+
+         //Peticion POST a la base de datos. Escribe el registro del formulario en Mongo
+         const options = {
+            method: 'POST',
+            url: 'http://localhost:3001/ventas',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+              venta_id: datos.venta_id,
+              venta_total: datos.venta_total,
+              detalle: datos.detalle,
+              fecha_de_pago: datos.fecha_de_pago,
+              fecha_de_pago_futura: datos.fecha_de_pago_futura,
+              responsable: datos.responsable
+            }
+          };
+          
+          await axios.request(options).then(function (response) {
+            console.log(response.data);
+          }).catch(function (error) {
+            console.error(error);
+          });
     }
 
     return (
