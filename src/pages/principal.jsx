@@ -25,7 +25,7 @@ const Principal = () => {
                     </div></Link>
                     </div>                  
                     <div class="col-lg-12">
-                        <Link to = '/admin_usuariosSprint3'>
+                        <Link to = '/admin_usuarios'>
                     <div class="p-3 bg-light">
                         <FontAwesomeIcon icon={faUsersCog} size="5x" color='#00ADB5'/>                      
                         <p>Gestion de Usuarios</p>

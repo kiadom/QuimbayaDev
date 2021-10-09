@@ -3,10 +3,18 @@ import React, {useEffect, useState, useRef} from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars  } from "@fortawesome/free-solid-svg-icons";
-library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars);
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
+//library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
+
+//const options = {
+//    method:'POST',
+//}
+
 
 
 
@@ -89,14 +97,15 @@ const TablaUsuarios = ({listaUsuarios})=> {
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        <table className="formulario">
+        <table className="table">
+            
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Rol</th>
                     <th>Estado</th>
-
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,6 +116,16 @@ const TablaUsuarios = ({listaUsuarios})=> {
                             <td>{usuario.Nombre}</td>
                             <td>{usuario.Rol}</td>
                             <td>{usuario.Estado}</td>
+                            <td className="edit">
+                                <button type="button" class="btn btn-info">
+                                    <FontAwesomeIcon icon={faPencilAlt}/>
+                                </button>
+                                    
+                                <button type="button" class="btn btn-secondary">
+                                    <FontAwesomeIcon icon={faTrash}/>
+                                </button>
+                               
+                            </td>
                         </tr>
                     );
                 })}
@@ -173,7 +192,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                                 required
                                 defaultValue={0}
                                 > 
-                                <option disabled value={0}>Seleccione Tipo Usuario</option>
+                                <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
                             </select>
@@ -188,7 +207,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                                 name="Estado" 
                                 required
                                 defaultValue={0}> 
-                                    <option selected disabled value={0}>Seleccione Estado Usuario</option>
+                                    <option selected disabled value={0}>None</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="autorizado">Autorizado</option>
                                     <option value="no_autorizado">No autorizado</option>

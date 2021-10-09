@@ -46,7 +46,7 @@ const Sidebar = (props) => {
                     </li>
                     </ul>
                     <li title="Restringir y Otorgar Accesos al Sistema">
-                        <Link to = '/admin_usuariosSprint3'>
+                        <Link to = '/admin_usuarios'>
                             <FontAwesomeIcon icon={faUsersCog}/>  
                             <span className="item"></span>  Gestión de Usuarios
                         </Link>

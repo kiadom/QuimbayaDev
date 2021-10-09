@@ -160,7 +160,7 @@ body.active .wrapper .principal{
     
 .wrapper .principal .Menu .rp_subtitulo{
     background-color: var(--grey-bg);
-    margin-top: 2%; /*Modifico Rocio 6oct*/
+    margin-top: 2%;
     margin-left: 2%; /*Modifico Rocio 6oct*/
     margin-right: 2%; /*Modifico Rocio 6oct*/
     height: 0%; /*Modifico Rocio 6oct*/
@@ -176,20 +176,15 @@ body.active .wrapper .principal{
     color:var(--grey-bg);
 }
 
-.formulario{ /*Incluyo Rocio 6oct*/
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 85%;
+.edit  a + a {
     color:var(--grey-bg);
-}
-
+    padding-left: 2em;
+} 
 
 .wrapper .principal .Menu .rp_formulario{
     margin-top: 2%; /*Incluyo Rocio 7oct*/
     margin-left: 3%;  /*Incluyo Rocio 6oct*/
     color:var(--grey-bg);
-    
 }
 
 
@@ -280,7 +275,9 @@ tfoot{
 
 .table{
 position: relative;
+margin-top: 2%;
 margin-left: 5%;
+width: 90%;
 }
 
 .tabla_{
