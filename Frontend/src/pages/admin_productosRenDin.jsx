@@ -22,21 +22,25 @@ const productosBackend = [
     {
         Id_product:"10101",
         Descripcion: "Pantalon Azul",
-        valor_unitario: "$300.000",
+        Valor_unitario: "$300.000",
         Estado_producto: "Agotado",
     },
+
     {
         Id_product:"10102",
-        Descripcion: "Pantalon Verde",
-        valor_unitario: "$100.000",
-        Estado_producto: "Disponible",,
-    },
-    {
-        Id_product:"10101",
         Descripcion: "Pantalon Negro",
-        valor_unitario: "$200.000",
+        Valor_unitario: "$200.000",
+        Estado_producto: "Agotado",
+    },
+
+    {
+        Id_product:"10103",
+        Descripcion: "Pantalon Verde",
+        Valor_unitario: "$100.000",
         Estado_producto: "Disponible",,
     },
+
+    
 ];
 
 const EstadoProductosPage = () => {
@@ -108,13 +112,13 @@ const TablaProductos = ({listaProductos})=> {
                 </tr>
             </thead>
             <tbody>
-                {listaUsuarios.map((usuario)=>{
+                {listaProductos.map((producto)=>{
                     return(
                         <tr>
-                            <td>{usuario.Id_product}</td>
-                            <td>{usuario.Descripcion}</td>
-                            <td>{usuario.valor_unitario}</td>
-                            <td>{usuario.Estado_producto}</td>
+                            <td>{producto.Id_product}</td>
+                            <td>{producto.Descripcion}</td>
+                            <td>{producto.Valor_unitario}</td>
+                            <td>{producto.Estado_producto}</td>
                             <td className="edit">
                                 <button type="button" class="btn btn-info">
                                     <FontAwesomeIcon icon={faPencilAlt}/>
@@ -154,7 +158,7 @@ const EstadoProductosPage = ({setMostrarTabla, listaProductos, setProductos })=>
             data: {
               Id: nuevoProducto.Id_product,
               Nombre: nuevoProducto.Descripcion,
-              Rol: nuevoProducto.valor_unitario,
+              Rol: nuevoProducto.Valor_unitario,
               Estado: nuevoProducto.Estado_producto
             },
           };
@@ -208,7 +212,7 @@ const EstadoProductosPage = ({setMostrarTabla, listaProductos, setProductos })=>
                     <tr>
                         <td><p>VALOR:</p></td>
                         <td><input 
-                            name="valor_unitario" 
+                            name="Valor_unitario" 
                             className="input_m" 
                             type="text"
                             placeholder="" 
