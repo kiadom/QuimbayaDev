@@ -15,11 +15,7 @@
     "bootstrap": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-<<<<<<< HEAD:package.json
     "mongodb": "^4.1.3",
-=======
-    "mongoose": "^6.0.8",
->>>>>>> ce9fec2d2a79417cb71cbf4716ee230dadfc36cf:Frontend/package.json
     "nodemon": "^2.0.13",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-rc.0",
