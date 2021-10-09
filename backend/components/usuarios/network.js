@@ -10,7 +10,7 @@ const router = express.Router();
 //Para cualquier ruta devuelva la funcion
 //La funcion tiene dos parametros, req y res. Son los dos parametros que tiene cualquier funcion HTTP
 router.post('/', function(req, res){
-    controller.registrarUsuario(req.body.usuario_id, req.body.rol, req.body.estado)
+    controller.registrarUsuario(req.body.usuario_id, req.body.nombre, req.body.rol, req.body.estado)
         .then((fullUsuario) => {
             response.success(req, res, fullUsuario, 201);
         })

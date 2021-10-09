@@ -4,6 +4,7 @@ import React, {useEffect, useState, useRef} from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+<<<<<<< HEAD
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,6 +37,33 @@ const usuariosBackend = [
         Nombre: "Rocio Pacheco Villabona",
         Rol: "Administrador",
         Estado: "Pendiente",
+=======
+import { nanoid } from "nanoid";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsersCog, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
+//library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
+
+const usuariosBackend = [
+    {
+        usuario_id:"1010173523",
+        nombre: "Carlos Andrés Méndez",
+        rol: "Vendedor",
+        estado: "Pendiente",
+    },
+    {
+        usuario_id:"1112758173",
+        nombre: "Nelson Alberto Cuervo",
+        rol: "Vendedor",
+        estado: "Autorizado",
+    },
+    {
+        usuario_id:"51978698",
+        nombre: "Rocio Pacheco Villabona",
+        rol: "Administrador",
+        estado: "Pendiente",
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
     },
 ];
 
@@ -44,6 +72,7 @@ const AdminUsuariosPage = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Asignar Rol' );
 
+<<<<<<< HEAD
     useEffect( ()=>{
         //obtener lista de usuarios desde el backend
         setUsuarios(usuariosBackend);
@@ -58,6 +87,41 @@ const AdminUsuariosPage = () => {
         }
     },[mostrarTabla]);
 
+=======
+    useEffect(async()=>{
+
+        const obtenerUsuarios = async() => {
+            const options = {
+                method: 'GET', 
+                url: 'http://localhost:3001/usuarios'
+            };
+
+        await axios.
+            request(options).
+            then(function (response) {
+                setUsuarios(response.data.body);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+    }
+    
+    //obtener lista de usuarios desde el backend
+        if(mostrarTabla){
+            obtenerUsuarios();
+        }
+    },[mostrarTabla]);
+
+    useEffect(()=>{
+        if(mostrarTabla){
+            setTextoBoton('Asignar Rol');
+        }
+        else{
+            setTextoBoton('Ver Listado Usuarios');
+        }
+    },[mostrarTabla]);
+
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
     return (
         <div>
             <div className="wrapper">
@@ -91,7 +155,11 @@ const AdminUsuariosPage = () => {
 
 const TablaUsuarios = ({listaUsuarios})=> {
     useEffect(()=>{
+<<<<<<< HEAD
         console.log("Este es el listado de usuarios en el componente de Tabla",listaUsuarios)
+=======
+        console.log("Este es el listado de usuarios en el componente de Tabla", listaUsuarios);
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
     },[listaUsuarios]);
 
     return (
@@ -111,11 +179,19 @@ const TablaUsuarios = ({listaUsuarios})=> {
             <tbody>
                 {listaUsuarios.map((usuario)=>{
                     return(
+<<<<<<< HEAD
                         <tr>
                             <td>{usuario.Id}</td>
                             <td>{usuario.Nombre}</td>
                             <td>{usuario.Rol}</td>
                             <td>{usuario.Estado}</td>
+=======
+                        <tr key = {nanoid()}>
+                            <td>{usuario.usuario_id}</td>
+                            <td>{usuario.nombre}</td>
+                            <td>{usuario.rol}</td>
+                            <td>{usuario.estado}</td>
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
                             <td className="edit">
                                 <button type="button" class="btn btn-info">
                                     <FontAwesomeIcon icon={faPencilAlt}/>
@@ -143,13 +219,20 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
         e.preventDefault();
         const fd = new FormData(form.current);
 
+<<<<<<< HEAD
         const nuevoUsuario = {};
         fd.forEach((value, key) => {
             nuevoUsuario[key]=value;
+=======
+        const datos = {};
+        fd.forEach((value, key) => {
+            datos[key]=value;
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
         });
 
         const options = {
             method: 'POST',
+<<<<<<< HEAD
             url: 'http://localhost:5000/admin_usuarios/nuevo',
             headers: {'Content-Type': 'application/json'},
             data: {
@@ -162,6 +245,18 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
         
 
 
+=======
+            url: 'http://localhost:3001/usuarios',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+              usuario_id: datos.usuario_id,
+              nombre: datos.nombre,
+              rol: datos.rol,
+              estado: datos.estado
+            },
+          };
+        
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
         await axios
         .request(options)
         .then(function (response) {
@@ -173,11 +268,16 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             toast.error("Error al crear el Usuario");
           });
 
+<<<<<<< HEAD
 
         //setMostrarTabla(true)
         //console.log("Datos del Form Enviados", nuevoUsuario);
         
         
+=======
+        //setMostrarTabla(true)
+        //console.log("Datos del Form Enviados", datos);
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
     };
 
     return <div>
@@ -187,7 +287,11 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                     <tr>
                         <td><p>ID del Usuario:</p></td>
                         <td><input
+<<<<<<< HEAD
                             name="Id"  
+=======
+                            name="usuario_id"  
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
                             className="input_m" 
                             type="text"
                             placeholder="Id Usuario" required
@@ -198,7 +302,11 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                     <tr>
                         <td><p>Nombre del Usuario:</p></td>
                         <td><input 
+<<<<<<< HEAD
                             name="Nombre" 
+=======
+                            name="nombre" 
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
                             className="input_m" 
                             type="text"
                             placeholder="Nombre Usuario" 
@@ -211,7 +319,11 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                         <td><p>
                             <select
                                 className="select"  
+<<<<<<< HEAD
                                 name="Rol"
+=======
+                                name="rol"
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
                                 required
                                 defaultValue={0}
                                 > 
@@ -227,7 +339,11 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                         <td><p>
                             <select 
                                 className="select"
+<<<<<<< HEAD
                                 name="Estado" 
+=======
+                                name="estado" 
+>>>>>>> 65c2afda3f4461ea9e2a5b84601fe323713ed003
                                 required
                                 defaultValue={0}> 
                                     <option selected disabled value={0}>None</option>

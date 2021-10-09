@@ -5,15 +5,16 @@
 
 const store = require('./store');
 
-function registrarUsuario(usuario_id, rol, estado){
+function registrarUsuario(usuario_id, nombre, rol, estado){
     return new Promise((resolve, reject) => {
-        if (!usuario_id || !rol || !estado){
+        if (!usuario_id || !nombre || !rol || !estado){
             console.error('[productoController] La informacion esta incompleta');
             return reject('Los datos son incorrectos');
         }
 
         const fullUsuario = {
             usuario_id: usuario_id,
+            nombre: nombre,
             rol: rol,
             estado: estado,
             date: new Date(),

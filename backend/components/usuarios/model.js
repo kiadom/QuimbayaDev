@@ -5,6 +5,10 @@ const miEsquema = new Schema({
         type: String,
         required: true,
     },
+    nombre: {
+        type: String,
+        required: true,
+    },
     rol: {
         type: String,
         required: true,
