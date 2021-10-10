@@ -11,14 +11,14 @@ const Principal = () => {
             <div class="container overflow-hidden" id="grid">
                 <div class="row gx-5 gy-3">
                     <div class="col-lg-6">  
-                        <Link to = '/registro_productos'>
+                        <Link to = '/maestro_productos'>
                     <div class="p-3 bg-light">
                         <FontAwesomeIcon icon={faCartArrowDown} size="5x" color='#00ADB5'/>           
                         <p>Productos</p>
                     </div></Link>
                     </div>   
                     <div class="col-lg-6">
-                        <Link to = '/registro_estado_ventas'>
+                        <Link to = '/admin_ventas'>
                     <div class="p-3 bg-light">
                         <FontAwesomeIcon icon={faSearchDollar} size="5x" color='#00ADB5'/>
                         <p>Ventas</p>

@@ -19,17 +19,13 @@ const Sidebar = (props) => {
                         <span className="item"></span>  Inicio
                         </Link>
                     </li>
-                    <li title="Registro Productos">
-                        <Link to = '/registro_productos'>
-                        <FontAwesomeIcon icon={faCartArrowDown}/>
-                        <span className="item"></span>  Registrar Productos
-                        </Link>
-                    </li><ul><li title="Maestro Productos">
+                    
+                    <li title="Maestro Productos">
                         <Link to = '/maestro_productos'>
                         <FontAwesomeIcon icon={faBarcode}/>
                         <span className="item"></span>  Productos
                         </Link>
-                    </li></ul>
+                    </li>
                     
                     <li title="Registrar Pedidos Realizados por los Clientes">
                         <Link to = '/admin_ventas'>
@@ -38,12 +34,6 @@ const Sidebar = (props) => {
                         </Link>
                     </li>
                     <ul>
-                    <li title="Establecer el Estado Actual de una Venta">
-                        <Link to = '/registro_estado_ventas'>
-                            <FontAwesomeIcon icon={faThermometerThreeQuarters}/>
-                            <span className="item"></span>  Ventas
-                        </Link>
-                    </li>
                     </ul>
                     <li title="Restringir y Otorgar Accesos al Sistema">
                         <Link to = '/admin_usuarios'>
