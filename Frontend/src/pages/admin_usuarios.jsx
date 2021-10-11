@@ -224,7 +224,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
     };
 
     return <div>
-        <div className="rp_subtitulo">INGRESE EL ID DEL USUARIO Y LOS ROLES A MODIFICAR</div>
+        <div className="rp_subtitulo">INGRESE EL EMAIL DEL USUARIO Y LOS ROLES A MODIFICAR</div>
             <form ref={form} onSubmit={submitForm} >
                 <table className="tabla">
                     <tr>

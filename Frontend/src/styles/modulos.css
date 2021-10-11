@@ -341,11 +341,11 @@ font-size: 0.95em;
     display: inline-block;
     padding: 5%;
     text-align: center;
-    color: #00ADB5;
+    color: #EEEEEE;
     border-radius: 5px;
-    background-color: #b6b5b5;
+    background-color: #00ADB5;
     cursor: pointer;
-  }
+}
   
   .boton_confirm:hover {
     width: 30%;
