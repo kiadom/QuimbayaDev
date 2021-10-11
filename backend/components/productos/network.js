@@ -31,7 +31,7 @@ router.get('/', function(req, res){
 })
 
 router.patch('/:producto_id', function(req, res){
-    controller.actualizarProducto(req.params.producto_id, req.body.estado)
+    controller.actualizarProducto(req.params.producto_id, req.body.valor_unitario, req.body.estado)
         .then((data) => {
             response.success(req, res, data, 200);
         })

@@ -30,4 +30,14 @@ router.get('/', function(req, res){
         })
 })
 
+router.patch('/:venta_id', function(req, res){
+    controller.actualizarVenta(req.params.venta_id, req.body.fecha_de_pago_futura, req.body.responsable)
+        .then((data) => {
+            response.success(req, res, data, 200);
+        })
+        .catch(e => {
+            response.error(req, res, 'Error interno', 500, e)
+        })
+})
+
 module.exports = router;

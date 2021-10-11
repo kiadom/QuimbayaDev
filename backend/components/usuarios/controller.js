@@ -31,12 +31,12 @@ function listarUsuarios(filtroUsuario){
     })
 }
 
-function actualizarUsuario(usuario_email, rol){
+function actualizarUsuario(usuario_email, rol, estado){
     return new Promise(async (resolve, reject) => {
-        if(!usuario_email || !rol){
+        if(!usuario_email || !rol || !estado){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarRolUsuario(usuario_email, rol);
+        const result = await store.actualizarDatosUsuario(usuario_email, rol, estado);
         resolve(result);
     })
 }

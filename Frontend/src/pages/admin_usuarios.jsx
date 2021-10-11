@@ -11,6 +11,7 @@ import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
 
+
 const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
@@ -100,7 +101,7 @@ const TablaUsuarios = ({listaUsuarios})=> {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Email</th>
+                        <th>Correo</th>
                         <th>Nombre</th>
                         <th>Rol</th>
                         <th>Estado</th>
@@ -164,15 +165,15 @@ const FilaUsuario = ({ usuario }) => {
 
             <td className="acciones">
                 {edit? (
-                    <button type="submit">
-                        <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
-                        <FontAwesomeIcon icon={faCheck}/>
-                        </div>
-                    </button>
+                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <FontAwesomeIcon icon={faCheck}/>
+                    </div>
+                    
                 ) : (
                     <div onClick={()=>setEdit (!edit)} className="boton_update">
                     <FontAwesomeIcon icon={faPencilAlt}/>
                     </div>
+                    
                 )}
             
                 <div className="boton_delete">
@@ -231,8 +232,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                         <td><input
                             name="usuario_email"  
                             className="input_m" 
-                            type="text"
-                            placeholder="Email Usuario" required
+                            type="email"
+                            placeholder="Id Usuario" required
                             required/>
                         </td>
                     </tr>
@@ -255,8 +256,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                                 className="select"  
                                 name="rol"
                                 required
-                                defaultValue={0}
-                                > 
+                                defaultValue={0}> 
                                 <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>

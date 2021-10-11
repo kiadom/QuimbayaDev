@@ -31,7 +31,7 @@ router.get('/', function(req, res){
 })
 
 router.patch('/:usuario_email', function(req, res){
-    controller.actualizarUsuario(req.params.usuario_email, req.body.rol)
+    controller.actualizarUsuario(req.params.usuario_email, req.body.rol, req.body.estado)
         .then((data) => {
             response.success(req, res, data, 200);
         })

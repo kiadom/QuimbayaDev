@@ -31,12 +31,12 @@ function listarProductos(filtroProducto){
     })
 }
 
-function actualizarProducto(producto_id, estado){
+function actualizarProducto(producto_id, valor_unitario, estado){
     return new Promise(async (resolve, reject) => {
-        if(!producto_id || !estado){
+        if(!producto_id || !valor_unitario || !estado){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarEstadoProducto(producto_id, estado);
+        const result = await store.actualizarDatosProducto(producto_id, valor_unitario, estado);
         resolve(result);
     })
 }
