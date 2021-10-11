@@ -10,7 +10,7 @@ const router = express.Router();
 //Para cualquier ruta devuelva la funcion
 //La funcion tiene dos parametros, req y res. Son los dos parametros que tiene cualquier funcion HTTP
 router.post('/', function(req, res){
-    controller.registrarUsuario(req.body.usuario_id, req.body.nombre, req.body.rol, req.body.estado)
+    controller.registrarUsuario(req.body.usuario_email, req.body.nombre, req.body.rol, req.body.estado)
         .then((fullUsuario) => {
             response.success(req, res, fullUsuario, 201);
         })
@@ -20,7 +20,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/', function(req, res){
-    const filtroUsuario = req.query.usuario_id || null;
+    const filtroUsuario = req.query.usuario_email || null;
     controller.listarUsuarios(filtroUsuario)
         .then((listaUsuarios) => {
             response.success(req, res, listaUsuarios, 200);
@@ -30,8 +30,8 @@ router.get('/', function(req, res){
         })
 })
 
-router.patch('/:usuario_id', function(req, res){
-    controller.actualizarUsuario(req.params.usuario_id, req.body.rol)
+router.patch('/:usuario_email', function(req, res){
+    controller.actualizarUsuario(req.params.usuario_email, req.body.rol)
         .then((data) => {
             response.success(req, res, data, 200);
         })
