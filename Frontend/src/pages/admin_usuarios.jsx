@@ -11,26 +11,6 @@ import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
 
-const usuariosBackend = [
-    {
-        usuario_email:"1010173523",
-        nombre: "Carlos Andrés Méndez",
-        rol: "Vendedor",
-        estado: "Pendiente",
-    },
-    {
-        usuario_email:"1112758173",
-        nombre: "Nelson Alberto Cuervo",
-        rol: "Vendedor",
-        estado: "Autorizado",
-    },
-    {
-        usuario_email:"51978698",
-        nombre: "Rocio Pacheco Villabona",
-        rol: "Administrador",
-        estado: "Pendiente",
-    },
-];
 
 const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -121,7 +101,7 @@ const TablaUsuarios = ({listaUsuarios})=> {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Correo</th>
                         <th>Nombre</th>
                         <th>Rol</th>
                         <th>Estado</th>
@@ -248,11 +228,11 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             <form ref={form} onSubmit={submitForm} >
                 <table className="tabla">
                     <tr>
-                        <td><p>ID del Usuario:</p></td>
+                        <td><p>Email del Usuario:</p></td>
                         <td><input
                             name="usuario_email"  
                             className="input_m" 
-                            type="text"
+                            type="email"
                             placeholder="Id Usuario" required
                             required/>
                         </td>
