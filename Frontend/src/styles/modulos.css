@@ -176,9 +176,9 @@ body.active .wrapper .principal{
     color:var(--grey-bg);
 }
 
-.edit  a + a {
+.acciones  a + a {
     color:var(--grey-bg);
-    padding-left: 2em;
+    padding-left: 9em;
 } 
 
 .wrapper .principal .Menu .rp_formulario{
@@ -206,59 +206,37 @@ body.active .wrapper .principal{
   background-color: #00ADB5;
 }
 
-
-.boton2 {
-    width:12em;
-    height: 3.125rem;
-    font-size: 1em;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--light-bg);
-    border: none;
-    border-radius: 5px;
-    background-color: var(--grey-bg);
-    cursor: pointer;
-  }
-  
-  .boton2:hover {
-    border: 2px solid var(--blue-bg);
-  }
-  
-  
-
 .tabla{
     border-collapse: separate;
     border-spacing: 80px 20px;
     font-weight: 600;
     position:relative;
     left: 15%;
+    font-size: 1em;
 }
 
 .input_m {
     width: 100%;
-    height: 2.3rem;
-    font-size: 1em;
-    padding-left: 10px;
+    height: 2.0rem;
+    font-size: 0.9em;
+    padding-left: 0.5rem;
     border: none;
-    border-radius: 5px;
     font-weight: 400;
-    letter-spacing: 1px;
+    border-radius: .3em;
     box-sizing: border-box;
   }
 
-
   .select{
-    display: block;
-    font-size: 16px;
-    font-weight: 400;
-    color: #444;
-    padding: .4em 1.4em .3em .8em;
     width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #aaa;
-    box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
+    height: 2.0rem;
+    font-size: 0.9em;
+    padding-left: 0.5rem;
+    border: none;
+    font-weight: 400;
     border-radius: .3em;
-    background-color: #fff;
+    box-sizing: border-box;
+    color: #444;
+    
   }
 
   .pt-1 .pe-2{
@@ -278,13 +256,26 @@ position: relative;
 margin-top: 2%;
 margin-left: 5%;
 width: 90%;
+font-size: 0.95em;
 }
+
+.table tr:nth-child(even) {
+    background-color: #dfdfe1;
+}
+
+.table tr:hover{
+    background-color: #b6b5b5;
+    cursor: pointer;
+}
+
+
 
 .tabla_{
     border-collapse: separate;
     border-spacing: 80px 20px;
     font-weight: 600;
     position:relative;
+    display: flex;
     left: 10%;
     align-items: top;
     
@@ -293,3 +284,75 @@ width: 90%;
     background-color: #00ADB5 !important;
     
 }
+
+.boton_update {
+    width: 25%;
+    height: 1.8rem;
+    font-size: 0.8em;
+    display: inline-block;
+    padding: 5%;
+    text-align: center;
+    color: #EEEEEE;
+    border-radius: 5px;
+    background-color: #00ADB5;
+    cursor: pointer;
+  }
+  
+  .boton_update:hover {
+    width: 30%;
+    height: 2.2rem;
+    font-size: 1.0em;
+    padding: 7%;
+    text-align: center;
+    color: #00ADB5;
+    background-color: #F1E8B8;
+  }
+
+  .boton_delete {
+    width: 25%;
+    height: 1.8rem;
+    font-size: 0.8em;
+    display: inline-block;
+    padding: 5%;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--light-bg);
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    cursor: pointer;
+  }
+  
+  .boton_delete:hover {
+    width: 30%;
+    height: 2.2rem;
+    font-size: 1.0em;
+    padding: 7%;
+    text-align: center;
+    color: RED;
+    background-color: #F1E8B8;
+  }
+
+  .boton_confirm {
+    width: 25%;
+    height: 1.8rem;
+    font-size: 0.8em;
+    display: inline-block;
+    padding: 5%;
+    text-align: center;
+    color: #00ADB5;
+    border-radius: 5px;
+    background-color: #b6b5b5;
+    cursor: pointer;
+  }
+  
+  .boton_confirm:hover {
+    width: 30%;
+    height: 2.2rem;
+    font-size: 1.0em;
+    padding: 7%;
+    text-align: center;
+    color: #00ADB5;
+    background-color: #F1E8B8;
+  }

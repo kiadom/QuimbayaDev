@@ -7,25 +7,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-svg-icons";
-
+import { faUsersCog, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
+//library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
 
 const usuariosBackend = [
     {
-        usuario_email:"1010173523",
+        usuario_id:"1010173523",
         nombre: "Carlos Andrés Méndez",
         rol: "Vendedor",
         estado: "Pendiente",
     },
     {
-        usuario_email:"1112758173",
+        usuario_id:"1112758173",
         nombre: "Nelson Alberto Cuervo",
         rol: "Vendedor",
         estado: "Autorizado",
     },
     {
-        usuario_email:"51978698",
+        usuario_id:"51978698",
         nombre: "Rocio Pacheco Villabona",
         rol: "Administrador",
         estado: "Pendiente",
@@ -102,112 +102,55 @@ const AdminUsuariosPage = () => {
 };
 
 const TablaUsuarios = ({listaUsuarios})=> {
-
-    const form = useRef(null);
     useEffect(()=>{
         console.log("Este es el listado de usuarios en el componente de Tabla", listaUsuarios);
     },[listaUsuarios]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
-
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        <form ref={form} onSubmit={submitEdit}>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Rol</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listaUsuarios.map((usuario)=>{
-                        return <FilaUsuario key = {nanoid()} usuario={usuario}/>;
-                    })}
-                </tbody>
-            </table>
-        </form>
-        
+        <table className="table">
+            
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {listaUsuarios.map((usuario)=>{
+                    return(
+                        <tr key = {nanoid()}>
+                            <td>{usuario.usuario_id}</td>
+                            <td>{usuario.nombre}</td>
+                            <td>{usuario.rol}</td>
+                            <td>{usuario.estado}</td>
+                            <td className="edit">
+                                <button type="button" className="boton_update">
+                                    <FontAwesomeIcon icon={faPencilAlt}/>
+                                </button>
+                                    
+                                <button type="button" className="boton_delete">
+                                    <FontAwesomeIcon icon={faTrash}/>
+                                </button>
+                                                               
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
         </div>
     );
 };
 
-const FilaUsuario = ({ usuario }) => {
-    const [edit, setEdit] = useState(false);
-    return (
-        <tr>
-            {edit? (
-                <>
-                    <td><input type="text" className="input_m" defaultValue={usuario.usuario_email} /></td>
-                    <td><input type="text" className="input_m" defaultValue={usuario.nombre}/></td>
-                    <td><select
-                                className="select"  
-                                name="rol"
-                                required
-                                defaultValue={usuario.rol}
-                                > 
-                                <option disabled value={0}>None</option>
-                                <option value="administrador">Administrador</option>
-                                <option value="vendedor">Vendedor</option>
-                            </select></td>
-                    <td><select 
-                                className="select"
-                                name="estado" 
-                                required
-                                defaultValue={usuario.estado}> 
-                                    <option selected disabled value={0}>None</option>
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="autorizado">Autorizado</option>
-                                    <option value="no_autorizado">No autorizado</option>
-                            </select>
-                    
-                    
-                    
-                    
-                    </td>
-                </>
-                ):(
-                <>
-                    <td>{usuario.usuario_email}</td>
-                    <td>{usuario.nombre}</td>
-                    <td>{usuario.rol}</td>
-                    <td>{usuario.estado}</td>
-                </>
-            )}
-
-            <td className="acciones">
-                {edit? (
-                    <button type="submit">
-                        <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
-                        <FontAwesomeIcon icon={faCheck}/>
-                        </div>
-                    </button>
-                ) : (
-                    <div onClick={()=>setEdit (!edit)} className="boton_update">
-                    <FontAwesomeIcon icon={faPencilAlt}/>
-                    </div>
-                )}
-            
-                <div className="boton_delete">
-                    <FontAwesomeIcon icon={faTrash}/>
-                </div>
-            </td>
-        </tr>
-    );
-}
-
 const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios })=> {
-    
     const form = useRef(null);
     
+
     const submitForm = async (e)=>{
         e.preventDefault();
         const fd = new FormData(form.current);
@@ -222,7 +165,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             url: 'http://localhost:3001/usuarios',
             headers: {'Content-Type': 'application/json'},
             data: {
-              usuario_email: datos.usuario_email,
+              usuario_id: datos.usuario_id,
               nombre: datos.nombre,
               rol: datos.rol,
               estado: datos.estado
@@ -240,7 +183,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             toast.error("Error al crear el Usuario");
           });
 
-       
+        //setMostrarTabla(true)
+        //console.log("Datos del Form Enviados", datos);
     };
 
     return <div>
@@ -250,7 +194,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                     <tr>
                         <td><p>ID del Usuario:</p></td>
                         <td><input
-                            name="usuario_email"  
+                            name="usuario_id"  
                             className="input_m" 
                             type="text"
                             placeholder="Id Usuario" required
