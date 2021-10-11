@@ -16,20 +16,20 @@ const Index = () => {
         const options = {
             method: 'POST',
             url: 'http://localhost:3001/usuarios',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             data: {
-              email: response.profileObj.email,
-              nombre: response.profileObj.name,
-              rol: 'vendedor',
-              estado: 'pendiente'
+                usuario_email: response.profileObj.email,
+                nombre: response.profileObj.name,
+                rol: 'vendedor',
+                estado: 'pendiente'
             }
-          };
-          
-          axios.request(options).then(function (response) {
+        };
+
+        axios.request(options).then(function (response) {
             console.log(response.data);
-          }).catch(function (error) {
+        }).catch(function (error) {
             console.error(error);
-          });
+        });
     }
 
     const [datos, setDatos] = useState({
