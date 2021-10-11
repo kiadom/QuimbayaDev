@@ -1,11 +1,9 @@
 import Index from './pages';
 import AdminUsuariosPage from './pages/admin_usuarios';
-import RegistroProductosPage from './pages/registro_productos';
 import EstadoProductosPage from './pages/maestro_productos';
 import AdminVentasPage from './pages/admin_ventas';
 import ClavePage from './pages/clave';
 import PrincipalPage from './pages/principal';
-import RegistroEstadoVentasPage from './pages/registro_estado_ventas';
 
 import Layout from './layouts/Layout';
 import MainLayout from './layouts/MainLayout';
@@ -18,23 +16,17 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path = {['/admin_usuarios', '/registro_productos', '/maestro_productos', '/admin_ventas', '/registro_estado_ventas']}>
+        <Route path = {['/admin_usuarios', '/maestro_productos', '/admin_ventas']}>
           <Layout>
             <Switch>
               <Route path = '/admin_usuarios'>
                 <AdminUsuariosPage />
-              </Route>
-              <Route path = '/registro_productos'>
-                <RegistroProductosPage/>
               </Route>
               <Route path = '/maestro_productos'>
                 <EstadoProductosPage/>
               </Route>
               <Route path = '/admin_ventas'>
                 <AdminVentasPage />
-              </Route>
-              <Route path = '/registro_estado_ventas'>
-                <RegistroEstadoVentasPage />
               </Route>
             </Switch>
           </Layout>

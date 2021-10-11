@@ -5,15 +5,16 @@
 
 const store = require('./store');
 
-function registrarUsuario(usuario_id, rol, estado){
+function registrarUsuario(usuario_email, nombre, rol, estado){
     return new Promise((resolve, reject) => {
-        if (!usuario_id || !rol || !estado){
+        if (!usuario_email || !nombre || !rol || !estado){
             console.error('[productoController] La informacion esta incompleta');
             return reject('Los datos son incorrectos');
         }
 
         const fullUsuario = {
-            usuario_id: usuario_id,
+            usuario_email: usuario_email,
+            nombre: nombre,
             rol: rol,
             estado: estado,
             date: new Date(),
@@ -30,12 +31,12 @@ function listarUsuarios(filtroUsuario){
     })
 }
 
-function actualizarUsuario(usuario_id, rol){
+function actualizarUsuario(usuario_email, rol){
     return new Promise(async (resolve, reject) => {
-        if(!usuario_id || !rol){
+        if(!usuario_email || !rol){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarRolUsuario(usuario_id, rol);
+        const result = await store.actualizarRolUsuario(usuario_email, rol);
         resolve(result);
     })
 }
