@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartArrowDown, faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars  } from "@fortawesome/free-solid-svg-icons";
+import { faCartArrowDown, faSearchDollar, faUsersCog} from "@fortawesome/free-solid-svg-icons";
 
 const Principal = () => {
     return (
