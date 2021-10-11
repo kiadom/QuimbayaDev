@@ -318,9 +318,9 @@ font-size: 0.95em;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--light-bg);
+    background-color: #444;
     border: none;
     border-radius: 5px;
-    background-color: #444;
     cursor: pointer;
   }
   
@@ -341,9 +341,11 @@ font-size: 0.95em;
     display: inline-block;
     padding: 5%;
     text-align: center;
-    color: #EEEEEE;
+    letter-spacing: 1px;
+    border: none;
     border-radius: 5px;
-    background-color: #00ADB5;
+    color: #AFFC41;
+    background-color: #F75C03;
     cursor: pointer;
 }
   
@@ -353,6 +355,6 @@ font-size: 0.95em;
     font-size: 1.0em;
     padding: 7%;
     text-align: center;
-    color: #00ADB5;
-    background-color: #F1E8B8;
+    color: #F75C03;
+    background-color: #AFFC41;
   }

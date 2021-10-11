@@ -165,15 +165,15 @@ const FilaUsuario = ({ usuario }) => {
 
             <td className="acciones">
                 {edit? (
-                    <button type="submit">
-                        <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
-                        <FontAwesomeIcon icon={faCheck}/>
-                        </div>
-                    </button>
+                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <FontAwesomeIcon icon={faCheck}/>
+                    </div>
+                    
                 ) : (
                     <div onClick={()=>setEdit (!edit)} className="boton_update">
                     <FontAwesomeIcon icon={faPencilAlt}/>
                     </div>
+                    
                 )}
             
                 <div className="boton_delete">
@@ -256,8 +256,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                                 className="select"  
                                 name="rol"
                                 required
-                                defaultValue={0}
-                                > 
+                                defaultValue={0}> 
                                 <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
