@@ -126,8 +126,8 @@ const FilaUsuario = ({ usuario }) => {
         <tr>
             {edit? (
                 <>
-                    <td><input type="text" className="input_m" defaultValue={usuario.usuario_email} /></td>
-                    <td><input type="text" className="input_m" defaultValue={usuario.nombre}/></td>
+                    <td>{usuario.usuario_email}</td>
+                    <td>{usuario.nombre}</td>
                     <td><select
                                 className="select"  
                                 name="rol"
@@ -233,7 +233,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                             name="usuario_email"  
                             className="input_m" 
                             type="email"
-                            placeholder="Id Usuario" required
+                            placeholder="@email.com" required
                             required/>
                         </td>
                     </tr>
@@ -255,9 +255,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                             <select
                                 className="select"  
                                 name="rol"
-                                required
-                                defaultValue={0}> 
-                                <option disabled value={0}>None</option>
+                                id="rol" required> 
+                                <option selected disabled value="">Seleccione</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
                             </select>
@@ -270,9 +269,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                             <select 
                                 className="select"
                                 name="estado" 
-                                required
-                                defaultValue={0}> 
-                                    <option selected disabled value={0}>None</option>
+                                id="estado" required>
+                                    <option selected disabled value="">Seleccione</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="autorizado">Autorizado</option>
                                     <option value="no_autorizado">No autorizado</option>
