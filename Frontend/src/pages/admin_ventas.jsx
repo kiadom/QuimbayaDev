@@ -171,7 +171,19 @@ const eliminarVenta = ()=>{
                     <td>{venta.client_id}</td>
                     <td>{venta.nombre_client}</td>
                     <td>{venta.vendedor}</td>
-                    <td>{venta.estado}</td>
+                    <td><select
+                                className="select"
+                                name="estado"
+                                required
+                                value={infoNuevoEstado.estado}
+                                onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
+                                >
+                                <option disabled value={0}>None</option>
+                                <option value="en_proceso">En Proceso</option>
+                                <option value="cancelada">Cancelada</option>
+                                <option value="entregada">Entregada</option>
+                        </select>
+                    </td>
                     
                 </>
                 ):(
@@ -202,7 +214,7 @@ const eliminarVenta = ()=>{
                                 
                 )}
                         
-                    <div onClick={()=>className="boton_delete">
+                    <div onClick={()=>eliminarVenta}className="boton_delete">
                         <FontAwesomeIcon icon={faTrash}/>
                     </div>
             </td>
