@@ -96,7 +96,7 @@ const TablaProductos = ({listaProductos})=> {
 
     return (
         <div>
-        <div className="rp_subtitulo">PRODCUTOS</div>
+        <div className="rp_subtitulo">PRODUCTOS</div>
         <form ref={form} onSubmit={submitEdit}>
             <table className="table">
                 <thead>
@@ -137,17 +137,17 @@ const FilaProducto = ({producto}) =>{
             url: 'http://localhost:3001/productos',
             headers: {'Content-Type': 'application/json'},
             data: {
-              producto_id: actualProducto.producto_id,
-              descripcion_producto: actualProducto.descripcion_producto,
-              valor_unitario: actualProducto.valor_unitario,
-              estado: actualProducto.estado
+                producto_id: actualProducto.producto_id,
+                descripcion_producto: actualProducto.descripcion_producto,
+                valor_unitario: actualProducto.valor_unitario,
+                estado: actualProducto.estado
             },
-          };
+        };
         
         await axios
         .request(options)
         .then(function (response) {
-            console.log(response.data);
+            console.log(response.data.body);
             toast.success("Producto actualizado con exito");
           })
           .catch(function (error) {
@@ -182,7 +182,7 @@ const FilaProducto = ({producto}) =>{
                     <div onClick={() => setEdit(!edit)} className="boton_confirm">
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
-                ):(
+                ) : (
                     <div onClick={() => setEdit(!edit)} className="boton_update">
                     <FontAwesomeIcon icon={faPencilAlt}/>
                     </div>
@@ -222,7 +222,7 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
         await axios
         .request(options)
         .then(function (response) {
-            console.log(response.data);
+            console.log(response.data.body);
             toast.success("Producto agregado con exito");
           })
           .catch(function (error) {
@@ -273,13 +273,15 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
 
                     <tr>
                         <td><p>ESTADO:</p></td>
-                        <td><input 
-                            name="estado" 
-                            className="input_m" 
-                            type="text"
-                            placeholder="Estado del producto" 
-                            required/>
-                        </td>
+                        <td><p>
+                            <select required 
+                                name="estado" 
+                                className="select">
+                                <option disable value="">Selecione una opción</option>
+                                <option value="Disponible">Disponible</option>
+                                <option value="No disponible">No disponible</option>
+                            </select>
+                        </p></td>
                     </tr>
                 
                     <tr>
@@ -287,7 +289,7 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
                             <button  
                                 type="submit" 
                                 className="boton_m"
-                                >Actualizar
+                                >Guardar
                             </button>
                         </td>
                     </tr>
