@@ -4,8 +4,8 @@ import React, {useEffect, useState, useRef} from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from "nanoid";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
 //library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
