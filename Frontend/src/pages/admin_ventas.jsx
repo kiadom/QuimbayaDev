@@ -86,12 +86,7 @@ const TablaVentas = ({listaVentas})=> {
         console.log("Este es el listado de ventas en el componente de Tabla",listaVentas)
     },[listaVentas]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
-
+    
         return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
@@ -107,6 +102,7 @@ const TablaVentas = ({listaVentas})=> {
                         <th>Cliente ID</th>
                         <th>Nombre Cliente</th>
                         <th>Vendedor</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -117,7 +113,7 @@ const TablaVentas = ({listaVentas})=> {
                 </tbody>
             </table>
 
-        </form>                
+                       
         </div>
     );
 };
@@ -136,19 +132,29 @@ const FilaVenta = ({venta}) => {
         nombre_cliente: venta.nombre_cliente,
         vendedor: venta.vendedor,
         estado: venta.estado,
-    })
+    });
 
 const actualizarVenta = async () => {
     console.log(infoNuevoEstado);
     const options = {
         method: 'PATCH',
-        url: 'http://localhost:3001/admin_ventas/' + infoNuevoEstado.venta_id,
+        url: 'http://localhost:3001/ventas/' + infoNuevoEstado.venta_id,
         headers: {'Content-Type': 'application/json'},
         data: {
             estado: infoNuevoEstado.estado
         },
     };
-}
+
+    await axios.request(options).then(function (response) {
+        console.log(response.data);
+        toast.success("Estado modificado con exito");
+        setEdit(false);
+    }).catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el Estado");
+        });
+};
+
 
 const eliminarVenta = ()=>{
         //aqui va el código a borrar
@@ -198,7 +204,7 @@ const eliminarVenta = ()=>{
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <div onClick={()=> actualizarVenta()} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                                 
