@@ -25,11 +25,12 @@ async function listarUsuarios(filtroUsuario){
     return usuarios;
 }
 
-async function actualizarRolUsuario(usuario_id, rol){
+async function actualizarDatosUsuario(usuario_email, rol, estado){
     const usuarioEncontrado = await Model.findOne({
-        _id: usuario_id
+        usuario_email: usuario_email
     });
     usuarioEncontrado.rol = rol;
+    usuarioEncontrado.estado = estado;
     const usuarioActualizado = await usuarioEncontrado.save();
     return usuarioActualizado;
 }
@@ -37,5 +38,5 @@ async function actualizarRolUsuario(usuario_id, rol){
 module.exports = {
     add: registrarUsuario,
     list: listarUsuarios,
-    actualizarRolUsuario: actualizarRolUsuario,
+    actualizarDatosUsuario: actualizarDatosUsuario,
 }

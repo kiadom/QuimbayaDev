@@ -25,10 +25,11 @@ async function listarProductos(filtroProducto){
     return productos;
 }
 
-async function actualizarEstadoProducto(producto_id, estado){
+async function actualizarDatosProducto(producto_id, valor_unitario, estado){
     const productoEncontrado = await Model.findOne({
-        _id: producto_id
+        producto_id: producto_id
     });
+    productoEncontrado.valor_unitario = valor_unitario;
     productoEncontrado.estado = estado;
     const productoActualizado = await productoEncontrado.save();
     return productoActualizado;
@@ -37,5 +38,5 @@ async function actualizarEstadoProducto(producto_id, estado){
 module.exports = {
     add: registrarProducto,
     list: listarProductos,
-    actualizarEstadoProducto: actualizarEstadoProducto,
+    actualizarDatosProducto: actualizarDatosProducto,
 }

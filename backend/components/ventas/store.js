@@ -25,7 +25,18 @@ async function listarVentas(filtroVenta){
     return ventas;
 }
 
+async function actualizarDatosVenta(venta_id, fecha_de_pago_futura, responsable){
+    const ventaEncontrada = await Model.findOne({
+        venta_id: venta_id
+    });
+    ventaEncontrada.fecha_de_pago_futura = fecha_de_pago_futura;
+    ventaEncontrada.responsable = responsable;
+    const ventaActualizada = await ventaEncontrada.save();
+    return ventaActualizada;
+}
+
 module.exports = {
     add: registrarVenta,
     list: listarVentas,
+    actualizarDatosVenta: actualizarDatosVenta,
 }

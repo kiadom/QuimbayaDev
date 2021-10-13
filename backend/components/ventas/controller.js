@@ -33,7 +33,18 @@ function listarVentas(filtroVenta){
     })
 }
 
+function actualizarVenta(venta_id, fecha_de_pago_futura, responsable){
+    return new Promise(async (resolve, reject) => {
+        if(!venta_id || !fecha_de_pago_futura || !responsable){
+            return reject('Datos invalidos')
+        }
+        const result = await store.actualizarDatosVenta(venta_id, fecha_de_pago_futura, responsable);
+        resolve(result);
+    })
+}
+
 module.exports = {
     registrarVenta,
     listarVentas,
+    actualizarVenta,
 };
