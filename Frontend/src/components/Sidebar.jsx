@@ -34,8 +34,7 @@ const Sidebar = (props) => {
                         <span className="item"></span>  Registrar Ventas
                         </Link>
                     </li>
-                    <ul>
-                    </ul>
+                    
                     <li title="Restringir y Otorgar Accesos al Sistema">
                         <Link to = '/admin_usuarios'>
                             <FontAwesomeIcon icon={faUsersCog}/>  
