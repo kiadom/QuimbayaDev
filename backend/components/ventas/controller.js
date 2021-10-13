@@ -5,18 +5,19 @@
 
 const store = require('./store');
 
-function registrarVenta(venta_id, venta_total, cantidad, precio_unitario_por_producto, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
+function registrarVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
     return new Promise((resolve, reject) => {
-        if (!venta_id || !venta_total || !cantidad || !precio_unitario_por_producto || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
+        if (!venta_id || !detalle || !cantidad || !precio_unitario_por_producto || !venta_total || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
             console.error('[productoController] La informacion esta incompleta');
             return reject('Los datos son incorrectos');
         }
 
         const fullVenta = {
             venta_id: venta_id, 
-            venta_total: venta_total,
+            detalle: detalle,
             cantidad: cantidad,
             precio_unitario_por_producto: precio_unitario_por_producto,
+            venta_total: venta_total,
             fecha_venta: fecha_venta,
             cliente_id: cliente_id,
             nombre_cliente: nombre_cliente,
@@ -36,12 +37,12 @@ function listarVentas(filtroVenta){
     })
 }
 
-function actualizarVenta(venta_id, venta_total, cantidad, precio_unitario_por_producto, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
+function actualizarVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
     return new Promise(async (resolve, reject) => {
-        if(!venta_id || !venta_total || !cantidad || !precio_unitario_por_producto || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
+        if(!venta_id || !detalle || !cantidad || !precio_unitario_por_producto || !venta_total || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarDatosVenta(venta_id, venta_total, cantidad, precio_unitario_por_producto, fecha_venta, cliente_id, nombre_cliente, vendedor, estado);
+        const result = await store.actualizarDatosVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado);
         resolve(result);
     })
 }

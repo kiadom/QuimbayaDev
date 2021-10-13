@@ -5,8 +5,8 @@ const miEsquema = new Schema({
         type: String,
         required: true,
     },
-    venta_total: {
-        type: Number,
+    detalle: {
+        type: String,
         required: true,
     },
     cantidad: {
@@ -15,6 +15,10 @@ const miEsquema = new Schema({
     },
     precio_unitario_por_producto: {
         type: String,
+        required: true,
+    },
+    venta_total: {
+        type: Number,
         required: true,
     },
     fecha_venta: {
