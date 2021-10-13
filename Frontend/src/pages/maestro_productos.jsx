@@ -6,11 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck,faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt, faTrash, faBarcode} from "@fortawesome/free-solid-svg-icons";
-//library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
+import { faCheck,faPencilAlt, faTrash, faBarcode} from "@fortawesome/free-solid-svg-icons";
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
+
 
 const EstadoProductosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -164,10 +164,18 @@ const FilaProducto = ({producto}) =>{
         <tr>
             {edit? (
                 <>
-                    <td><input type="text" className="input_m" defaultValue={producto.producto_id} /></td>
-                    <td><input type="text" className="input_m" defaultValue={producto.descripcion_producto} /></td>
+                    <td>{producto.producto_id}</td>
+                    <td>{producto.descripcion_producto}</td>
                     <td><input type="text" className="input_m" defaultValue={producto.valor_unitario} /></td>
-                    <td><input type="text" className="input_m" defaultValue={producto.estado} /></td>
+                    <td><select 
+                                className="select"
+                                name="estado"
+                                required 
+                                defaultValue={producto.estado}
+                                >
+                                <option value="Disponible">Disponible</option>
+                                <option value="No disponible">No disponible</option>
+                    </select></td>
                 </>
             ):(
                 <>
@@ -195,7 +203,16 @@ const FilaProducto = ({producto}) =>{
     );
 }
 
+
+const formatNumber = (valor_unitario)=>
+    new Intl.NumberFormat('ES-MX', {
+        style: 'currency',
+        currency: 'COP'
+    }).format(valor_unitario);
+
+
 const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProductos })=> {
+    
     const form = useRef(null);
     
     const submitForm = async (e)=>{
@@ -222,16 +239,14 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
         await axios
         .request(options)
         .then(function (response) {
-            console.log(response.data.body);
+            console.log(response.data);
             toast.success("Producto agregado con exito");
           })
           .catch(function (error) {
             console.error(error);
             toast.error("Error al crear el Producto");
           });
-          
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", nuevoUsuario);
+
     };
 
     return <div>
@@ -244,7 +259,7 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
                             name="producto_id"  
                             className="input_m" 
                             type="text"
-                            placeholder="Id Producto" required
+                            placeholder="Id Producto" 
                             required/>
                         </td>
                     </tr>
@@ -266,7 +281,7 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
                             name="valor_unitario" 
                             className="input_m" 
                             type="text"
-                            placeholder="" 
+                            placeholder="valor unitario" 
                             required/>
                         </td>
                     </tr>
@@ -274,10 +289,11 @@ const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProduc
                     <tr>
                         <td><p>ESTADO:</p></td>
                         <td><p>
-                            <select required 
+                            <select 
+                                className="select"     
                                 name="estado" 
-                                className="select">
-                                <option disable value="">Selecione una opción</option>
+                                id="estado" required>
+                                <option selected disabled value="">Selecione una opción</option>
                                 <option value="Disponible">Disponible</option>
                                 <option value="No disponible">No disponible</option>
                             </select>
