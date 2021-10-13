@@ -119,9 +119,8 @@ const TablaUsuarios = ({listaUsuarios})=> {
 };
 
 const FilaUsuario = ({ usuario }) => {
-    console.log("usuario", usuario);
     const [edit, setEdit] = useState(false);
-    const [infoNuevoUsuario, setinfoNuevoUsuario] = useState({
+    const [infoNuevoUsuario, set infoNuevoUsuario] = useState({
         usuario_email: usuario.usuario_email,
         nombre: usuario.nombre,
         rol: usuario.rol,
@@ -130,65 +129,38 @@ const FilaUsuario = ({ usuario }) => {
     });
 
     const actualizarUsuario = () => {
-        console.log(infoNuevoUsuario);
-        //enviar la info al Backend
-        const options = {
-            method: 'PATCH',
-            url: 'http://localhost:3001/usuarios/juanma@react.com',
-            headers: {'Content-Type': 'application/json'},
-            data: {...infoNuevoUsuario, id: usuario._id }
-          };
-          
-          axios.request(options).then(function (response) {
-            console.log(response.data);
-          }).catch(function (error) {
-            console.error(error);
-          });
-
-    };
+        console.log();
+    }
     return (
         <tr>
             {edit? (
                 <>
-                    <td><input
-                            className="input_m" 
-                            name="usuario_email"  
-                            type="email"
-                            required
-                            value={infoNuevoUsuario.usuario_email}
-                            onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, usuario_email:e.target.value})}/>
-                    </td>
-                    <td><input 
-                            className="input_m" 
-                            name="nombre" 
-                            type="text"
-                            required
-                            value={infoNuevoUsuario.nombre}
-                            onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, nombre:e.target.value})}/>
-                    </td>
+                    <td>{usuario.usuario_email}</td>
+                    <td>{usuario.nombre}</td>
                     <td><select
                                 className="select"  
                                 name="rol"
                                 required
                                 value={infoNuevoUsuario.rol}
-                                onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, rol:e.target.value})}
                                 > 
                                 <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
-                        </select>
-                    </td>
+                            </select></td>
                     <td><select 
                                 className="select"
                                 name="estado" 
                                 required
-                                value={infoNuevoUsuario.estado}
-                                onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, estado:e.target.value})}> 
+                                value={infoNuevoUsuario.estado}> 
                                     <option selected disabled value={0}>None</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="autorizado">Autorizado</option>
                                     <option value="no_autorizado">No autorizado</option>
                             </select>
+                    
+                    
+                    
+                    
                     </td>
                 </>
                 ):(

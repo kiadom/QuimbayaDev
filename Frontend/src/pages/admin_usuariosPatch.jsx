@@ -7,30 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsersCog, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
-//library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
+import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-svg-icons";
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
 
-const usuariosBackend = [
-    {
-        usuario_id:"1010173523",
-        nombre: "Carlos Andrés Méndez",
-        rol: "Vendedor",
-        estado: "Pendiente",
-    },
-    {
-        usuario_id:"1112758173",
-        nombre: "Nelson Alberto Cuervo",
-        rol: "Vendedor",
-        estado: "Autorizado",
-    },
-    {
-        usuario_id:"51978698",
-        nombre: "Rocio Pacheco Villabona",
-        rol: "Administrador",
-        estado: "Pendiente",
-    },
-];
 
 const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -102,55 +82,110 @@ const AdminUsuariosPage = () => {
 };
 
 const TablaUsuarios = ({listaUsuarios})=> {
+
+    const form = useRef(null); //cambio para patch
+
     useEffect(()=>{
         console.log("Este es el listado de usuarios en el componente de Tabla", listaUsuarios);
     },[listaUsuarios]);
 
+    
+
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        <table className="table">
-            
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {listaUsuarios.map((usuario)=>{
-                    return(
-                        <tr key = {nanoid()}>
-                            <td>{usuario.usuario_id}</td>
-                            <td>{usuario.nombre}</td>
-                            <td>{usuario.rol}</td>
-                            <td>{usuario.estado}</td>
-                            <td className="edit">
-                                <button type="button" className="boton_update">
-                                    <FontAwesomeIcon icon={faPencilAlt}/>
-                                </button>
-                                    
-                                <button type="button" className="boton_delete">
-                                    <FontAwesomeIcon icon={faTrash}/>
-                                </button>
-                                                               
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <form ref={form} onSubmit={submitEdit}>  {/*ref={form} es mun cambio para patch*/ } 
+         
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Correo</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listaUsuarios.map((usuario)=>{
+                        return <FilaUsuario key = {nanoid()} usuario={usuario}/>;
+                    })}
+                </tbody>
+            </table>
+        </form>
+        
         </div>
     );
 };
 
+const FilaUsuario = ({ usuario }) => {
+    const [edit, setEdit] = useState(false);
+    return (
+        <tr>
+            {edit? (
+                <>
+                    <td>{usuario.usuario_email}</td>
+                    <td>{usuario.nombre}</td>
+                    <td><select
+                                className="select"  
+                                name="rol"
+                                required
+                                defaultValue={usuario.rol}
+                                > 
+                                <option disabled value={0}>None</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="vendedor">Vendedor</option>
+                            </select></td>
+                    <td><select 
+                                className="select"
+                                name="estado" 
+                                required
+                                defaultValue={usuario.estado}> 
+                                    <option selected disabled value={0}>None</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="autorizado">Autorizado</option>
+                                    <option value="no_autorizado">No autorizado</option>
+                            </select>
+                    
+                    
+                    
+                    
+                    </td>
+                </>
+                ):(
+                <>
+                    <td>{usuario.usuario_email}</td>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.rol}</td>
+                    <td>{usuario.estado}</td>
+                </>
+            )}
+
+            <td className="acciones">
+                {edit? (
+                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <FontAwesomeIcon icon={faCheck}/>
+                    </div>
+                    
+                ) : (
+                    <div onClick={()=>setEdit (!edit)} className="boton_update">
+                    <FontAwesomeIcon icon={faPencilAlt}/>
+                    </div>
+                    
+                )}
+            
+                <div className="boton_delete">
+                    <FontAwesomeIcon icon={faTrash}/>
+                </div>
+            </td>
+        </tr>
+    );
+}
+
 const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios })=> {
+    
     const form = useRef(null);
     
-
     const submitForm = async (e)=>{
         e.preventDefault();
         const fd = new FormData(form.current);
@@ -165,7 +200,7 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             url: 'http://localhost:3001/usuarios',
             headers: {'Content-Type': 'application/json'},
             data: {
-              usuario_id: datos.usuario_id,
+              usuario_email: datos.usuario_email,
               nombre: datos.nombre,
               rol: datos.rol,
               estado: datos.estado
@@ -183,21 +218,20 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
             toast.error("Error al crear el Usuario");
           });
 
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", datos);
+       
     };
 
     return <div>
-        <div className="rp_subtitulo">INGRESE EL ID DEL USUARIO Y LOS ROLES A MODIFICAR</div>
+        <div className="rp_subtitulo">INGRESE EL EMAIL DEL USUARIO Y LOS ROLES A MODIFICAR</div>
             <form ref={form} onSubmit={submitForm} >
                 <table className="tabla">
                     <tr>
-                        <td><p>ID del Usuario:</p></td>
+                        <td><p>Email del Usuario:</p></td>
                         <td><input
-                            name="usuario_id"  
+                            name="usuario_email"  
                             className="input_m" 
-                            type="text"
-                            placeholder="Id Usuario" required
+                            type="email"
+                            placeholder="@email.com" required
                             required/>
                         </td>
                     </tr>
@@ -219,10 +253,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                             <select
                                 className="select"  
                                 name="rol"
-                                required
-                                defaultValue={0}
-                                > 
-                                <option disabled value={0}>None</option>
+                                id="rol" required> 
+                                <option selected disabled value="">Seleccione</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
                             </select>
@@ -235,9 +267,8 @@ const FormularioCreacionUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios
                             <select 
                                 className="select"
                                 name="estado" 
-                                required
-                                defaultValue={0}> 
-                                    <option selected disabled value={0}>None</option>
+                                id="estado" required>
+                                    <option selected disabled value="">Seleccione</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="autorizado">Autorizado</option>
                                     <option value="no_autorizado">No autorizado</option>
