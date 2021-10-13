@@ -15,11 +15,10 @@ import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-
 const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Asignar Rol' );
+    const [textoBoton, setTextoBoton] = useState('Ver Listado Usuarios' );
 
     useEffect(async()=>{
-
-        const obtenerUsuarios = async() => {
+    const obtenerUsuarios = async() => {
             const options = {
                 method: 'GET', 
                 url: 'http://localhost:3001/usuarios'
@@ -34,16 +33,15 @@ const AdminUsuariosPage = () => {
             console.error(error);
         });
     }
-    
         //obtener lista de usuarios desde el backend
         if(mostrarTabla){
             obtenerUsuarios();
         }
-    },[mostrarTabla]);
+        },[mostrarTabla]);
 
     useEffect(()=>{
         if(mostrarTabla){
-            setTextoBoton('Asignar Rol');
+            setTextoBoton('Ver Listado Usuarios'); // ojo, aquí iría Crear Usuario
         }
         else{
             setTextoBoton('Ver Listado Usuarios');
@@ -67,10 +65,14 @@ const AdminUsuariosPage = () => {
                         </div>
                         <div className="rp_formulario">
                             {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
-                            (<FormularioCreacionUsuarios 
-                                setMostrarTabla={setMostrarTabla}
-                                listaUsuarios={usuarios}
-                                setUsuarios={setUsuarios} />)}
+                            
+                            ( <TablaUsuarios listaUsuarios={usuarios} /> //ojo, no se quiere mostrar formulario de creación
+                                //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
+                            //<FormularioCreacionUsuarios 
+                                //setMostrarTabla={setMostrarTabla}
+                                //listaUsuarios={usuarios}
+                                //setUsuarios={setUsuarios} />
+                                )}
                             <ToastContainer position= "bottom-center" autoClose= {1000}/>
 
                         </div>
@@ -129,32 +131,32 @@ const FilaUsuario = ({ usuario }) => {
 
     });
 
-    const actualizarUsuario = async () => {
-        console.log(infoNuevoUsuario);
-        //enviar la info al Backend
-        const options = {
-            method: 'PATCH',
-            url: 'http://localhost:3001/usuarios/' + infoNuevoUsuario.usuario_email,
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                rol: infoNuevoUsuario.rol,
-                estado: infoNuevoUsuario.estado
-              },
-          };
-          
-        await axios.request(options).then(function (response) {
-            console.log(response.data);
-            toast.success("Usuario modificado con exito");
-            setEdit(false);
-        }).catch(function (error) {
-            console.error(error);
-            toast.error("Error al modificar el Usuario");
-          });
-    };
+const actualizarUsuario = async () => {
+    console.log(infoNuevoUsuario);
+    //enviar la info al Backend
+    const options = {
+        method: 'PATCH',
+        url: 'http://localhost:3001/usuarios/' + infoNuevoUsuario.usuario_email,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            rol: infoNuevoUsuario.rol,
+            estado: infoNuevoUsuario.estado
+            },
+        };
+        
+    await axios.request(options).then(function (response) {
+        console.log(response.data);
+        toast.success("Usuario modificado con exito");
+        setEdit(false);
+    }).catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el Usuario");
+        });
+};
 
-    const eliminarUsuario = ()=>{
-        //aqui va el código a borrar
-    }
+const eliminarUsuario = ()=>{
+    //aqui va el código a borrar
+}
 
     return (
         <tr>
