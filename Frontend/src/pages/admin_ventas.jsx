@@ -18,7 +18,6 @@ const AdminVentasPage = () => {
     const [textoBoton, setTextoBoton] = useState('Registrar Venta' );
 
     useEffect(async()=>{
-
         const obtenerVentas = async() => {
             const options = {
                 method: 'GET', 
@@ -34,7 +33,6 @@ const AdminVentasPage = () => {
             console.error(error);
         });
     }
-
         //obtener lista de ventas desde el backend
         if(mostrarTabla){
             obtenerVentas();
@@ -94,10 +92,9 @@ const TablaVentas = ({listaVentas})=> {
         console.log(e);
     };
 
-    return (
+        return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
-        <form ref={form} onSubmit={submitEdit}>
             <table className="table">            
                 <thead>
                     <tr>
@@ -107,7 +104,6 @@ const TablaVentas = ({listaVentas})=> {
                         <th>Valor Producto</th>
                         <th>Total Venta</th>
                         <th>Fecha Venta</th>
-                        <th>Fecha De Pago</th>
                         <th>Cliente ID</th>
                         <th>Nombre Cliente</th>
                         <th>Vendedor</th>
@@ -144,7 +140,6 @@ const FilaVenta = ({venta}) => {
 
 const actualizarVenta = async () => {
     console.log(infoNuevoEstado);
-
     const options = {
         method: 'PATCH',
         url: 'http://localhost:3001/admin_ventas/' + infoNuevoEstado.venta_id,

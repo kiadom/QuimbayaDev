@@ -96,8 +96,6 @@ const TablaUsuarios = ({listaUsuarios})=> {
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        
-         
             <table className="table">
                 <thead>
                     <tr>
