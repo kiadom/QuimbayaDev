@@ -127,7 +127,24 @@ const TablaVentas = ({listaVentas})=> {
 };
 
 const FilaVenta = ({venta}) => {
+    console.log("venta", venta);
     const [edit, setEdit] = useState(false);
+    const [infoNuevoEstado, setinfoNuevoEstado]= useState({
+        venta_id: venta.venta_id,
+        detalle: venta.detalle,
+        cantidad: venta.cantidad,
+        precio_unitario_por_producto: venta.precio_unitario_por_producto,
+        venta_total: venta.venta_total,
+        fecha_venta: venta.fecha_venta,
+        client_id: venta.client_id,
+        nombre_cliente: venta.nombre_cliente,
+        vendedor: venta.vendedor,
+        estado: venta.estado,
+    })
+
+const eliminarVenta = ()=>{
+        //aqui va el código a borrar
+    }
     return(
         <tr>
             {edit?(
