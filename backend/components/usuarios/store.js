@@ -19,7 +19,7 @@ function registrarUsuario(usuario){
 async function listarUsuarios(filtroUsuario){
     let filtro = {};
     if (filtroUsuario !== null){
-        filtro = {usuario_id: filtroUsuario};
+        filtro = {usuario_email: filtroUsuario};
     }
     const usuarios = await Model.find(filtro);
     return usuarios;

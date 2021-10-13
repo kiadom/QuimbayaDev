@@ -9,21 +9,33 @@ const miEsquema = new Schema({
         type: Number,
         required: true,
     },
-    detalle: {
+    cantidad: {
+        type: Number,
+        required: true,
+    },
+    precio_unitario_por_producto: {
         type: String,
         required: true,
     },
-    fecha_de_pago: {
+    fecha_venta: {
         type: Date,
         required: true,
     },
-    fecha_de_pago_futura: {
-        type: Date,
-        required: true,
-    },
-    responsable: {
+    cliente_id: {
         type: String,
         required: true,
+    },
+    nombre_cliente:{
+        type: String,
+        requiered: true,
+    },
+    vendedor:{
+        type: String,
+        requiered: true,
+    },
+    estado:{
+        type: String,
+        requiered: true,
     },
     date: Date,
 });

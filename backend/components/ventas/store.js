@@ -25,12 +25,26 @@ async function listarVentas(filtroVenta){
     return ventas;
 }
 
-async function actualizarDatosVenta(venta_id, fecha_de_pago_futura, responsable){
+async function actualizarDatosVenta(venta_total, cantidad, precio_unitario_por_producto, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
     const ventaEncontrada = await Model.findOne({
-        venta_id: venta_id
+        venta_id: venta_id,
+        venta_total: venta_total,
+        cantidad: cantidad,
+        precio_unitario_por_producto: precio_unitario_por_producto,
+        fecha_venta: fecha_venta,
+        cliente_id: cliente_id,
+        nombre_cliente: nombre_cliente,
+        vendedor: vendedor,
+        estado: estado
     });
-    ventaEncontrada.fecha_de_pago_futura = fecha_de_pago_futura;
-    ventaEncontrada.responsable = responsable;
+    ventaEncontrada.venta_total = venta_total;
+    ventaEncontrada.cantidad = cantidad;
+    ventaEncontrada.precio_unitario_por_producto = precio_unitario_por_producto;
+    ventaEncontrada.fecha_venta = fecha_venta;
+    ventaEncontrada.cliente_id = cliente_id;
+    ventaEncontrada.nombre_cliente = nombre_cliente;
+    ventaEncontrada.vendedor = vendedor;
+    ventaEncontrada.estado = estado;
     const ventaActualizada = await ventaEncontrada.save();
     return ventaActualizada;
 }
