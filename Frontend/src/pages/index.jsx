@@ -7,30 +7,33 @@ const Index = () => {
 
     const [count, setCount] = useState(0)
 
-    const responseGoogle = (response) => {
-        console.log(response.profileObj)
-        window.open("./principal", "_self");
-        
-
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:3001/usuarios',
-            headers: { 'Content-Type': 'application/json' },
-            data: {
-                usuario_email: response.profileObj.email,
-                nombre: response.profileObj.name,
-                rol: 'pendiente',
-                estado: 'pendiente'
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            console.log(response.data);
-        }).catch(function (error) {
-            console.error(error);
-        });
+    const intentoFallido =(response) =>{
+        alert("Autentificación fallida")
     }
 
+    const responseGoogle = (response) => {
+            console.log(response.profileObj)
+            window.open("./principal", "_self");
+
+            const options = {
+                method: 'POST',
+                url: 'http://localhost:3001/usuarios',
+                headers: { 'Content-Type': 'application/json' },
+                data: {
+                    usuario_email: response.profileObj.email,
+                    nombre: response.profileObj.name,
+                    rol: 'pendiente',
+                    estado: 'pendiente'
+                }
+            };
+    
+            axios.request(options).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }
+        
     const [datos, setDatos] = useState({
         user_p: '',
         password: ''
@@ -95,7 +98,7 @@ const Index = () => {
                             clientId="622650298319-7cvili8fst11lvoi3cbc2l23sotjq939.apps.googleusercontent.com"
                             buttonText="Ingresar con Google"
                             onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
+                            onFailure={intentoFallido}
                             cookiePolicy={'single_host_origin'}
                         />
                     </form>
