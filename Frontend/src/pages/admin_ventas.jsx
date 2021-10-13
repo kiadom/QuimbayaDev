@@ -102,8 +102,11 @@ const TablaVentas = ({listaVentas})=> {
                 <thead>
                     <tr>
                         <th>ID Venta</th>
-                        <th>Venta Total</th>
                         <th>Detalle</th>
+                        <th>Cantidad</th>
+                        <th>Valor Producto</th>
+                        <th>Total Venta</th>
+                        <th>Fecha Venta</th>
                         <th>Fecha De Pago</th>
                         <th>Fecha De Pago Futura</th>
                         <th>Responsable</th>
