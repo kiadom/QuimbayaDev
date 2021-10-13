@@ -4,10 +4,11 @@ import React, {useEffect, useState, useRef} from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from "nanoid";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash} from "@fortawesome/free-solid-svg-icons";
+import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-svg-icons";
+
 //library.add(faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars, faPencilAlt,faTrash);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
 
@@ -81,54 +82,102 @@ const AdminVentasPage = () => {
 };
 
 const TablaVentas = ({listaVentas})=> {
+
+    const form = useRef(null);
     useEffect(()=>{
         console.log("Este es el listado de ventas en el componente de Tabla",listaVentas)
     },[listaVentas]);
 
+    const submitEdit = (e)=>{
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        console.log(e);
+    };
+
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
-        <table className="table">
-            
-            <thead>
-                <tr>
-                    <th>ID VENTA</th>
-                    <th>VENTA TOTAL</th>
-                    <th>DETALLE</th>
-                    <th>FECHA DE PAGO</th>
-                    <th>FECHA DE PAGO FUTURA</th>
-                    <th>RESPONSABLE</th>
-                </tr>
-            </thead>
-            <tbody>
-                {listaVentas.map((venta)=>{
-                    return(
-                        <tr>
-                            <td>{venta.venta_id}</td>
-                            <td>{venta.venta_total}</td>
-                            <td>{venta.detalle}</td>
-                            <td>{venta.fecha_de_pago}</td>
-                            <td>{venta.fecha_de_pago_futura}</td>
-                            <td>{venta.responsable}</td>
-                            <td venta="edit">
-                                <button type="button" class="btn btn-info">
-                                    <FontAwesomeIcon icon={faPencilAlt}/>
-                                </button>
-                                    
-                                <button type="button" class="btn btn-secondary">
-                                    <FontAwesomeIcon icon={faTrash}/>
-                                </button>
-                               
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <form ref={form} onSubmit={submitEdit}>
+            <table className="table">            
+                <thead>
+                    <tr>
+                        <th>ID Venta</th>
+                        <th>Venta Total</th>
+                        <th>Detalle</th>
+                        <th>Fecha De Pago</th>
+                        <th>Fecha De Pago Futura</th>
+                        <th>Responsable</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listaVentas.map((venta)=>{
+                        return <FilaVenta key = {nanoid()} venta={venta}/>
+                    })}
+                </tbody>
+            </table>
+
+        </form>                
         </div>
     );
 };
 
+const FilaVenta = ({venta}) => {
+    const [edit, setEdit] = useState(false);
+    return(
+        <tr>
+            {edit?(
+                <>
+                    <td>{venta.venta_id}</td>
+                    <td>{venta.venta_total}</td>
+                    <td>{venta.detalle}</td>
+                    <td>{venta.fecha_de_pago}</td>
+                    <td>{venta.fecha_de_pago_futura}</td>
+                    <td>{venta.responsable}</td>
+                    <td venta="edit">
+                        <button type="button" class="btn btn-info">
+                            <FontAwesomeIcon icon={faPencilAlt}/>
+                        </button>
+                                    
+                        <button type="button" class="btn btn-secondary">
+                            <FontAwesomeIcon icon={faTrash}/>
+                        </button>
+                               
+                    </td>
+                </>
+                ):(
+                <>
+                    <td>{venta.venta_id}</td>
+                    <td>{venta.venta_total}</td>
+                    <td>{venta.detalle}</td>
+                    <td>{venta.fecha_de_pago}</td>
+                    <td>{venta.fecha_de_pago_futura}</td>
+                    <td>{venta.responsable}</td>
+                </>
+            )}
+
+            <td className="acciones">
+                {edit? (
+                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <FontAwesomeIcon icon={faCheck}/>
+                    </div>
+                                
+                ) : (
+                    <div onClick={()=>setEdit (!edit)} className="boton_update">
+                    <FontAwesomeIcon icon={faPencilAlt}/>
+                    </div>
+                                
+                )}
+                        
+                    <div className="boton_delete">
+                        <FontAwesomeIcon icon={faTrash}/>
+                    </div>
+            </td>
+        </tr>
+    );
+}
+   
+                            
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
     const form = useRef(null);
     
