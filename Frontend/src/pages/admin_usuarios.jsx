@@ -129,7 +129,7 @@ const FilaUsuario = ({ usuario }) => {
 
     });
 
-    const actualizarUsuario = () => {
+    const actualizarUsuario = async () => {
         console.log(infoNuevoUsuario);
         //enviar la info al Backend
         const options = {
@@ -139,13 +139,20 @@ const FilaUsuario = ({ usuario }) => {
             data: {...infoNuevoUsuario, id: usuario._id }
           };
           
-          axios.request(options).then(function (response) {
+        await axios.request(options).then(function (response) {
             console.log(response.data);
-          }).catch(function (error) {
+            toast.success("Usuario modificado con exito");
+            setEdit(false);
+        }).catch(function (error) {
             console.error(error);
+            toast.error("Error al modificar el Usuario");
           });
-
     };
+
+    const eliminarUsuario = ()=>{
+        //aqui va el código a borrar
+    }
+
     return (
         <tr>
             {edit? (
@@ -213,7 +220,7 @@ const FilaUsuario = ({ usuario }) => {
                     
                 )}
             
-                <div className="boton_delete">
+                <div onClick={()=>eliminarUsuario()} className="boton_delete">
                     <FontAwesomeIcon icon={faTrash}/>
                 </div>
             </td>
