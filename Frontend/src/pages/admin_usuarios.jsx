@@ -122,6 +122,7 @@ const TablaUsuarios = ({listaUsuarios})=> {
 
 const FilaUsuario = ({ usuario }) => {
     const [edit, setEdit] = useState(false);
+
     return (
         <tr>
             {edit? (
