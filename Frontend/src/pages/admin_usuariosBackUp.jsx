@@ -139,7 +139,7 @@ const FilaUsuario = ({ usuario }) => {
                                 <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
-                            </select></td>
+                        </select></td>
                     <td><select 
                                 className="select"
                                 name="estado" 

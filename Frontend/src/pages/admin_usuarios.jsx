@@ -134,9 +134,12 @@ const FilaUsuario = ({ usuario }) => {
         //enviar la info al Backend
         const options = {
             method: 'PATCH',
-            url: 'http://localhost:3001/usuarios/juanma@react.com',
+            url: 'http://localhost:3001/usuarios/' + infoNuevoUsuario.usuario_email,
             headers: {'Content-Type': 'application/json'},
-            data: {...infoNuevoUsuario, id: usuario._id }
+            data: {
+                rol: infoNuevoUsuario.rol,
+                estado: infoNuevoUsuario.estado
+              },
           };
           
         await axios.request(options).then(function (response) {
@@ -157,22 +160,8 @@ const FilaUsuario = ({ usuario }) => {
         <tr>
             {edit? (
                 <>
-                    <td><input
-                            className="input_m" 
-                            name="usuario_email"  
-                            type="email"
-                            required
-                            value={infoNuevoUsuario.usuario_email}
-                            onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, usuario_email:e.target.value})}/>
-                    </td>
-                    <td><input 
-                            className="input_m" 
-                            name="nombre" 
-                            type="text"
-                            required
-                            value={infoNuevoUsuario.nombre}
-                            onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, nombre:e.target.value})}/>
-                    </td>
+                    <td>{usuario.usuario_email}</td>
+                    <td>{usuario.nombre}</td>
                     <td><select
                                 className="select"  
                                 name="rol"
