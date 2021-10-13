@@ -142,6 +142,19 @@ const FilaVenta = ({venta}) => {
         estado: venta.estado,
     })
 
+const actualizarVenta = async () => {
+    console.log(infoNuevoEstado);
+
+    const options = {
+        method: 'PATCH',
+        url: 'http://localhost:3001/admin_ventas/' + infoNuevoEstado.venta_id,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            estado: infoNuevoEstado.estado
+        },
+    };
+}
+
 const eliminarVenta = ()=>{
         //aqui va el código a borrar
     }
