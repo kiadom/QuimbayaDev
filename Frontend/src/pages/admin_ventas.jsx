@@ -134,16 +134,7 @@ const FilaVenta = ({venta}) => {
                     <td>{venta.fecha_de_pago}</td>
                     <td>{venta.fecha_de_pago_futura}</td>
                     <td>{venta.responsable}</td>
-                    <td venta="edit">
-                        <button type="button" class="btn btn-info">
-                            <FontAwesomeIcon icon={faPencilAlt}/>
-                        </button>
-                                    
-                        <button type="button" class="btn btn-secondary">
-                            <FontAwesomeIcon icon={faTrash}/>
-                        </button>
-                               
-                    </td>
+                    
                 </>
                 ):(
                 <>
