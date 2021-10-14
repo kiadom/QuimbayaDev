@@ -15,11 +15,10 @@ import { faUsersCog, faPencilAlt,faTrash,faCheck} from "@fortawesome/free-solid-
 const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Asignar Rol' );
+    const [textoBoton, setTextoBoton] = useState('Ver Listado Usuarios' );
 
     useEffect(async()=>{
-
-        const obtenerUsuarios = async() => {
+    const obtenerUsuarios = async() => {
             const options = {
                 method: 'GET', 
                 url: 'http://localhost:3001/usuarios'
@@ -34,16 +33,15 @@ const AdminUsuariosPage = () => {
             console.error(error);
         });
     }
-    
         //obtener lista de usuarios desde el backend
         if(mostrarTabla){
             obtenerUsuarios();
         }
-    },[mostrarTabla]);
+        },[mostrarTabla]);
 
     useEffect(()=>{
         if(mostrarTabla){
-            setTextoBoton('Asignar Rol');
+            setTextoBoton('Ver Listado Usuarios'); // ojo, aquí iría Crear Usuario
         }
         else{
             setTextoBoton('Ver Listado Usuarios');
@@ -67,10 +65,14 @@ const AdminUsuariosPage = () => {
                         </div>
                         <div className="rp_formulario">
                             {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
-                            (<FormularioCreacionUsuarios 
-                                setMostrarTabla={setMostrarTabla}
-                                listaUsuarios={usuarios}
-                                setUsuarios={setUsuarios} />)}
+                            
+                            ( <TablaUsuarios listaUsuarios={usuarios} /> //ojo, no se quiere mostrar formulario de creación
+                                //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
+                            //<FormularioCreacionUsuarios 
+                                //setMostrarTabla={setMostrarTabla}
+                                //listaUsuarios={usuarios}
+                                //setUsuarios={setUsuarios} />
+                                )}
                             <ToastContainer position= "bottom-center" autoClose= {1000}/>
 
                         </div>
@@ -83,21 +85,17 @@ const AdminUsuariosPage = () => {
 
 const TablaUsuarios = ({listaUsuarios})=> {
 
-    const form = useRef(null);
+    const form = useRef(null); //cambio para patch
+
     useEffect(()=>{
         console.log("Este es el listado de usuarios en el componente de Tabla", listaUsuarios);
     },[listaUsuarios]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
+    
 
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        <form ref={form} onSubmit={submitEdit}>
             <table className="table">
                 <thead>
                     <tr>
@@ -114,14 +112,50 @@ const TablaUsuarios = ({listaUsuarios})=> {
                     })}
                 </tbody>
             </table>
-        </form>
+        
         
         </div>
     );
 };
 
 const FilaUsuario = ({ usuario }) => {
+    console.log("usuario", usuario);
     const [edit, setEdit] = useState(false);
+    const [infoNuevoUsuario, setinfoNuevoUsuario] = useState({
+        usuario_email: usuario.usuario_email,
+        nombre: usuario.nombre,
+        rol: usuario.rol,
+        estado: usuario.estado,
+
+    });
+
+const actualizarUsuario = async () => {
+    console.log(infoNuevoUsuario);
+    //enviar la info al Backend
+    const options = {
+        method: 'PATCH',
+        url: 'http://localhost:3001/usuarios/' + infoNuevoUsuario.usuario_email,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            rol: infoNuevoUsuario.rol,
+            estado: infoNuevoUsuario.estado
+            },
+        };
+        
+    await axios.request(options).then(function (response) {
+        console.log(response.data);
+        toast.success("Usuario modificado con exito");
+        setEdit(false);
+    }).catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el Usuario");
+        });
+};
+
+const eliminarUsuario = ()=>{
+    //aqui va el código a borrar
+}
+
     return (
         <tr>
             {edit? (
@@ -132,26 +166,25 @@ const FilaUsuario = ({ usuario }) => {
                                 className="select"  
                                 name="rol"
                                 required
-                                defaultValue={usuario.rol}
+                                value={infoNuevoUsuario.rol}
+                                onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, rol:e.target.value})}
                                 > 
                                 <option disabled value={0}>None</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="vendedor">Vendedor</option>
-                            </select></td>
+                        </select>
+                    </td>
                     <td><select 
                                 className="select"
                                 name="estado" 
                                 required
-                                defaultValue={usuario.estado}> 
+                                value={infoNuevoUsuario.estado}
+                                onChange={(e)=> setinfoNuevoUsuario({...infoNuevoUsuario, estado:e.target.value})}> 
                                     <option selected disabled value={0}>None</option>
                                     <option value="pendiente">Pendiente</option>
                                     <option value="autorizado">Autorizado</option>
                                     <option value="no_autorizado">No autorizado</option>
                             </select>
-                    
-                    
-                    
-                    
                     </td>
                 </>
                 ):(
@@ -165,7 +198,7 @@ const FilaUsuario = ({ usuario }) => {
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <div onClick={()=> actualizarUsuario()} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                     
@@ -176,7 +209,7 @@ const FilaUsuario = ({ usuario }) => {
                     
                 )}
             
-                <div className="boton_delete">
+                <div onClick={()=>eliminarUsuario()} className="boton_delete">
                     <FontAwesomeIcon icon={faTrash}/>
                 </div>
             </td>

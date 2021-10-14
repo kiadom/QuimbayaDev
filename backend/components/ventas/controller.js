@@ -5,20 +5,24 @@
 
 const store = require('./store');
 
-function registrarVenta(venta_id, venta_total, detalle, fecha_de_pago, fecha_de_pago_futura, responsable){
+function registrarVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
     return new Promise((resolve, reject) => {
-        if (!venta_id || !venta_total || !detalle || !fecha_de_pago || !fecha_de_pago_futura || !responsable){
+        if (!venta_id || !detalle || !cantidad || !precio_unitario_por_producto || !venta_total || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
             console.error('[productoController] La informacion esta incompleta');
             return reject('Los datos son incorrectos');
         }
 
         const fullVenta = {
-            venta_id: venta_id,
-            venta_total: venta_total,
+            venta_id: venta_id, 
             detalle: detalle,
-            fecha_de_pago: fecha_de_pago,
-            fecha_de_pago_futura: fecha_de_pago_futura,
-            responsable: responsable,
+            cantidad: cantidad,
+            precio_unitario_por_producto: precio_unitario_por_producto,
+            venta_total: venta_total,
+            fecha_venta: fecha_venta,
+            cliente_id: cliente_id,
+            nombre_cliente: nombre_cliente,
+            vendedor: vendedor,
+            estado: estado,
             date: new Date(),
         };
 
@@ -33,12 +37,12 @@ function listarVentas(filtroVenta){
     })
 }
 
-function actualizarVenta(venta_id, fecha_de_pago_futura, responsable){
+function actualizarVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
     return new Promise(async (resolve, reject) => {
-        if(!venta_id || !fecha_de_pago_futura || !responsable){
+        if(!venta_id || !detalle || !cantidad || !precio_unitario_por_producto || !venta_total || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarDatosVenta(venta_id, fecha_de_pago_futura, responsable);
+        const result = await store.actualizarDatosVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado);
         resolve(result);
     })
 }
