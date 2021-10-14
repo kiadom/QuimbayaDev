@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import { faBarcode, faCartArrowDown, faHome, faSearchDollar, faThermometerThreeQ
 library.add(faBarcode, faCartArrowDown, faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars);
 
 const Sidebar = (props) => {
+
     return (    
         <div className="wrapper">
             <div className="sidebar">
@@ -44,7 +45,7 @@ const Sidebar = (props) => {
                         <Link to = '/'>
                             <FontAwesomeIcon icon={faSignOutAlt}/> 
                             <span className="item"></span>  Salir
-                        </Link>
+                        </Link>                      
                     </li>
                 </ul>
             </div>
