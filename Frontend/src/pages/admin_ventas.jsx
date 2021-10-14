@@ -225,6 +225,7 @@ const eliminarVenta = ()=>{
    
                             
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
+    
     const form = useRef(null);
     
 
@@ -265,9 +266,7 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
            console.error(error);
            toast.error("Error al crear venta");
         });
-
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", nuevoUsuario);
+        
     };
 
     return <div>
