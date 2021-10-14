@@ -164,7 +164,7 @@ const FilaVenta = ({venta}) => {
             precio_unitario_por_producto: actualizarVenta.precio_unitario_por_producto,
             venta_total: actualizarVenta.venta_total,
             fecha_venta: actualizarVenta.fecha_venta,
-            client_id: actualizarVenta.client_id,
+            cliente_id: actualizarVenta.cliente_id,
             nombre_cliente: actualizarVenta.nombre_cliente,
             vendedor: actualizarVenta.vendedor,
             estado: actualizarVenta.estado
@@ -196,7 +196,7 @@ const [edit, setEdit] = useState(false);
                     <td>{venta.precio_unitario_por_producto}</td>
                     <td>{venta.venta_total}</td>
                     <td>{venta.fecha_venta}</td>
-                    <td>{venta.client_id}</td>
+                    <td>{venta.cliente_id}</td>
                     <td>{venta.nombre_client}</td>
                     <td>{venta.vendedor}</td>
                     <td><select
@@ -222,7 +222,7 @@ const [edit, setEdit] = useState(false);
                     <td>{venta.precio_unitario_por_producto}</td>
                     <td>{venta.venta_total}</td>
                     <td>{venta.fecha_venta}</td>
-                    <td>{venta.client_id}</td>
+                    <td>{venta.cliente_id}</td>
                     <td>{venta.nombre_cliente}</td>
                     <td>{venta.vendedor}</td>
                     <td>{venta.estado}</td>
@@ -277,7 +277,7 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
               precio_unitario_por_producto: nuevaVenta.precio_unitario_por_producto,
               venta_total: nuevaVenta.venta_total,
               fecha_venta: nuevaVenta.fecha_venta,
-              client_id: nuevaVenta.client_id,
+              cliente_id: nuevaVenta.cliente_id,
               nombre_cliente: nuevaVenta.nombre_cliente,
               vendedor: nuevaVenta.vendedor,
               estado: nuevaVenta.estado,
