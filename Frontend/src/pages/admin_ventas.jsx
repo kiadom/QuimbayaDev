@@ -86,10 +86,17 @@ const TablaVentas = ({listaVentas})=> {
         console.log("Este es el listado de ventas en el componente de Tabla",listaVentas)
     },[listaVentas]);
 
+    const submitEdit = (e)=>{
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        console.log(e);
+    };
+
     
         return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
+        <form ref={form} onSubmit={submitEdit}>
             <table className="table">            
                 <thead>
                     <tr>
@@ -112,53 +119,73 @@ const TablaVentas = ({listaVentas})=> {
                     })}
                 </tbody>
             </table>
-
+        </form>
                        
         </div>
     );
 };
 
 const FilaVenta = ({venta}) => {
-    console.log("venta", venta);
-    const [edit, setEdit] = useState(false);
-    const [infoNuevoEstado, setinfoNuevoEstado]= useState({
-        venta_id: venta.venta_id,
-        detalle: venta.detalle,
-        cantidad: venta.cantidad,
-        precio_unitario_por_producto: venta.precio_unitario_por_producto,
-        venta_total: venta.venta_total,
-        fecha_venta: venta.fecha_venta,
-        client_id: venta.client_id,
-        nombre_cliente: venta.nombre_cliente,
-        vendedor: venta.vendedor,
-        estado: venta.estado,
-    });
+    const form = useRef(null);
+    //console.log("venta", venta);
 
-const actualizarVenta = async () => {
-    console.log(infoNuevoEstado);
+    const submitForm = async (e)=>{
+        e.preventDefault();
+        const fd = new FormData(form.current);
+
+    //const [edit, setEdit] = useState(false);
+    //const [infoNuevoEstado, setinfoNuevoEstado]= useState({
+     //   venta_id: venta.venta_id,
+       // detalle: venta.detalle,
+     //   cantidad: venta.cantidad,
+     //   precio_unitario_por_producto: venta.precio_unitario_por_producto,
+     //   venta_total: venta.venta_total,
+     //   fecha_venta: venta.fecha_venta,
+     //   client_id: venta.client_id,
+     //   nombre_cliente: venta.nombre_cliente,
+      //  vendedor: venta.vendedor,
+      //  estado: venta.estado,
+    //});
+
+        const actualizarVenta = {};
+        fd.forEach((value, key) => {
+            actualizarVenta[key]=value;
+        });
+
+    //console.log(infoNuevoEstado);
     const options = {
         method: 'PATCH',
-        url: 'http://localhost:3001/ventas/' + infoNuevoEstado.venta_id,
+        url: 'http://localhost:3001/ventas/',
         headers: {'Content-Type': 'application/json'},
         data: {
-            estado: infoNuevoEstado.estado
+            venta_id: actualizarVenta.venta_id,
+            detalle: actualizarVenta.detalle,
+            cantidad: actualizarVenta.cantidad,
+            precio_unitario_por_producto: actualizarVenta.precio_unitario_por_producto,
+            venta_total: actualizarVenta.venta_total,
+            fecha_venta: actualizarVenta.fecha_venta,
+            client_id: actualizarVenta.client_id,
+            nombre_cliente: actualizarVenta.nombre_cliente,
+            vendedor: actualizarVenta.vendedor,
+            estado: actualizarVenta.estado
         },
     };
 
-    await axios.request(options).then(function (response) {
+    await axios
+    .request(options)
+    .then(function (response) {
         console.log(response.data);
         toast.success("Estado modificado con exito");
-        setEdit(false);
-    }).catch(function (error) {
+    
+    })
+    .catch(function (error) {
         console.error(error);
         toast.error("Error al modificar el Estado");
         });
 };
 
 
-const eliminarVenta = ()=>{
-        //aqui va el código a borrar
-    }
+const [edit, setEdit] = useState(false);
     return(
         <tr>
             {edit?(
@@ -176,8 +203,8 @@ const eliminarVenta = ()=>{
                                 className="select"
                                 name="estado"
                                 required
-                                value={infoNuevoEstado.estado}
-                                onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
+                                defaultvalue={venta.estado}
+                                //onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
                                 <option value="en_proceso">En Proceso</option>
@@ -204,7 +231,7 @@ const eliminarVenta = ()=>{
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=> actualizarVenta()} className="boton_confirm"> 
+                    <div onClick={()=> setEdit(! edit)} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                                 
@@ -215,14 +242,15 @@ const eliminarVenta = ()=>{
                                 
                 )}
                         
-                    <div onClick={()=>eliminarVenta}className="boton_delete">
+                    <div className="boton_delete">
                         <FontAwesomeIcon icon={faTrash}/>
                     </div>
             </td>
         </tr>
     );
 }
-   
+
+
                             
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
     
@@ -266,7 +294,7 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
            console.error(error);
            toast.error("Error al crear venta");
         });
-        
+
     };
 
     return <div>
