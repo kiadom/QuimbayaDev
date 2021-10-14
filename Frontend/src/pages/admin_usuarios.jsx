@@ -16,28 +16,36 @@ const AdminUsuariosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [usuarios, setUsuarios] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Ver Listado Usuarios' );
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
-    useEffect(async()=>{
-    const obtenerUsuarios = async() => {
+    useEffect(() => {
+        const obtenerUsuarios = async() => {
             const options = {
                 method: 'GET', 
-                url: 'http://localhost:3001/usuarios'
-            };
-
-        await axios.
-            request(options).
-            then(function (response) {
-                setUsuarios(response.data.body);
-        })
-        .catch(function (error) {
-            console.error(error);
-        });
-    }
-        //obtener lista de usuarios desde el backend
-        if(mostrarTabla){
+                url: 'http://localhost:3001/usuarios'};
+                await axios
+                    .request(options)
+                    .then(function (response) {
+                        setUsuarios(response.data.body);
+                    })
+                    .catch(function (error) {
+                    console.error(error);
+                    });
+        };
+        if (ejecutarConsulta) {
             obtenerUsuarios();
+            setEjecutarConsulta(false);
         }
-        },[mostrarTabla]);
+    },[ejecutarConsulta]);
+
+
+
+    useEffect(()=> {
+    //obtener lista de usuarios desde el backend
+        if(mostrarTabla){
+            setEjecutarConsulta(true);
+        }
+    },[mostrarTabla]);
 
     useEffect(()=>{
         if(mostrarTabla){
@@ -64,14 +72,14 @@ const AdminUsuariosPage = () => {
                             </button>
                         </div>
                         <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} />) : 
+                            {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
                             
-                            ( <TablaUsuarios listaUsuarios={usuarios} /> //ojo, no se quiere mostrar formulario de creación
+                            ( <TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} /> //ojo, no se quiere mostrar formulario de creación
                                 //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
                             //<FormularioCreacionUsuarios 
-                                //setMostrarTabla={setMostrarTabla}
-                                //listaUsuarios={usuarios}
-                                //setUsuarios={setUsuarios} />
+                            //    setMostrarTabla={setMostrarTabla}
+                            //    listaUsuarios={usuarios}
+                            //    setUsuarios={setUsuarios} />
                                 )}
                             <ToastContainer position= "bottom-center" autoClose= {1000}/>
 
@@ -83,17 +91,13 @@ const AdminUsuariosPage = () => {
     );
 };
 
-const TablaUsuarios = ({listaUsuarios})=> {
-
-    const form = useRef(null); //cambio para patch
-
+const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta})=> {
+   
     useEffect(()=>{
         console.log("Este es el listado de usuarios en el componente de Tabla", listaUsuarios);
     },[listaUsuarios]);
 
-    
-
-    return (
+      return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
         
@@ -110,7 +114,13 @@ const TablaUsuarios = ({listaUsuarios})=> {
                 </thead>
                 <tbody>
                     {listaUsuarios.map((usuario)=>{
-                        return <FilaUsuario key = {nanoid()} usuario={usuario}/>;
+                        return (
+                            <FilaUsuario 
+                                key = {nanoid()} 
+                                usuario={usuario} 
+                                setEjecutarConsulta={setEjecutarConsulta}
+                            />
+                        );
                     })}
                 </tbody>
             </table>
@@ -120,7 +130,7 @@ const TablaUsuarios = ({listaUsuarios})=> {
     );
 };
 
-const FilaUsuario = ({ usuario }) => {
+const FilaUsuario = ({ usuario, setEjecutarConsulta }) => {
     console.log("usuario", usuario);
     const [edit, setEdit] = useState(false);
     const [infoNuevoUsuario, setinfoNuevoUsuario] = useState({
@@ -148,7 +158,9 @@ const actualizarUsuario = async () => {
         console.log(response.data);
         toast.success("Usuario modificado con exito");
         setEdit(false);
-    }).catch(function (error) {
+        setEjecutarConsulta(true);
+        })
+        .catch(function (error) {
         console.error(error);
         toast.error("Error al modificar el Usuario");
         });
@@ -157,6 +169,11 @@ const actualizarUsuario = async () => {
 const eliminarUsuario = ()=>{
     //aqui va el código a borrar
 }
+
+const refreshPage = ()=>{
+    window.location.reload();
+  }
+
 
     return (
         <tr>
@@ -200,12 +217,12 @@ const eliminarUsuario = ()=>{
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=> actualizarUsuario()} className="boton_confirm"> 
+                    <div onClick={()=> actualizarUsuario()} className="boton_confirm">
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                     
                 ) : (
-                    <div onClick={()=>setEdit (!edit)} className="boton_update">
+                    <div onClick={()=>setEdit (!edit)} className="boton_update" >
                     <FontAwesomeIcon icon={faPencilAlt}/>
                     </div>
                     
