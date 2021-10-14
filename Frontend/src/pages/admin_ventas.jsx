@@ -18,7 +18,6 @@ const AdminVentasPage = () => {
     const [textoBoton, setTextoBoton] = useState('Registrar Venta' );
 
     useEffect(async()=>{
-
         const obtenerVentas = async() => {
             const options = {
                 method: 'GET', 
@@ -34,7 +33,6 @@ const AdminVentasPage = () => {
             console.error(error);
         });
     }
-
         //obtener lista de ventas desde el backend
         if(mostrarTabla){
             obtenerVentas();
@@ -94,7 +92,8 @@ const TablaVentas = ({listaVentas})=> {
         console.log(e);
     };
 
-    return (
+    
+        return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
         <form ref={form} onSubmit={submitEdit}>
@@ -107,10 +106,10 @@ const TablaVentas = ({listaVentas})=> {
                         <th>Valor Producto</th>
                         <th>Total Venta</th>
                         <th>Fecha Venta</th>
-                        <th>Fecha De Pago</th>
                         <th>Cliente ID</th>
                         <th>Nombre Cliente</th>
                         <th>Vendedor</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -120,44 +119,73 @@ const TablaVentas = ({listaVentas})=> {
                     })}
                 </tbody>
             </table>
-
-        </form>                
+        </form>
+                       
         </div>
     );
 };
 
 const FilaVenta = ({venta}) => {
-    console.log("venta", venta);
-    const [edit, setEdit] = useState(false);
-    const [infoNuevoEstado, setinfoNuevoEstado]= useState({
-        venta_id: venta.venta_id,
-        detalle: venta.detalle,
-        cantidad: venta.cantidad,
-        precio_unitario_por_producto: venta.precio_unitario_por_producto,
-        venta_total: venta.venta_total,
-        fecha_venta: venta.fecha_venta,
-        client_id: venta.client_id,
-        nombre_cliente: venta.nombre_cliente,
-        vendedor: venta.vendedor,
-        estado: venta.estado,
-    })
+    const form = useRef(null);
+    //console.log("venta", venta);
 
-const actualizarVenta = async () => {
-    console.log(infoNuevoEstado);
+    const submitForm = async (e)=>{
+        e.preventDefault();
+        const fd = new FormData(form.current);
 
+    //const [edit, setEdit] = useState(false);
+    //const [infoNuevoEstado, setinfoNuevoEstado]= useState({
+     //   venta_id: venta.venta_id,
+       // detalle: venta.detalle,
+     //   cantidad: venta.cantidad,
+     //   precio_unitario_por_producto: venta.precio_unitario_por_producto,
+     //   venta_total: venta.venta_total,
+     //   fecha_venta: venta.fecha_venta,
+     //   client_id: venta.client_id,
+     //   nombre_cliente: venta.nombre_cliente,
+      //  vendedor: venta.vendedor,
+      //  estado: venta.estado,
+    //});
+
+        const actualizarVenta = {};
+        fd.forEach((value, key) => {
+            actualizarVenta[key]=value;
+        });
+
+    //console.log(infoNuevoEstado);
     const options = {
         method: 'PATCH',
-        url: 'http://localhost:3001/admin_ventas/' + infoNuevoEstado.venta_id,
+        url: 'http://localhost:3001/ventas/',
         headers: {'Content-Type': 'application/json'},
         data: {
-            estado: infoNuevoEstado.estado
+            venta_id: actualizarVenta.venta_id,
+            detalle: actualizarVenta.detalle,
+            cantidad: actualizarVenta.cantidad,
+            precio_unitario_por_producto: actualizarVenta.precio_unitario_por_producto,
+            venta_total: actualizarVenta.venta_total,
+            fecha_venta: actualizarVenta.fecha_venta,
+            client_id: actualizarVenta.client_id,
+            nombre_cliente: actualizarVenta.nombre_cliente,
+            vendedor: actualizarVenta.vendedor,
+            estado: actualizarVenta.estado
         },
     };
-}
 
-const eliminarVenta = ()=>{
-        //aqui va el código a borrar
-    }
+    await axios
+    .request(options)
+    .then(function (response) {
+        console.log(response.data);
+        toast.success("Estado modificado con exito");
+    
+    })
+    .catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el Estado");
+        });
+};
+
+
+const [edit, setEdit] = useState(false);
     return(
         <tr>
             {edit?(
@@ -175,8 +203,8 @@ const eliminarVenta = ()=>{
                                 className="select"
                                 name="estado"
                                 required
-                                value={infoNuevoEstado.estado}
-                                onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
+                                defaultvalue={venta.estado}
+                                //onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
                                 <option value="en_proceso">En Proceso</option>
@@ -203,7 +231,7 @@ const eliminarVenta = ()=>{
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <div onClick={()=> setEdit(! edit)} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                                 
@@ -214,16 +242,18 @@ const eliminarVenta = ()=>{
                                 
                 )}
                         
-                    <div onClick={()=>eliminarVenta}className="boton_delete">
+                    <div className="boton_delete">
                         <FontAwesomeIcon icon={faTrash}/>
                     </div>
             </td>
         </tr>
     );
 }
-   
+
+
                             
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
+    
     const form = useRef(null);
     
 
@@ -265,8 +295,6 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
            toast.error("Error al crear venta");
         });
 
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", nuevoUsuario);
     };
 
     return <div>

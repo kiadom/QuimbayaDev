@@ -100,8 +100,6 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta})=> {
       return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
-        
-         
             <table className="table">
                 <thead>
                     <tr>
