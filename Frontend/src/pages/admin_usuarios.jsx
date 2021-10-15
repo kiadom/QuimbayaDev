@@ -22,11 +22,14 @@ const AdminUsuariosPage = () => {
         const obtenerUsuarios = async() => {
             const options = {
                 method: 'GET', 
-                url: 'http://localhost:3001/usuarios'};
+                url: 'http://localhost:3001/usuarios'
+            };
+        
                 await axios
                     .request(options)
                     .then(function (response) {
                         setUsuarios(response.data.body);
+                        setEjecutarConsulta(false);
                     })
                     .catch(function (error) {
                     console.error(error);
@@ -34,7 +37,6 @@ const AdminUsuariosPage = () => {
         };
         if (ejecutarConsulta) {
             obtenerUsuarios();
-            setEjecutarConsulta(false);
         }
     },[ejecutarConsulta]);
 
@@ -49,7 +51,7 @@ const AdminUsuariosPage = () => {
 
     useEffect(()=>{
         if(mostrarTabla){
-            setTextoBoton('Ver Listado Usuarios'); // ojo, aquí iría Crear Usuario
+            setTextoBoton('Crear Usuario'); // ojo, aquí iría Crear Usuario
         }
         else{
             setTextoBoton('Ver Listado Usuarios');
@@ -74,12 +76,12 @@ const AdminUsuariosPage = () => {
                         <div className="rp_formulario">
                             {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
                             
-                            ( <TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} /> //ojo, no se quiere mostrar formulario de creación
+                            ( //<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} /> //ojo, no se quiere mostrar formulario de creación
                                 //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
-                            //<FormularioCreacionUsuarios 
-                            //    setMostrarTabla={setMostrarTabla}
-                            //    listaUsuarios={usuarios}
-                            //    setUsuarios={setUsuarios} />
+                            <FormularioCreacionUsuarios 
+                                setMostrarTabla={setMostrarTabla}
+                                listaUsuarios={usuarios}
+                                setUsuarios={setUsuarios} />
                                 )}
                             <ToastContainer position= "bottom-center" autoClose= {1000}/>
 
@@ -100,6 +102,8 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta})=> {
       return (
         <div>
         <div className="rp_subtitulo">LISTADO DE USUARIOS ROLES Y ESTADOS</div>
+        
+         
             <table className="table">
                 <thead>
                     <tr>
