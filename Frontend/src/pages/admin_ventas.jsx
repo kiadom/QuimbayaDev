@@ -152,15 +152,6 @@ const FilaVenta = ({venta}) => {
         url: 'http://localhost:3001/ventas/'+ actualizarVenta.venta_id,
         headers: {'Content-Type': 'application/json'},
         data: {
-            venta_id: actualizarVenta.venta_id,
-            detalle: actualizarVenta.detalle,
-            cantidad: actualizarVenta.cantidad,
-            precio_unitario_por_producto: actualizarVenta.precio_unitario_por_producto,
-            venta_total: actualizarVenta.venta_total,
-            fecha_venta: actualizarVenta.fecha_venta,
-            cliente_id: actualizarVenta.cliente_id,
-            nombre_cliente: actualizarVenta.nombre_cliente,
-            vendedor: actualizarVenta.vendedor,
             estado: actualizarVenta.estado
         },
     };

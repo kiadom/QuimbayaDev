@@ -37,12 +37,12 @@ function listarVentas(filtroVenta){
     })
 }
 
-function actualizarVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado){
+function actualizarVenta(venta_id, estado){
     return new Promise(async (resolve, reject) => {
-        if(!venta_id || !detalle || !cantidad || !precio_unitario_por_producto || !venta_total || !fecha_venta || !cliente_id || !nombre_cliente || !vendedor || !estado){
+        if(!venta_id || !estado){
             return reject('Datos invalidos')
         }
-        const result = await store.actualizarDatosVenta(venta_id, detalle, cantidad, precio_unitario_por_producto, venta_total, fecha_venta, cliente_id, nombre_cliente, vendedor, estado);
+        const result = await store.actualizarDatosVenta(venta_id, estado);
         resolve(result);
     })
 }

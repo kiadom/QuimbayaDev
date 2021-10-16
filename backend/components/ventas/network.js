@@ -31,7 +31,7 @@ router.get('/', function(req, res){
 })
 
 router.patch('/:venta_id', function(req, res){
-    controller.actualizarVenta(req.params.venta_id, req.body.detalle, req.body.cantidad, req.body.precio_unitario_por_producto, req.body.venta_total, req.body.fecha_venta, req.body.cliente_id, req.body.nombre_cliente, req.body.vendedor, req.body.estado)
+    controller.actualizarVenta(req.params.venta_id, req.body.estado)
         .then((data) => {
             response.success(req, res, data, 200);
         })
