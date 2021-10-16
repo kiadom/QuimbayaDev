@@ -198,7 +198,7 @@ const FilaVenta = ({venta}) => {
                                 name="estado"
                                 required
                                 defaultvalue={venta.estado}
-                                //onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
+                                onChange={(e)=> actualizarVentagit push({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
                                 <option value="en_proceso">En Proceso</option>
