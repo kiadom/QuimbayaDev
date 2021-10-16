@@ -198,7 +198,7 @@ const FilaVenta = ({venta}) => {
                                 name="estado"
                                 required
                                 defaultvalue={venta.estado}
-                                onChange={(e)=> actualizarVentagit push({...infoNuevoEstado, estado:e.target.value})}
+                                onChange={(e)=> actualizarVenta({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
                                 <option value="en_proceso">En Proceso</option>
@@ -216,7 +216,7 @@ const FilaVenta = ({venta}) => {
                     <td>{venta.precio_unitario_por_producto}</td>
                     <td>{venta.venta_total}</td>
                     <td>{venta.fecha_venta}</td>
-                    <td>{venta.client_id}</td>
+                    <td>{venta.cliente_id}</td>
                     <td>{venta.nombre_cliente}</td>
                     <td>{venta.vendedor}</td>
                     <td>{venta.estado}</td>
@@ -242,7 +242,7 @@ const FilaVenta = ({venta}) => {
             </td>
         </tr>
     );
-}
+};
 
 
                             

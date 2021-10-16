@@ -15,31 +15,39 @@ import { faCheck,faPencilAlt, faTrash, faBarcode} from "@fortawesome/free-solid-
 const EstadoProductosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [productos, setProductos] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Asignar Rol' );
+    const [textoBoton, setTextoBoton] = useState('Ver Listado Productos' );
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
     useEffect(async()=>{
-
         const obtenerProductos = async() => {
             const options = {
                 method: 'GET', 
                 url: 'http://localhost:3001/productos'
             };
 
-        await axios.
-            request(options).
-            then(function (response) {
-                setProductos(response.data.body);
-        })
-        .catch(function (error) {
-            console.error(error);
-        });
-    }
-    
-        //obtener lista de productos desde el backend
-        if(mostrarTabla){
+                await axios
+                    .request(options)
+                    .then(function (response) {
+                        setProductos(response.data.body);
+                        setEjecutarConsulta(false);
+                    })
+                    .catch(function (error) {
+                    console.error(error);
+                    });
+        };
+        if (ejecutarConsulta) {
             obtenerProductos();
         }
-    },[mostrarTabla]);
+    },[ejecutarConsulta]);
+
+        
+
+    useEffect(()=> {
+        //obtener lista de productos desde el backend
+            if(mostrarTabla){
+                setEjecutarConsulta(true);
+            }
+        },[mostrarTabla]);
 
     useEffect(()=>{
         if(mostrarTabla){
@@ -66,11 +74,17 @@ const EstadoProductosPage = () => {
                             </button>
                         </div>
                         <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaProductos listaProductos={productos} />) : 
-                            (<FormularioCreacionProductos 
+                            {mostrarTabla ? (<TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta}/>) : 
+                            
+                            (
+                            
+                            
+                            
+                            <FormularioCreacionProductos 
                                 setMostrarTabla={setMostrarTabla}
                                 listaProductos={productos}
-                                setProductos={setProductos} />)}
+                                setProductos={setProductos} />
+                                )}
                             <ToastContainer position= "bottom-center" autoClose= {1000}/>
 
                         </div>
@@ -81,23 +95,16 @@ const EstadoProductosPage = () => {
     );
 };
 
-const TablaProductos = ({listaProductos})=> {
+const TablaProductos = ({listaProductos, setEjecutarConsulta})=> {
 
-    const form = useRef(null);
     useEffect(()=>{
         console.log("Este es el listado de productos en el componente de Tabla", listaProductos);
     },[listaProductos]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
-
     return (
         <div>
         <div className="rp_subtitulo">PRODUCTOS</div>
-        <form ref={form} onSubmit={submitEdit}>
+
             <table className="table">
                 <thead>
                     <tr>
@@ -110,68 +117,87 @@ const TablaProductos = ({listaProductos})=> {
                 </thead>
                 <tbody>
                     {listaProductos.map((producto)=>{
-                        return <FilaProducto key = {nanoid()} producto={producto}/>;
+                        return (
+                            <FilaProducto 
+                                key = {nanoid()} 
+                                producto={producto}
+                                setEjecutarConsulta={setEjecutarConsulta}
+                            />
+                        )
                     })}
                 </tbody>
             </table>
-        </form>
+
         
         </div>
     );
 };
 
-const FilaProducto = ({producto}) =>{
-    const form = useRef(null);
-    
-    const submitForm = async (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
+const FilaProducto = ({producto, setEjecutarConsulta}) =>{
+    console.log("producto", producto);
+    const [edit, setEdit] = useState(false);
+    const [infoNuevoProducto, setinfoNuevoProducto] = useState({
+        producto_id: producto.producto_id,
+        descripcion_producto: producto.descripcion_producto,
+        valor_unitario: producto.valor_unitario,
+        estado: producto.estado
 
-        const actualProducto = {};
-        fd.forEach((value, key) => {
-            actualProducto[key]=value;
-        });
+    });
 
-        const options = {
-            method: 'PATCH',
-            url: 'http://localhost:3001/productos',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                producto_id: actualProducto.producto_id,
-                descripcion_producto: actualProducto.descripcion_producto,
-                valor_unitario: actualProducto.valor_unitario,
-                estado: actualProducto.estado
+const actualizarProducto = async () => {
+    console.log(infoNuevoProducto);
+    //enviar la info al Backend
+    const options = {
+        method: 'PATCH',
+        url: 'http://localhost:3001/productos/' + infoNuevoProducto.producto_id,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            valor_unitario: infoNuevoProducto.valor_unitario,
+            estado: infoNuevoProducto.estado
             },
         };
         
-        await axios
-        .request(options)
-        .then(function (response) {
-            console.log(response.data.body);
-            toast.success("Producto actualizado con exito");
-          })
-          .catch(function (error) {
-            console.error(error);
-            toast.error("Error al actualizar el Producto");
-          });
-          
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", nuevoUsuario);
-    };
+    await axios.request(options).then(function (response) {
+        console.log(response.data);
+        toast.success("Producto modificado con exito");
+        setEdit(false);
+        setEjecutarConsulta(true);
+        })
+        .catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el producto");
+        });
+};
 
-    const [edit, setEdit] = useState(false);
+const eliminarProducto = ()=>{
+    //aqui va el código a borrar
+}
+
+const refreshPage = ()=>{
+    window.location.reload();
+  }
+
+
     return(
         <tr>
             {edit? (
                 <>
                     <td>{producto.producto_id}</td>
                     <td>{producto.descripcion_producto}</td>
-                    <td><input type="text" className="input_m" defaultValue={producto.valor_unitario} /></td>
+                    <td><input 
+                            type="text" 
+                            className="input_m"
+                            name="valor_unitario"
+                            required 
+                            Value={infoNuevoProducto.valor_unitario} 
+                            onChange={(e)=> setinfoNuevoProducto({...infoNuevoProducto, valor_unitario:e.target.value})}
+                        /></td>
                     <td><select 
                                 className="select"
                                 name="estado"
                                 required 
-                                defaultValue={producto.estado}
+                                value={infoNuevoProducto.estado}
+                                onChange={(e)=> setinfoNuevoProducto({...infoNuevoProducto, estado:e.target.value})}
                                 >
                                 <option value="Disponible">Disponible</option>
                                 <option value="No disponible">No disponible</option>
@@ -185,18 +211,22 @@ const FilaProducto = ({producto}) =>{
                     <td>{producto.estado}</td>
                 </>
             )}
+
             <td className="acciones">
-                {edit?(
-                    <div onClick={() => setEdit(!edit)} className="boton_confirm">
+                {edit? (
+                    <div onClick={() => actualizarProducto()} className="boton_confirm">
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
+
                 ) : (
                     <div onClick={() => setEdit(!edit)} className="boton_update">
                     <FontAwesomeIcon icon={faPencilAlt}/>
                     </div>
+
                 )}
-                <div className="boton_delete">
-                <FontAwesomeIcon icon={faTrash}/>
+
+                <div onClick={()=>eliminarProducto()} className="boton_delete">
+                    <FontAwesomeIcon icon={faTrash}/>
                 </div>
             </td>
         </tr>
