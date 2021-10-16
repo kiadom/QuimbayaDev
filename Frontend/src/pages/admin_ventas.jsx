@@ -127,35 +127,29 @@ const TablaVentas = ({listaVentas})=> {
 
 const FilaVenta = ({venta}) => {
     const form = useRef(null);
-    //console.log("venta", venta);
+    console.log("venta", venta);
+    const [edit, setEdit] = useState(false);
+    const [infoNuevoEstado, setinfoNuevoEstado]= useState({
+        venta_id: venta.venta_id,
+        detalle: venta.detalle,
+        cantidad: venta.cantidad,
+        precio_unitario_por_producto: venta.precio_unitario_por_producto,
+        venta_total: venta.venta_total,
+        fecha_venta: venta.fecha_venta,
+        client_id: venta.client_id,
+        nombre_cliente: venta.nombre_cliente,
+        vendedor: venta.vendedor,
+        estado: venta.estado,
+    });
+    
+    
 
-    const submitForm = async (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
+        const actualizarVenta = async () => {
+            console.log(infoNuevoEstado);
 
-    //const [edit, setEdit] = useState(false);
-    //const [infoNuevoEstado, setinfoNuevoEstado]= useState({
-     //   venta_id: venta.venta_id,
-       // detalle: venta.detalle,
-     //   cantidad: venta.cantidad,
-     //   precio_unitario_por_producto: venta.precio_unitario_por_producto,
-     //   venta_total: venta.venta_total,
-     //   fecha_venta: venta.fecha_venta,
-     //   client_id: venta.client_id,
-     //   nombre_cliente: venta.nombre_cliente,
-      //  vendedor: venta.vendedor,
-      //  estado: venta.estado,
-    //});
-
-        const actualizarVenta = {};
-        fd.forEach((value, key) => {
-            actualizarVenta[key]=value;
-        });
-
-    //console.log(infoNuevoEstado);
     const options = {
         method: 'PATCH',
-        url: 'http://localhost:3001/ventas/',
+        url: 'http://localhost:3001/ventas/'+ actualizarVenta.venta_id,
         headers: {'Content-Type': 'application/json'},
         data: {
             venta_id: actualizarVenta.venta_id,
@@ -164,7 +158,7 @@ const FilaVenta = ({venta}) => {
             precio_unitario_por_producto: actualizarVenta.precio_unitario_por_producto,
             venta_total: actualizarVenta.venta_total,
             fecha_venta: actualizarVenta.fecha_venta,
-            client_id: actualizarVenta.client_id,
+            cliente_id: actualizarVenta.cliente_id,
             nombre_cliente: actualizarVenta.nombre_cliente,
             vendedor: actualizarVenta.vendedor,
             estado: actualizarVenta.estado
@@ -176,6 +170,7 @@ const FilaVenta = ({venta}) => {
     .then(function (response) {
         console.log(response.data);
         toast.success("Estado modificado con exito");
+        setEdit(false);
     
     })
     .catch(function (error) {
@@ -185,7 +180,6 @@ const FilaVenta = ({venta}) => {
 };
 
 
-const [edit, setEdit] = useState(false);
     return(
         <tr>
             {edit?(
@@ -196,8 +190,8 @@ const [edit, setEdit] = useState(false);
                     <td>{venta.precio_unitario_por_producto}</td>
                     <td>{venta.venta_total}</td>
                     <td>{venta.fecha_venta}</td>
-                    <td>{venta.client_id}</td>
-                    <td>{venta.nombre_client}</td>
+                    <td>{venta.cliente_id}</td>
+                    <td>{venta.nombre_cliente}</td>
                     <td>{venta.vendedor}</td>
                     <td><select
                                 className="select"
@@ -231,7 +225,7 @@ const [edit, setEdit] = useState(false);
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=> setEdit(! edit)} className="boton_confirm"> 
+                    <div onClick={()=> actualizarVenta()} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                                 
@@ -277,7 +271,7 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
               precio_unitario_por_producto: nuevaVenta.precio_unitario_por_producto,
               venta_total: nuevaVenta.venta_total,
               fecha_venta: nuevaVenta.fecha_venta,
-              client_id: nuevaVenta.client_id,
+              cliente_id: nuevaVenta.cliente_id,
               nombre_cliente: nuevaVenta.nombre_cliente,
               vendedor: nuevaVenta.vendedor,
               estado: nuevaVenta.estado,
