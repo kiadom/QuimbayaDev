@@ -16,27 +16,35 @@ const AdminVentasPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [ventas, setVentas] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Registrar Venta' );
+    const [ejecutarConsulta, setEjecutarConsulta]= useState(true); //1er cambio
 
-    useEffect(async()=>{
+    useEffect (async()=>{
         const obtenerVentas = async() => {
             const options = {
                 method: 'GET', 
                 url: 'http://localhost:3001/ventas'
             };
 
-        await axios.
-            request(options).
-            then(function (response) {
+        await axios
+            .request(options)
+            .then(function (response) {
                 setVentas(response.data.body);
+                setEjecutarConsulta(false);
         })
         .catch(function (error) {
             console.error(error);
         });
-    }
-        //obtener lista de ventas desde el backend
-        if(mostrarTabla){
+    };
+    if (ejecutarConsulta){
             obtenerVentas();
         }
+    },[ejecutarConsulta]);
+
+    useEffect(()=>{
+        //obtener lista de ventas desde el backend
+        if(mostrarTabla){
+            setEjecutarConsulta(true);
+        }        
     },[mostrarTabla]);
 
     useEffect(()=>{
@@ -64,8 +72,11 @@ const AdminVentasPage = () => {
                             </button>
                         </div>
                         <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaVentas listaVentas={ventas} />) : 
-                            (<FormularioCreacionVentas 
+                            {mostrarTabla ? (<TablaVentas listaVentas={ventas} setEjecutarConsulta={setEjecutarConsulta}/>
+                            
+                            ) : (
+                            
+                            <FormularioCreacionVentas 
                                 setMostrarTabla={setMostrarTabla}
                                 listaVentas={ventas}
                                 setVentas={setVentas} />)}
@@ -79,24 +90,16 @@ const AdminVentasPage = () => {
     );
 };
 
-const TablaVentas = ({listaVentas})=> {
+const TablaVentas = ({listaVentas, setEjecutarConsulta})=> {
 
-    const form = useRef(null);
     useEffect(()=>{
         console.log("Este es el listado de ventas en el componente de Tabla",listaVentas)
     },[listaVentas]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
-
-    
-        return (
+    return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
-        <form ref={form} onSubmit={submitEdit}>
+        
             <table className="table">            
                 <thead>
                     <tr>
@@ -115,18 +118,19 @@ const TablaVentas = ({listaVentas})=> {
                 </thead>
                 <tbody>
                     {listaVentas.map((venta)=>{
-                        return <FilaVenta key = {nanoid()} venta={venta}/>
+                        return <FilaVenta key = {nanoid()}
+                        venta={venta}
+                        setEjecutarConsulta={setEjecutarConsulta}/>
                     })}
                 </tbody>
             </table>
-        </form>
+        
                        
         </div>
     );
 };
 
-const FilaVenta = ({venta}) => {
-    const form = useRef(null);
+const FilaVenta = ({venta, setEjecutarConsulta}) => {
     console.log("venta", venta);
     const [edit, setEdit] = useState(false);
     const [infoNuevoEstado, setinfoNuevoEstado]= useState({
@@ -149,10 +153,10 @@ const FilaVenta = ({venta}) => {
 
     const options = {
         method: 'PATCH',
-        url: 'http://localhost:3001/ventas/'+ actualizarVenta.venta_id,
+        url: 'http://localhost:3001/ventas/'+ infoNuevoEstado.venta_id,
         headers: {'Content-Type': 'application/json'},
         data: {
-            estado: actualizarVenta.estado
+            estado: infoNuevoEstado.estado
         },
     };
 
@@ -162,6 +166,7 @@ const FilaVenta = ({venta}) => {
         console.log(response.data);
         toast.success("Estado modificado con exito");
         setEdit(false);
+        setEjecutarConsulta(true);
     
     })
     .catch(function (error) {
@@ -189,7 +194,7 @@ const FilaVenta = ({venta}) => {
                                 name="estado"
                                 required
                                 defaultvalue={venta.estado}
-                                onChange={(e)=> actualizarVenta({...infoNuevoEstado, estado:e.target.value})}
+                                onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
                                 <option value="en_proceso">En Proceso</option>

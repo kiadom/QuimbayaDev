@@ -3,9 +3,9 @@
 
 
 "@types/node@*":
-  version "16.10.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.9.tgz#8f1cdd517972f76a3b928298f4c0747cd6fef25a"
-  integrity sha512-H9ReOt+yqIJPCutkTYjFjlyK6WEMQYT9hLZMlWtOjFQY2ItppsWZ6RJf8Aw+jz5qTYceuHvFgPIaKOHtLAEWBw==
+  version "16.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.1.tgz#2e50a649a50fc403433a14f829eface1a3443e97"
+  integrity sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA==
 
 "@types/webidl-conversions@*":
   version "6.1.1"
@@ -335,9 +335,9 @@ mongodb@4.1.2:
     saslprep "^1.0.3"
 
 mongoose@^6.0.9:
-  version "6.0.10"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.0.10.tgz#c22ac914afccf648778edfe11954f4aa0425a105"
-  integrity sha512-p/wiEDUXoQuyb/xQx8QW/YGN92ZsojJ5E/DDgMCUU0WOGxc5uhcWoZ7ijLu6Ssjq8UkwVSv+jzkYp4Wbr+NqBg==
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.0.11.tgz#579cda5157a58b155812974567d7a9a92b26a118"
+  integrity sha512-ESLnGIZB15xpqAbtjL/wcx+NEmzewlNuST/Dp/md4eqirVGTuEeN+IhS4qr3D5GFhnQAGdadpGlTfrWj5Ggykw==
   dependencies:
     bson "^4.2.2"
     kareem "2.3.2"
