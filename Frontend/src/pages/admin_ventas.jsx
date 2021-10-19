@@ -16,29 +16,35 @@ const AdminVentasPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [ventas, setVentas] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Registrar Venta' );
+    const [ejecutarConsulta, setEjecutarConsulta]= useState(true); //1er cambio
 
-    useEffect(async()=>{
-
+    useEffect (async()=>{
         const obtenerVentas = async() => {
             const options = {
                 method: 'GET', 
                 url: 'http://localhost:3001/ventas'
             };
 
-        await axios.
-            request(options).
-            then(function (response) {
+        await axios
+            .request(options)
+            .then(function (response) {
                 setVentas(response.data.body);
+                setEjecutarConsulta(false);
         })
         .catch(function (error) {
             console.error(error);
         });
-    }
-
-        //obtener lista de ventas desde el backend
-        if(mostrarTabla){
+    };
+    if (ejecutarConsulta){
             obtenerVentas();
         }
+    },[ejecutarConsulta]);
+
+    useEffect(()=>{
+        //obtener lista de ventas desde el backend
+        if(mostrarTabla){
+            setEjecutarConsulta(true);
+        }        
     },[mostrarTabla]);
 
     useEffect(()=>{
@@ -66,8 +72,11 @@ const AdminVentasPage = () => {
                             </button>
                         </div>
                         <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaVentas listaVentas={ventas} />) : 
-                            (<FormularioCreacionVentas 
+                            {mostrarTabla ? (<TablaVentas listaVentas={ventas} setEjecutarConsulta={setEjecutarConsulta}/>
+                            
+                            ) : (
+                            
+                            <FormularioCreacionVentas 
                                 setMostrarTabla={setMostrarTabla}
                                 listaVentas={ventas}
                                 setVentas={setVentas} />)}
@@ -81,84 +90,138 @@ const AdminVentasPage = () => {
     );
 };
 
-const TablaVentas = ({listaVentas})=> {
+const TablaVentas = ({listaVentas, setEjecutarConsulta})=> {
 
-    const form = useRef(null);
     useEffect(()=>{
         console.log("Este es el listado de ventas en el componente de Tabla",listaVentas)
     },[listaVentas]);
 
-    const submitEdit = (e)=>{
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        console.log(e);
-    };
-
     return (
         <div>
         <div className="rp_subtitulo">LISTADO DE VENTAS</div>
-        <form ref={form} onSubmit={submitEdit}>
+        
             <table className="table">            
                 <thead>
                     <tr>
                         <th>ID Venta</th>
-                        <th>Venta Total</th>
                         <th>Detalle</th>
-                        <th>Fecha De Pago</th>
-                        <th>Fecha De Pago Futura</th>
-                        <th>Responsable</th>
+                        <th>Cantidad</th>
+                        <th>Valor Producto</th>
+                        <th>Total Venta</th>
+                        <th>Fecha Venta</th>
+                        <th>Cliente ID</th>
+                        <th>Nombre Cliente</th>
+                        <th>Vendedor</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {listaVentas.map((venta)=>{
-                        return <FilaVenta key = {nanoid()} venta={venta}/>
+                        return <FilaVenta key = {nanoid()}
+                        venta={venta}
+                        setEjecutarConsulta={setEjecutarConsulta}/>
                     })}
                 </tbody>
             </table>
-
-        </form>                
+        
+                       
         </div>
     );
 };
 
-const FilaVenta = ({venta}) => {
+const FilaVenta = ({venta, setEjecutarConsulta}) => {
+    console.log("venta", venta);
     const [edit, setEdit] = useState(false);
+    const [infoNuevoEstado, setinfoNuevoEstado]= useState({
+        venta_id: venta.venta_id,
+        detalle: venta.detalle,
+        cantidad: venta.cantidad,
+        precio_unitario_por_producto: venta.precio_unitario_por_producto,
+        venta_total: venta.venta_total,
+        fecha_venta: venta.fecha_venta,
+        client_id: venta.client_id,
+        nombre_cliente: venta.nombre_cliente,
+        vendedor: venta.vendedor,
+        estado: venta.estado,
+    });
+    
+    
+
+        const actualizarVenta = async () => {
+            console.log(infoNuevoEstado);
+
+    const options = {
+        method: 'PATCH',
+        url: 'http://localhost:3001/ventas/'+ infoNuevoEstado.venta_id,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            estado: infoNuevoEstado.estado
+        },
+    };
+
+    await axios
+    .request(options)
+    .then(function (response) {
+        console.log(response.data);
+        toast.success("Estado modificado con exito");
+        setEdit(false);
+        setEjecutarConsulta(true);
+    
+    })
+    .catch(function (error) {
+        console.error(error);
+        toast.error("Error al modificar el Estado");
+        });
+};
+
+
     return(
         <tr>
             {edit?(
                 <>
                     <td>{venta.venta_id}</td>
-                    <td>{venta.venta_total}</td>
                     <td>{venta.detalle}</td>
-                    <td>{venta.fecha_de_pago}</td>
-                    <td>{venta.fecha_de_pago_futura}</td>
-                    <td>{venta.responsable}</td>
-                    <td venta="edit">
-                        <button type="button" class="btn btn-info">
-                            <FontAwesomeIcon icon={faPencilAlt}/>
-                        </button>
-                                    
-                        <button type="button" class="btn btn-secondary">
-                            <FontAwesomeIcon icon={faTrash}/>
-                        </button>
-                               
+                    <td>{venta.cantidad}</td>
+                    <td>{venta.precio_unitario_por_producto}</td>
+                    <td>{venta.venta_total}</td>
+                    <td>{venta.fecha_venta}</td>
+                    <td>{venta.cliente_id}</td>
+                    <td>{venta.nombre_cliente}</td>
+                    <td>{venta.vendedor}</td>
+                    <td><select
+                                className="select"
+                                name="estado"
+                                required
+                                value={infoNuevoEstado.estado}
+                                onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
+                                >
+                                <option disabled value={0}>None</option>
+                                <option value="en_proceso">En Proceso</option>
+                                <option value="cancelada">Cancelada</option>
+                                <option value="entregada">Entregada</option>
+                        </select>
                     </td>
+                    
                 </>
                 ):(
                 <>
                     <td>{venta.venta_id}</td>
-                    <td>{venta.venta_total}</td>
                     <td>{venta.detalle}</td>
-                    <td>{venta.fecha_de_pago}</td>
-                    <td>{venta.fecha_de_pago_futura}</td>
-                    <td>{venta.responsable}</td>
+                    <td>{venta.cantidad}</td>
+                    <td>{venta.precio_unitario_por_producto}</td>
+                    <td>{venta.venta_total}</td>
+                    <td>{venta.fecha_venta}</td>
+                    <td>{venta.cliente_id}</td>
+                    <td>{venta.nombre_cliente}</td>
+                    <td>{venta.vendedor}</td>
+                    <td>{venta.estado}</td>
                 </>
             )}
 
             <td className="acciones">
                 {edit? (
-                    <div onClick={()=>setEdit (!edit)} className="boton_confirm"> 
+                    <div onClick={()=> actualizarVenta()} className="boton_confirm"> 
                     <FontAwesomeIcon icon={faCheck}/>
                     </div>
                                 
@@ -175,10 +238,12 @@ const FilaVenta = ({venta}) => {
             </td>
         </tr>
     );
-}
-   
+};
+
+
                             
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
+    
     const form = useRef(null);
     
 
@@ -197,22 +262,29 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
             headers: {'Content-Type': 'application/json'},
             data: {
               venta_id: nuevaVenta.venta_id,
-              venta_total: nuevaVenta.venta_total,
               detalle: nuevaVenta.detalle,
-              fecha_de_pago: nuevaVenta.fecha_de_pago,
-              fecha_de_pago_futura: nuevaVenta.fecha_de_pago_futura,
-              responsable: nuevaVenta.responsable,
+              cantidad: nuevaVenta.cantidad,
+              precio_unitario_por_producto: nuevaVenta.precio_unitario_por_producto,
+              venta_total: nuevaVenta.venta_total,
+              fecha_venta: nuevaVenta.fecha_venta,
+              cliente_id: nuevaVenta.cliente_id,
+              nombre_cliente: nuevaVenta.nombre_cliente,
+              vendedor: nuevaVenta.vendedor,
+              estado: nuevaVenta.estado,
             }
           };
           
-          axios.request(options).then(function (response) {
+        await axios
+        .request(options)
+        .then(function (response) {
             console.log(response.data);
-          }).catch(function (error) {
-            console.error(error);
-          });
+            toast.success("Venta agregada con exito")
+        })
+        .catch(function (error) {
+           console.error(error);
+           toast.error("Error al crear venta");
+        });
 
-        //setMostrarTabla(true)
-        //console.log("Datos del Form Enviados", nuevoUsuario);
     };
 
     return <div>
@@ -231,31 +303,53 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
                     </tr>
 
                     <tr>
-                        <td><p>Venta Total:</p></td>
-                        <td><input 
-                            name="venta_total" 
-                            className="input_m" 
-                            type="text"
-                            placeholder="Venta Total" 
-                            required/>
-                        </td>
-                    </tr>
-                
-                    <tr>
                         <td><p>Detalle:</p></td>
                         <td><input 
                             name="detalle" 
                             className="input_m" 
                             type="text"
-                            placeholder="detalle" 
+                            placeholder="Detalle" 
+                            required/>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td><p>Cantidad:</p></td>
+                        <td><input 
+                            name="cantidad" 
+                            className="input_m" 
+                            type="text"
+                            placeholder="Cantidad" 
                             required/>
                         </td>
                     </tr>
                     
                     <tr>
-                        <td><p>Fecha de Pago::</p></td>
+                        <td><p>Valor Producto:</p></td>
                         <td><input 
-                            name="fecha_de_pago" 
+                            name="precio_unitario_por_producto" 
+                            className="input_m" 
+                            type="text"
+                            placeholder="Valor Producto"
+                            required/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><p>Total Venta:</p></td>
+                        <td><input 
+                            name="venta_total" 
+                            className="input_m" 
+                            type="text"
+                            placeholder="Total Venta"
+                            required/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><p>Fecha Venta:</p></td>
+                        <td><input 
+                            name="fecha_venta" 
                             className="input_m" 
                             type="date"
                             required/>
@@ -263,24 +357,51 @@ const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> 
                     </tr>
 
                     <tr>
-                        <td><p>Fecha de Pago Futura:</p></td>
+                        <td><p>Cliente ID:</p></td>
                         <td><input 
-                            name="fecha_de_pago_futura" 
+                            name="cliente_id" 
                             className="input_m" 
-                            type="date"
+                            type="text"
+                            placeholder="ID Cliente"
                             required/>
                         </td>
                     </tr>
-                    
+
                     <tr>
-                        <td><p>Responsable:</p></td>
+                        <td><p>Nombre Cliente:</p></td>
                         <td><input 
-                            name="responsable" 
+                            name="nombre_cliente" 
                             className="input_m" 
                             type="text"
-                            placeholder="responsable" 
+                            placeholder="Nombre Cliente"
                             required/>
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td><p>Vendedor:</p></td>
+                        <td><input 
+                            name="vendedor" 
+                            className="input_m" 
+                            type="text"
+                            placeholder="Vendedor"
+                            required/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><p>Estado Venta:</p></td>                
+                        <td><p>
+                            <select 
+                                className="select"
+                                name="estado" 
+                                id="estado" required>
+                                    <option selected disabled value="">Seleccione</option>
+                                    <option value="en_proceso">En Proceso</option>
+                                    <option value="cancelada">Cancelada</option>
+                                    <option value="entregada">Entregada</option>
+                            </select>
+                        </p></td> 
                     </tr>
                     
                     <tr>

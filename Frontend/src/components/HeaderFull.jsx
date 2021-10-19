@@ -12,8 +12,8 @@ const HeaderFull = () => {
             <header className="principal">
             <div className="topNavBar">
                 <div className="hamburger">
+                    <br />
                     <FontAwesomeIcon icon={faBars}/> 
-                    <a href="#"><i className="fas fa-bars"></i></a>
                 </div>
 
                 <div className="iconCompany">

@@ -10,7 +10,7 @@ const router = express.Router();
 //Para cualquier ruta devuelva la funcion
 //La funcion tiene dos parametros, req y res. Son los dos parametros que tiene cualquier funcion HTTP
 router.post('/', function(req, res){
-    controller.registrarVenta(req.body.venta_id, req.body.venta_total, req.body.detalle, req.body.fecha_de_pago, req.body.fecha_de_pago_futura, req.body.responsable)
+    controller.registrarVenta(req.body.venta_id, req.body.detalle, req.body.cantidad, req.body.precio_unitario_por_producto, req.body.venta_total, req.body.fecha_venta, req.body.cliente_id, req.body.nombre_cliente, req.body.vendedor, req.body.estado)
         .then((fullVenta) => {
             response.success(req, res, fullVenta, 201);
         })
@@ -31,7 +31,7 @@ router.get('/', function(req, res){
 })
 
 router.patch('/:venta_id', function(req, res){
-    controller.actualizarVenta(req.params.venta_id, req.body.fecha_de_pago_futura, req.body.responsable)
+    controller.actualizarVenta(req.params.venta_id, req.body.estado)
         .then((data) => {
             response.success(req, res, data, 200);
         })
