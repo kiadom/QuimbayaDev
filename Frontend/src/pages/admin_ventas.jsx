@@ -193,7 +193,7 @@ const FilaVenta = ({venta, setEjecutarConsulta}) => {
                                 className="select"
                                 name="estado"
                                 required
-                                defaultvalue={venta.estado}
+                                value={infoNuevoEstado.estado}
                                 onChange={(e)=> setinfoNuevoEstado({...infoNuevoEstado, estado:e.target.value})}
                                 >
                                 <option disabled value={0}>None</option>
