@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import React, {useEffect, useState, useRef} from "react";
+import PrivateRoute from "../components/PrivateRoute";
 
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck,faPencilAlt, faTrash, faBarcode} from "@fortawesome/free-solid-svg-icons";
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"></link>
-
 
 const EstadoProductosPage = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -40,8 +40,6 @@ const EstadoProductosPage = () => {
         }
     },[ejecutarConsulta]);
 
-        
-
     useEffect(()=> {
         //obtener lista de productos desde el backend
             if(mostrarTabla){
@@ -59,39 +57,42 @@ const EstadoProductosPage = () => {
     },[mostrarTabla]);
 
     return (
-        <div>
-            <div className="wrapper">
-                <Sidebar icono = {faBarcode} titulo = 'PRODUCTOS'/>
+        <PrivateRoute>
 
-                <div className="principal">
-                    <div className="Menu">
-                        <div className="rp_titulo">MAESTRO DE PRODUCTOS</div>
-                        <div className="rend_Dinamica">
-                            <button onClick={()=>{
-                                setMostrarTabla(!mostrarTabla);
-                                }} 
-                                className="boton_m" >{textoBoton}
-                            </button>
-                        </div>
-                        <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta}/>) : 
-                            
-                            (
-                            
-                            
-                            
-                            <FormularioCreacionProductos 
-                                setMostrarTabla={setMostrarTabla}
-                                listaProductos={productos}
-                                setProductos={setProductos} />
-                                )}
-                            <ToastContainer position= "bottom-center" autoClose= {1000}/>
+            <div>
+                <div className="wrapper">
+                    <Sidebar icono = {faBarcode} titulo = 'PRODUCTOS'/>
 
+                    <div className="principal">
+                        <div className="Menu">
+                            <div className="rp_titulo">MAESTRO DE PRODUCTOS</div>
+                            <div className="rend_Dinamica">
+                                <button onClick={()=>{
+                                    setMostrarTabla(!mostrarTabla);
+                                    }} 
+                                    className="boton_m" >{textoBoton}
+                                </button>
+                            </div>
+                            <div className="rp_formulario">
+                                {mostrarTabla ? (<TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta}/>) : 
+                                
+                                (
+                                
+                                
+                                
+                                <FormularioCreacionProductos 
+                                    setMostrarTabla={setMostrarTabla}
+                                    listaProductos={productos}
+                                    setProductos={setProductos} />
+                                    )}
+                                <ToastContainer position= "bottom-center" autoClose= {1000}/>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </PrivateRoute>
     );
 };
 
@@ -233,13 +234,11 @@ const refreshPage = ()=>{
     );
 }
 
-
 const formatNumber = (valor_unitario)=>
     new Intl.NumberFormat('ES-MX', {
         style: 'currency',
         currency: 'COP'
     }).format(valor_unitario);
-
 
 const FormularioCreacionProductos = ({setMostrarTabla, listaProductos, setProductos })=> {
     

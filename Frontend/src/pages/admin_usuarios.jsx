@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import React, {useEffect, useState, useRef} from "react";
+import PrivateRoute from "../components/PrivateRoute";
 
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -59,37 +60,40 @@ const AdminUsuariosPage = () => {
     },[mostrarTabla]);
 
     return (
-        <div>
-            <div className="wrapper">
-                <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
+        <PrivateRoute>
 
-                <div className="principal">
-                    <div className="Menu">
-                        <div className="rp_titulo">GESTIÓN DE USUARIOS</div>
-                        <div className="rend_Dinamica">
-                            <button onClick={()=>{
-                                setMostrarTabla(!mostrarTabla);
-                                }} 
-                                className="boton_m" >{textoBoton}
-                            </button>
-                        </div>
-                        <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
-                            
-                            ( //<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} /> //ojo, no se quiere mostrar formulario de creación
-                                //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
-                            <FormularioCreacionUsuarios 
-                                setMostrarTabla={setMostrarTabla}
-                                listaUsuarios={usuarios}
-                                setUsuarios={setUsuarios} />
-                                )}
-                            <ToastContainer position= "bottom-center" autoClose= {1000}/>
+            <div>
+                <div className="wrapper">
+                    <Sidebar icono = {faUsersCog} titulo = 'GESTIÓN DE USUARIOS'/>
 
+                    <div className="principal">
+                        <div className="Menu">
+                            <div className="rp_titulo">GESTIÓN DE USUARIOS</div>
+                            <div className="rend_Dinamica">
+                                <button onClick={()=>{
+                                    setMostrarTabla(!mostrarTabla);
+                                    }} 
+                                    className="boton_m" >{textoBoton}
+                                </button>
+                            </div>
+                            <div className="rp_formulario">
+                                {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
+                                
+                                ( //<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} /> //ojo, no se quiere mostrar formulario de creación
+                                    //si se quiere monstrar hay que cambiar lo de la línea de arriba por las siguientes 4 líneas
+                                <FormularioCreacionUsuarios 
+                                    setMostrarTabla={setMostrarTabla}
+                                    listaUsuarios={usuarios}
+                                    setUsuarios={setUsuarios} />
+                                    )}
+                                <ToastContainer position= "bottom-center" autoClose= {1000}/>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </PrivateRoute>
     );
 };
 

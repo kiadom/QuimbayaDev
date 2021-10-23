@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import React, {useEffect, useState, useRef} from "react";
+import PrivateRoute from "../components/PrivateRoute";
 
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -57,36 +58,39 @@ const AdminVentasPage = () => {
     },[mostrarTabla]);
 
     return (
-        <div>
-            <div className="wrapper">
-                <Sidebar icono = {faUsersCog} titulo = 'REGISTRAR VENTAS'/>
+        <PrivateRoute>
 
-                <div className="principal">
-                    <div className="Menu">
-                        <div className="rp_titulo">REGISTRAR VENTAS</div>
-                        <div className="rend_Dinamica">
-                            <button onClick={()=>{
-                                setMostrarTabla(!mostrarTabla);
-                                }} 
-                                className="boton_m" >{textoBoton}
-                            </button>
-                        </div>
-                        <div className="rp_formulario">
-                            {mostrarTabla ? (<TablaVentas listaVentas={ventas} setEjecutarConsulta={setEjecutarConsulta}/>
-                            
-                            ) : (
-                            
-                            <FormularioCreacionVentas 
-                                setMostrarTabla={setMostrarTabla}
-                                listaVentas={ventas}
-                                setVentas={setVentas} />)}
-                            <ToastContainer position= "bottom-center" autoClose= {1000}/>
+            <div>
+                <div className="wrapper">
+                    <Sidebar icono = {faUsersCog} titulo = 'REGISTRAR VENTAS'/>
 
+                    <div className="principal">
+                        <div className="Menu">
+                            <div className="rp_titulo">REGISTRAR VENTAS</div>
+                            <div className="rend_Dinamica">
+                                <button onClick={()=>{
+                                    setMostrarTabla(!mostrarTabla);
+                                    }} 
+                                    className="boton_m" >{textoBoton}
+                                </button>
+                            </div>
+                            <div className="rp_formulario">
+                                {mostrarTabla ? (<TablaVentas listaVentas={ventas} setEjecutarConsulta={setEjecutarConsulta}/>
+                                
+                                ) : (
+                                
+                                <FormularioCreacionVentas 
+                                    setMostrarTabla={setMostrarTabla}
+                                    listaVentas={ventas}
+                                    setVentas={setVentas} />)}
+                                <ToastContainer position= "bottom-center" autoClose= {1000}/>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </PrivateRoute>
     );
 };
 
@@ -239,8 +243,6 @@ const FilaVenta = ({venta, setEjecutarConsulta}) => {
         </tr>
     );
 };
-
-
                             
 const FormularioCreacionVentas = ({setMostrarTabla, listaVentas, setVentas })=> {
     

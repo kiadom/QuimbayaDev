@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +7,8 @@ import { faBarcode, faCartArrowDown, faHome, faSearchDollar, faThermometerThreeQ
 library.add(faBarcode, faCartArrowDown, faHome, faSearchDollar, faThermometerThreeQuarters, faIdCard, faUsersCog, faSignOutAlt, faBars);
 
 const Sidebar = (props) => {
+
+    const { logout } = useAuth0();
 
     return (    
         <div className="wrapper">
@@ -44,8 +47,8 @@ const Sidebar = (props) => {
                     <li title="Salir del Sistema">
                         <Link to = '/'>
                             <FontAwesomeIcon icon={faSignOutAlt}/> 
-                            <span className="item"></span>  Salir
-                        </Link>                      
+                            <span className="item" onClick={() => logout({ returnTo: window.location.origin })}></span>  Salir
+                        </Link> 
                     </li>
                 </ul>
             </div>
